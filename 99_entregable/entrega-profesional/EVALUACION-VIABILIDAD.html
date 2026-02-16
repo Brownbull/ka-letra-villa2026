@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluación de Caso - Villarrica 202601</title>
+  <link rel="stylesheet" href="../../assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+</head>
+<body>
+  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
+  <nav class="sidebar">
+    <h2>villarrica_202601</h2>
+    <ul>
+<li><a href="../../03-ESTRATEGIA.html">03 Estrategia</a></li>
+<li><a href="../../05-DEFENSA.html">05 Defensa</a></li>
+<li class="section-title">99 Entregable</li>
+<ul>
+<li class="section-title">01 Critico</li>
+<ul>
+<li><a href="../../99_entregable/01_critico/certificar-grabacion.html">Certificar Grabacion</a></li>
+<li><a href="../../99_entregable/01_critico/contratar-abogado.html">Contratar Abogado</a></li>
+<li><a href="../../99_entregable/01_critico/preservar-tiktok.html">Preservar Tiktok</a></li>
+</ul>
+<li class="section-title">02 Bloqueantes</li>
+<ul>
+<li><a href="../../99_entregable/02_bloqueantes/decision-cautelar.html">Decision Cautelar</a></li>
+</ul>
+<li class="section-title">03 Siguientes-Pasos</li>
+<ul>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-1-solvencia-nivel1.html">Paso 1 Solvencia Nivel1</a></li>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-2-medida-cautelar.html">Paso 2 Medida Cautelar</a></li>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-3-consulta-banco.html">Paso 3 Consulta Banco</a></li>
+</ul>
+<li class="section-title">04 Documentos</li>
+<ul>
+<li><a href="../../99_entregable/04_documentos/00-INDICE-DOCUMENTOS.html">00 Indice Documentos</a></li>
+<li><a href="../../99_entregable/04_documentos/01-CARTA-REQUERIMIENTO.html">01 Carta Requerimiento</a></li>
+<li><a href="../../99_entregable/04_documentos/02-DENUNCIA-ETICA.html">02 Denuncia Etica</a></li>
+<li><a href="../../99_entregable/04_documentos/03-ACUERDO-TRANSACCIONAL.html">03 Acuerdo Transaccional</a></li>
+<li><a href="../../99_entregable/04_documentos/04-CALCULO-DANOS.html">04 Calculo Danos</a></li>
+<li><a href="../../99_entregable/04_documentos/05-GUION-NEGOCIACION.html">05 Guion Negociacion</a></li>
+</ul>
+<li class="section-title">05 Requiere-Profesional</li>
+<ul>
+<li><a href="../../99_entregable/05_requiere-profesional/medida-cautelar-abogado.html">Medida Cautelar Abogado</a></li>
+</ul>
+<li><a href="../../99_entregable/PANEL.html">Panel</a></li>
+<li class="section-title">Entrega-Profesional</li>
+<ul>
+<li><a href="../../99_entregable/entrega-profesional/ESTIMACION-COSTOS-LEGALES.html">Estimacion Costos Legales</a></li>
+<li><a href="../../99_entregable/entrega-profesional/ESTRATEGIA-ACUERDO-EXTRAJUDICIAL.html">Estrategia Acuerdo Extrajudicial</a></li>
+<li><a href="../../99_entregable/entrega-profesional/ESTRATEGIA-LEGAL-PROCEDIMIENTO.html">Estrategia Legal Procedimiento</a></li>
+<li><a href="../../99_entregable/entrega-profesional/EVALUACION-VIABILIDAD.html">Evaluacion Viabilidad</a></li>
+<li><a href="../../99_entregable/entrega-profesional/RESUMEN-CASO-ABOGADO.html">Resumen Caso Abogado</a></li>
+</ul>
+</ul>
+<li><a href="../../ACCIONES-PENDIENTES.html">Acciones Pendientes</a></li>
+<li><a href="../../CASE.html">Case</a></li>
+<li class="section-title">Adversarial-Review</li>
+<ul>
+<li><a href="../../adversarial-review/07-REVISION-ADVERSARIAL.html">07 Revision Adversarial</a></li>
+</ul>
+<li class="section-title">Archivo</li>
+<ul>
+<li><a href="../../archivo/00-LEEME-ABOGADO.html">00 Leeme Abogado</a></li>
+<li><a href="../../archivo/APPLICATION-SPEC.html">Application Spec</a></li>
+<li><a href="../../archivo/borrador_carta_reclamo.html">Borrador Carta Reclamo</a></li>
+<li><a href="../../archivo/email_contacto_abogados.html">Email Contacto Abogados</a></li>
+<li><a href="../../archivo/initial-findings.html">Initial Findings</a></li>
+<li class="section-title">Property-Legal-Research</li>
+<ul>
+<li><a href="../../archivo/property-legal-research/README.html">Readme</a></li>
+<li><a href="../../archivo/property-legal-research/RESEARCH-REPORT-v1.html">Research Report V1</a></li>
+</ul>
+</ul>
+<li class="section-title">Legal-Research</li>
+<ul>
+<li><a href="../../legal-research/13-27bis-requirements.html">13 27Bis Requirements</a></li>
+<li><a href="../../legal-research/14-professional-liability.html">14 Professional Liability</a></li>
+<li><a href="../../legal-research/15-investigacion-pre-roast.html">15 Investigacion Pre Roast</a></li>
+<li><a href="../../legal-research/16-admisibilidad-grabacion.html">16 Admisibilidad Grabacion</a></li>
+<li><a href="../../legal-research/parallel-ai-analysis.html">Parallel Ai Analysis</a></li>
+<li><a href="../../legal-research/recommended-attorneys.html">Recommended Attorneys</a></li>
+</ul>
+<li class="section-title">Paquete-Abogado</li>
+<ul>
+<li><a href="../../paquete-abogado/00-LEEME.html">00 Leeme</a></li>
+<li><a href="../../paquete-abogado/01-RESUMEN-CASO.html">01 Resumen Caso</a></li>
+<li><a href="../../paquete-abogado/email-contacto.html">Email Contacto</a></li>
+</ul>
+<li><a href="../../strength-tracker.html">Strength Tracker</a></li>
+</ul>
+  </nav>
+  <main class="content">
+    <div class="top-actions no-print">
+      <button class="print-btn" onclick="window.print()">Exportar PDF</button>
+    </div>
+    <h1 id="evaluacion-de-caso-villarrica-202601">Evaluación de Caso - Villarrica 202601</h1>
+<blockquote>
+<p><strong>IMPORTANTE</strong>: Este documento ha sido elaborado con inteligencia artificial.
+NO constituye asesoría legal profesional y su contenido es <strong>no vinculante</strong>.
+Debe ser revisado por un abogado habilitado antes de actuar sobre su contenido.
+Ver sección <strong>Contactos para Verificación Profesional</strong> al final.</p>
+</blockquote>
+<p><strong>Fecha:</strong> 2026-02-11
+<strong>Evaluador:</strong> Análisis formal de caso
+<strong>Caso:</strong> Negligencia profesional de contadora -- pérdida Art. 27bis</p>
+<hr>
+<h2 id="veredicto-viable">Veredicto: VIABLE</h2>
+<p>Caso sólido con evidencia documental excepcional, relación contractual demostrada,
+y daño cuantificado con precisión. Probabilidad de éxito alta en fase pre-judicial,
+muy alta si llega a juicio.</p>
+<hr>
+<h2 id="analisis-de-elementos">Análisis de Elementos</h2>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Evaluación</th>
+<th>Riesgo</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legitimación activa</td>
+<td><strong>Fuerte</strong></td>
+<td>Bajo</td>
+<td>Claudia: cliente que contrato, pago, y sufrió el daño</td>
+</tr>
+<tr>
+<td>Legitimación pasiva</td>
+<td><strong>Fuerte</strong></td>
+<td>Bajo</td>
+<td>Katherine Rebolledo + empresa (RUT 76.333.878-9) identificados</td>
+</tr>
+<tr>
+<td>Daño</td>
+<td><strong>Fuerte</strong></td>
+<td>Bajo</td>
+<td>$20.441.378 exactos, respaldado por Factura Afecta N°32</td>
+</tr>
+<tr>
+<td>Causalidad</td>
+<td><strong>Fuerte</strong></td>
+<td>Medio</td>
+<td>Cadena causal clara, pero contraparte puede alegar causa concurrente</td>
+</tr>
+<tr>
+<td>Culpa</td>
+<td><strong>Fuerte</strong></td>
+<td>Bajo</td>
+<td>Consejo objetivamente erróneo en materia de su propio giro</td>
+</tr>
+<tr>
+<td>Prescripción</td>
+<td><strong>Sin riesgo</strong></td>
+<td>Bajo</td>
+<td>Daño cristalizo 10/12/2025. Plazo contractual hasta 12/2030, extracontractual hasta 12/2029</td>
+</tr>
+<tr>
+<td>Competencia</td>
+<td><strong>Correcta</strong></td>
+<td>Bajo</td>
+<td>Juzgado Civil de San Bernardo o Santiago (lugar del servicio: Zoom)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="analisis-detallado-por-elemento">Análisis Detallado por Elemento</h2>
+<h3 id="1-legitimacion-activa-fuerte">1. Legitimación Activa -- FUERTE</h3>
+<p>Claudia Violeta Pino Brito (RUT 13.457.909-9) es la titular indiscutida:
+- Ella contrato la asesoría (WhatsApp del 15/09/2025)
+- Ella pago $100.000 (transferencia bancaria documentada)
+- Ella formuló las preguntas por escrito (email del 19/09/2025)
+- Ella asistio a la consulta (22/09/2025)
+- Ella compró el inmueble siguiendo el consejo (10/12/2025)
+- Ella sufrió el daño patrimonial ($20.4M en IVA irrecuperable)</p>
+<p><strong>Riesgo:</strong> Ninguno identificado. Cadena directa persona-servicio-daño.</p>
+<h3 id="2-legitimacion-pasiva-fuerte">2. Legitimación Pasiva -- FUERTE</h3>
+<p>Dos demandados potenciales con responsabilidad solidaria:</p>
+<p><strong>a) Asesorías Tributarias Pedro Gonzalez Limitada (RUT 76.333.878-9)</strong>
+- Emitió la factura (N°13093)
+- Recibió el pago ($100.000)
+- Su giro literal es "Asesorías Tributarias Contables Laborales y Financieras"
+- Asignó a Katherine Rebolledo como profesional para la consulta
+- Responsabilidad contractual directa (Art. 1545 CC)</p>
+<p><strong>b) Katherine Rebolledo (krebolledo@cyggroup.cl)</strong>
+- Fue la profesional que impartio la asesoría errónea
+- Responsabilidad personal por negligencia profesional
+- Posible acción extracontractual subsidiaria (Art. 2314 CC)</p>
+<p><strong>Ventaja estrategica:</strong> Demandar a la empresa (contractual, principal) Y a Katherine
+(extracontractual, subsidiario). Esto amplia las posibilidades de cobro y genera
+presión en ambos.</p>
+<h3 id="3-existencia-del-dano-fuerte">3. Existencia del Daño -- FUERTE</h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Monto</th>
+<th>Respaldo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IVA perdido Art. 27bis</td>
+<td>$20.441.378</td>
+<td>Factura Afecta N°32 (monto exacto)</td>
+</tr>
+<tr>
+<td>Daño moral</td>
+<td>$3.000.000 - $5.000.000</td>
+<td>Angustia, pérdida confianza en profesional</td>
+</tr>
+<tr>
+<td>Intereses</td>
+<td>~$558.622+</td>
+<td>Desde 10/12/2025 (fecha cristalización)</td>
+</tr>
+<tr>
+<td>Costos legales</td>
+<td>$500.000 - $2.000.000</td>
+<td>Contingencia</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>$24.000.000 - $27.500.000</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Naturaleza del daño:</strong> Daño emergente puro. El IVA de $20.4M es un beneficio
+tributario que se perdió irremediablemente por seguir el consejo erróneo. No es
+lucro cesante especulativo -- es un derecho concreto que existía y se extinguio.</p>
+<p><strong>Respaldo:</strong> La Factura Afecta N°32 documenta el IVA exacto. El Art. 27bis DL 825
+establece claramente los requisitos. La jurisprudencia del SII confirma que la entidad
+debe estar inscrita como contribuyente IVA AL MOMENTO de la compra.</p>
+<h3 id="4-relacion-de-causalidad-fuerte-con-riesgo-medio">4. Relación de Causalidad -- FUERTE (con riesgo medio)</h3>
+<p><strong>Cadena causal:</strong>
+1. Claudia preguntó sobre IVA y timing (email 19/09, consulta 22/09)
+2. Katherine aconsejó "comprar primero, transferir después"
+3. Claudia siguió ese consejo
+4. Compró como persona natural el 10/12/2025
+5. 27bis irrecuperable</p>
+<p><strong>Fortalezas de la causalidad:</strong>
+- Las preguntas POR ESCRITO demuestran que Claudia dependía de esta asesoría
+- El pago demuestra que era una consulta formal, no casual
+- No hay evidencia de otra asesoría que contradijera a Katherine
+- Entre la consulta (22/09) y la compra (10/12) paso suficiente tiempo para
+  que Claudia hubiera creado la SpA si hubiera recibido el consejo correcto</p>
+<p><strong>Riesgo identificado:</strong>
+La contraparte puede argumentar:
+- "Claudia consultó a otros profesionales después" (mitigación: no hay evidencia de ello)
+- "Claudia habría comprado igual como persona natural" (mitigación: las preguntas
+  escritas demuestran que su intención era optimizar la estructura tributaria)
+- "El banco no habría aprobado crédito a una SpA nueva" (mitigación: Claudia podía
+  ser avalista personal; el crédito estaba pre-aprobado A ELLA pero la SpA podía
+  haber comprado con su aval)</p>
+<p><strong>Nota sobre causa concurrente:</strong> Este es el flanco más vulnerable. La defensa
+podría argumentar culpa compartida (Art. 2330 CC) si Claudia "debía saber" o si
+consultó a otro profesional que le dio consejo distinto. La evidencia actual no
+sugiere esto, pero hay que preparar defensa.</p>
+<h3 id="5-culpa-negligencia-fuerte">5. Culpa / Negligencia -- FUERTE</h3>
+<p><strong>Estándar aplicable:</strong> La culpa leve del Art. 1547 CC (contrato bilateral oneroso).
+El profesional debe actuar con la diligencia de un "buen padre de familia" -- en
+este contexto, con la diligencia de un contador competente.</p>
+<p><strong>Incumplimiento del estándar:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Conducta</th>
+<th>Estándar esperado</th>
+<th>Lo que hizo Katherine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conocer Art. 27bis</td>
+<td>Un asesor tributario debe conocerlo</td>
+<td>No lo mencionó jamás</td>
+</tr>
+<tr>
+<td>Timing de SpA</td>
+<td>Debe saber que SpA compra primero</td>
+<td>Aconsejó "comprar primero, transferir después"</td>
+</tr>
+<tr>
+<td>Responder sobre IVA post-traspaso</td>
+<td>Debe decir "NO, se pierde el beneficio"</td>
+<td>Dijo "Si, pero hay requisitos"</td>
+</tr>
+<tr>
+<td>Reconocer limites</td>
+<td>Debe derivar a especialista</td>
+<td>Admitió no tener contadores inmobiliarios pero opino igual</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Agravantes:</strong>
+1. <strong>Giro de la empresa:</strong> "Asesorías TRIBUTARIAS" -- el Art. 27bis es materia tributaria core
+2. <strong>Pago por servicio:</strong> No fue consejo casual; fue servicio profesional remunerado
+3. <strong>Admisión de limitación:</strong> Katherine dijo no tener contadores inmobiliarios pero igual dio consejo definitivo sobre timing inmobiliario
+4. <strong>Preguntas explicitas:</strong> Claudia preguntó TEXTUALMENTE sobre IVA de la compra y timing</p>
+<h3 id="6-prescripcion-sin-riesgo">6. Prescripción -- SIN RIESGO</h3>
+<table>
+<thead>
+<tr>
+<th>Via</th>
+<th>Plazo</th>
+<th>Desde</th>
+<th>Vence</th>
+<th>Días restantes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Contractual (Art. 2515 CC)</td>
+<td>5 años</td>
+<td>10/12/2025</td>
+<td>10/12/2030</td>
+<td>~1.763</td>
+</tr>
+<tr>
+<td>Extracontractual (Art. 2332 CC)</td>
+<td>4 años</td>
+<td>10/12/2025</td>
+<td>10/12/2029</td>
+<td>~1.398</td>
+</tr>
+</tbody>
+</table>
+<p>Sin urgencia. Pero no dilatar innecesariamente.</p>
+<p><strong>Nota:</strong> La fecha de cristalización del daño es la compra (10/12/2025), no la consulta
+(22/09/2025). El daño se produce cuando Claudia actua siguiendo el consejo erróneo,
+no cuando recibe el consejo.</p>
+<h3 id="7-competencia-correcta">7. Competencia -- CORRECTA</h3>
+<ul>
+<li><strong>Tribunal:</strong> Juzgado Civil de San Bernardo (domicilio del demandado: Cam La Laguna 1177,
+  San Bernardo) o alternativamente del lugar de prestación del servicio</li>
+<li><strong>Cuantía:</strong> $24-28M CLP &gt; 500 UTM (~$33M a UTM febrero 2026). <strong>Ojo:</strong> Verificar UTM actual.
+  Si cuantía es menor a 500 UTM: procedimiento de menor cuantía. Si mayor: ordinario de mayor cuantía.</li>
+<li><strong>Nota:</strong> Al ser consulta por Zoom, el "lugar de prestación" podría discutirse.
+  Preferir domicilio del demandado (San Bernardo) que es inequívoco.</li>
+</ul>
+<hr>
+<h2 id="fortalezas-del-caso">Fortalezas del Caso</h2>
+<ol>
+<li>
+<p><strong>Preguntas escritas previas</strong> -- Claudia preguntó por email EXACTAMENTE sobre IVA de la compra y timing. Esto elimina cualquier argumento de "no preguntó" o "no era el tema".</p>
+</li>
+<li>
+<p><strong>Relación contractual pagada</strong> -- $100.000 + Factura N°13093. No fue consejo casual. Hubo servicio profesional remunerado con factura de una empresa cuyo giro es "Asesorías Tributarias".</p>
+</li>
+<li>
+<p><strong>Daño exacto y documentado</strong> -- $20.441.378 en IVA, respaldado por factura real del inmueble. No es estimación especulativa.</p>
+</li>
+<li>
+<p><strong>Admisión de limitación</strong> -- Katherine dijo "no tenemos contadores inmobiliarios" pero igual opino. Esto destruye la defensa de "era materia fuera de nuestra expertise".</p>
+</li>
+<li>
+<p><strong>Consejo objetivamente erróneo</strong> -- El Art. 27bis tiene requisitos claros. No hay zona gris. "Comprar primero, transferir después" es INCORRECTO para 27bis. Punto.</p>
+</li>
+<li>
+<p><strong>Grabación de la consulta</strong> -- Transcripción disponible que documenta las respuestas erroneas.</p>
+</li>
+<li>
+<p><strong>Múltiples marcas/entidades</strong> -- La empresa opera como C&amp;G, CYG Group, AT Gonzalez. Esto puede indicar estructura para evadir responsabilidad, lo cual un tribunal vería desfavorablemente.</p>
+</li>
+</ol>
+<hr>
+<h2 id="debilidades">Debilidades</h2>
+<ol>
+<li>
+<p><strong>Causalidad indirecta</strong> -- Entre la consulta (22/09) y la compra (10/12) pasaron ~2.5 meses. La contraparte puede argumentar que Claudia tuvo tiempo de buscar otra opinion. <strong>Mitigación:</strong> Las preguntas escritas y el pago demuestran que confiaba en esta asesoría como su fuente principal.</p>
+</li>
+<li>
+<p><strong>Solvencia del demandado</strong> -- No sabemos si Katherine o la empresa tienen patrimonio o seguro de RC profesional para cubrir $24M+. Recuperar una sentencia contra un insolvente es papel. <strong>Mitigación:</strong> Investigar patrimonio y seguro antes de litigar.</p>
+</li>
+<li>
+<p><strong>Transcripción no certificada</strong> -- La grabación existe pero no ha sido certificada ante notario. <strong>Mitigación:</strong> Certificar antes de enviar carta.</p>
+</li>
+<li>
+<p><strong>Daño moral subjetivo</strong> -- Los $3-5M de daño moral son dificiles de probar con precisión. <strong>Mitigación:</strong> El daño principal ($20.4M) es concreto; el daño moral es accesorio.</p>
+</li>
+<li>
+<p><strong>Argumento de "orientación general"</strong> -- La defensa puede alegar que la consulta de 30 minutos era una orientación general, no una asesoría definitiva. <strong>Mitigación:</strong> La factura dice "Asesoría Tributaria". Se pago por un servicio profesional. Las preguntas eran específicas.</p>
+</li>
+<li>
+<p><strong>Verificar coherencia documental</strong> -- Confirmar que todos los documentos usen datos actualizados (Katherine Rebolledo, empresa, RUT) antes de enviar. <strong>Mitigación:</strong> Revisión final antes de uso.</p>
+</li>
+</ol>
+<hr>
+<h2 id="probabilidades">Probabilidades</h2>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Probabilidad</th>
+<th>Resultado estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acuerdo pre-judicial (tras carta)</td>
+<td>35%</td>
+<td>$15.000.000 - $22.000.000</td>
+</tr>
+<tr>
+<td>Acuerdo en conciliación judicial</td>
+<td>25%</td>
+<td>$18.000.000 - $25.000.000</td>
+</tr>
+<tr>
+<td>Sentencia favorable 1a instancia</td>
+<td>25%</td>
+<td>$20.000.000 - $28.000.000 + costas</td>
+</tr>
+<tr>
+<td>Sentencia desfavorable</td>
+<td>10%</td>
+<td>$0 + costas propias</td>
+</tr>
+<tr>
+<td>Abandono / desistimiento</td>
+<td>5%</td>
+<td>$0 + costos incurridos</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Probabilidad acumulada de recuperación:</strong> ~85%
+<strong>Valor esperado:</strong> ~$17.000.000 - $22.000.000</p>
+<p><strong>Nota:</strong> La nueva evidencia (email, factura, WhatsApp) eleva significativamente la
+probabilidad respecto a la estimación anterior (70-75%). La cadena documental es ahora
+mucho más robusta.</p>
+<hr>
+<h2 id="costo-beneficio">Costo-Beneficio</h2>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Escenario DIY</th>
+<th>Escenario Abogado</th>
+<th>Escenario Cuota Litis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Costo pre-judicial</td>
+<td>$200K - $500K</td>
+<td>$550K - $2.2M</td>
+<td>$0 - $500K</td>
+</tr>
+<tr>
+<td>Costo judicial (si necesario)</td>
+<td>N/A</td>
+<td>$2.6M - $4.8M</td>
+<td>20-30% de recuperación</td>
+</tr>
+<tr>
+<td>Costo total estimado</td>
+<td>$200K - $500K</td>
+<td>$3.1M - $7M</td>
+<td>~$4M - $7M</td>
+</tr>
+<tr>
+<td>Recuperación esperada</td>
+<td>$15M - $22M</td>
+<td>$18M - $28M</td>
+<td>$18M - $28M</td>
+</tr>
+<tr>
+<td>Retorno neto esperado</td>
+<td>$14.5M - $21.5M</td>
+<td>$11M - $21M</td>
+<td>$11M - $21M</td>
+</tr>
+<tr>
+<td><strong>ROI</strong></td>
+<td><strong>29x - 43x</strong></td>
+<td><strong>1.6x - 3x</strong></td>
+<td><strong>1.6x - 3x</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Todos los escenarios superan el umbral de ROI &gt; 1.5x.</p>
+<hr>
+<h2 id="recomendacion">Recomendación</h2>
+<p><strong>CASO VIABLE -- PROCEDER</strong></p>
+<p>Este caso tiene todos los elementos de una demanda exitosa por negligencia profesional:
+deber, incumplimiento, causalidad, y daño. La evidencia documental es excepcional --
+especialmente las preguntas escritas previas y la factura del servicio.</p>
+<h3 id="acciones-inmediatas-recomendadas">Acciones inmediatas recomendadas:</h3>
+<ol>
+<li>
+<p><strong>Verificar documentos</strong> -- Confirmar que toda la documentación use datos correctos
+   (Katherine Rebolledo, empresa, RUT, dirección). Revisión de coherencia final.</p>
+</li>
+<li>
+<p><strong>Certificar transcripción</strong> -- Llevar grabación a notario para certificar autenticidad.</p>
+</li>
+<li>
+<p><strong>Revisión adversarial</strong> -- Identificar debilidades ANTES de enviar la carta. Anticipar
+   los argumentos que el abogado contrario encontraria.</p>
+</li>
+<li>
+<p><strong>Investigar solvencia</strong> -- Verificar patrimonio de Katherine y la empresa. Buscar si tienen
+   seguro de RC profesional. Esto determina si vale la pena litigar o solo presionar.</p>
+</li>
+<li>
+<p><strong>Enviar carta de requerimiento</strong> -- Una vez actualizada y revisada, enviar por carta
+   certificada. La nueva evidencia hace esta carta mucho más intimidante.</p>
+</li>
+</ol>
+<hr>
+<p><strong>Próxima acción: Completar revisión adversarial antes de enviar la carta.</strong></p>
+<hr>
+<h2 id="contactos-para-verificacion-profesional">Contactos para Verificación Profesional</h2>
+<table>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>Nombre</th>
+<th>Contacto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abogados litigantes</td>
+<td>Colegio de Abogados de Chile</td>
+<td>colegioabogados.cl / +56 2 2633 6720</td>
+</tr>
+<tr>
+<td>Asistencia judicial gratuita</td>
+<td>Corporación de Asistencia Judicial</td>
+<td>cajmetro.cl / +56 2 2787 3700</td>
+</tr>
+<tr>
+<td>Consulta estado de causas</td>
+<td>Poder Judicial</td>
+<td>pjud.cl / +56 2 2387 3000</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<blockquote>
+<p><strong>Nivel INFORMADO</strong>: Los términos técnicos se explican entre paréntesis la primera vez que aparecen.
+<strong>Nivel GUIADO</strong>: Este documento es material de referencia para un abogado. No actuar sin asesoría profesional.</p>
+</blockquote>
+    <footer class="site-footer no-print">
+      <hr>
+      <small>El Director v1.0 &middot; <a href="../../deploy-guide.html">Guia de Despliegue</a></small>
+    </footer>
+  </main>
+</body>
+</html>

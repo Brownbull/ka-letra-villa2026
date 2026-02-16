@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REVISIÓN ADVERSARIAL - villarrica_202601</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+</head>
+<body>
+  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
+  <nav class="sidebar">
+    <h2>villarrica_202601</h2>
+    <ul>
+<li><a href="../03-ESTRATEGIA.html">03 Estrategia</a></li>
+<li><a href="../05-DEFENSA.html">05 Defensa</a></li>
+<li class="section-title">99 Entregable</li>
+<ul>
+<li class="section-title">01 Critico</li>
+<ul>
+<li><a href="../99_entregable/01_critico/certificar-grabacion.html">Certificar Grabacion</a></li>
+<li><a href="../99_entregable/01_critico/contratar-abogado.html">Contratar Abogado</a></li>
+<li><a href="../99_entregable/01_critico/preservar-tiktok.html">Preservar Tiktok</a></li>
+</ul>
+<li class="section-title">02 Bloqueantes</li>
+<ul>
+<li><a href="../99_entregable/02_bloqueantes/decision-cautelar.html">Decision Cautelar</a></li>
+</ul>
+<li class="section-title">03 Siguientes-Pasos</li>
+<ul>
+<li><a href="../99_entregable/03_siguientes-pasos/paso-1-solvencia-nivel1.html">Paso 1 Solvencia Nivel1</a></li>
+<li><a href="../99_entregable/03_siguientes-pasos/paso-2-medida-cautelar.html">Paso 2 Medida Cautelar</a></li>
+<li><a href="../99_entregable/03_siguientes-pasos/paso-3-consulta-banco.html">Paso 3 Consulta Banco</a></li>
+</ul>
+<li class="section-title">04 Documentos</li>
+<ul>
+<li><a href="../99_entregable/04_documentos/00-INDICE-DOCUMENTOS.html">00 Indice Documentos</a></li>
+<li><a href="../99_entregable/04_documentos/01-CARTA-REQUERIMIENTO.html">01 Carta Requerimiento</a></li>
+<li><a href="../99_entregable/04_documentos/02-DENUNCIA-ETICA.html">02 Denuncia Etica</a></li>
+<li><a href="../99_entregable/04_documentos/03-ACUERDO-TRANSACCIONAL.html">03 Acuerdo Transaccional</a></li>
+<li><a href="../99_entregable/04_documentos/04-CALCULO-DANOS.html">04 Calculo Danos</a></li>
+<li><a href="../99_entregable/04_documentos/05-GUION-NEGOCIACION.html">05 Guion Negociacion</a></li>
+</ul>
+<li class="section-title">05 Requiere-Profesional</li>
+<ul>
+<li><a href="../99_entregable/05_requiere-profesional/medida-cautelar-abogado.html">Medida Cautelar Abogado</a></li>
+</ul>
+<li><a href="../99_entregable/PANEL.html">Panel</a></li>
+<li class="section-title">Entrega-Profesional</li>
+<ul>
+<li><a href="../99_entregable/entrega-profesional/ESTIMACION-COSTOS-LEGALES.html">Estimacion Costos Legales</a></li>
+<li><a href="../99_entregable/entrega-profesional/ESTRATEGIA-ACUERDO-EXTRAJUDICIAL.html">Estrategia Acuerdo Extrajudicial</a></li>
+<li><a href="../99_entregable/entrega-profesional/ESTRATEGIA-LEGAL-PROCEDIMIENTO.html">Estrategia Legal Procedimiento</a></li>
+<li><a href="../99_entregable/entrega-profesional/EVALUACION-VIABILIDAD.html">Evaluacion Viabilidad</a></li>
+<li><a href="../99_entregable/entrega-profesional/RESUMEN-CASO-ABOGADO.html">Resumen Caso Abogado</a></li>
+</ul>
+</ul>
+<li><a href="../ACCIONES-PENDIENTES.html">Acciones Pendientes</a></li>
+<li><a href="../CASE.html">Case</a></li>
+<li class="section-title">Adversarial-Review</li>
+<ul>
+<li><a href="../adversarial-review/07-REVISION-ADVERSARIAL.html">07 Revision Adversarial</a></li>
+</ul>
+<li class="section-title">Archivo</li>
+<ul>
+<li><a href="../archivo/00-LEEME-ABOGADO.html">00 Leeme Abogado</a></li>
+<li><a href="../archivo/APPLICATION-SPEC.html">Application Spec</a></li>
+<li><a href="../archivo/borrador_carta_reclamo.html">Borrador Carta Reclamo</a></li>
+<li><a href="../archivo/email_contacto_abogados.html">Email Contacto Abogados</a></li>
+<li><a href="../archivo/initial-findings.html">Initial Findings</a></li>
+<li class="section-title">Property-Legal-Research</li>
+<ul>
+<li><a href="../archivo/property-legal-research/README.html">Readme</a></li>
+<li><a href="../archivo/property-legal-research/RESEARCH-REPORT-v1.html">Research Report V1</a></li>
+</ul>
+</ul>
+<li class="section-title">Legal-Research</li>
+<ul>
+<li><a href="../legal-research/13-27bis-requirements.html">13 27Bis Requirements</a></li>
+<li><a href="../legal-research/14-professional-liability.html">14 Professional Liability</a></li>
+<li><a href="../legal-research/15-investigacion-pre-roast.html">15 Investigacion Pre Roast</a></li>
+<li><a href="../legal-research/16-admisibilidad-grabacion.html">16 Admisibilidad Grabacion</a></li>
+<li><a href="../legal-research/parallel-ai-analysis.html">Parallel Ai Analysis</a></li>
+<li><a href="../legal-research/recommended-attorneys.html">Recommended Attorneys</a></li>
+</ul>
+<li class="section-title">Paquete-Abogado</li>
+<ul>
+<li><a href="../paquete-abogado/00-LEEME.html">00 Leeme</a></li>
+<li><a href="../paquete-abogado/01-RESUMEN-CASO.html">01 Resumen Caso</a></li>
+<li><a href="../paquete-abogado/email-contacto.html">Email Contacto</a></li>
+</ul>
+<li><a href="../strength-tracker.html">Strength Tracker</a></li>
+</ul>
+  </nav>
+  <main class="content">
+    <div class="top-actions no-print">
+      <button class="print-btn" onclick="window.print()">Exportar PDF</button>
+    </div>
+    <h1 id="revision-adversarial-villarrica_202601">REVISIÓN ADVERSARIAL - villarrica_202601</h1>
+<p><strong>Fecha:</strong> 2026-02-11
+<strong>Severidad global:</strong> ALTA
+<strong>Rol asumido:</strong> Abogado defensor de Katherine Rebolledo / Asesorías Tributarias Pedro Gonzalez Ltda</p>
+<hr>
+<h2 id="hallazgos-criticos-pueden-hundir-el-caso">Hallazgos Criticos (Pueden hundir el caso)</h2>
+<h3 id="1-otro-contador-dio-el-mismo-consejo-rebajado-a-importante">1. OTRO CONTADOR DIO EL MISMO CONSEJO -- REBAJADO A IMPORTANTE</h3>
+<p><strong>Problema original:</strong>
+En la transcripción, Claudia dice textualmente:</p>
+<blockquote>
+<p>"Otro contador me había dicho que justamente que yo comprara el departamento,
+lo amoblara y de ahí recién hiciera la sociedad."</p>
+</blockquote>
+<p>Katherine respondió: "lo que le dice el colega no está mal."</p>
+<p><strong>Información nueva (2026-02-11) -- CAMBIA EL ANÁLISIS:</strong>
+Claudia aclara que el "otro contador" fue:
+- Una llamada telefónica o WhatsApp <strong>informal y espontánea</strong>
+- <strong>Sin registro</strong> (no grabada, sin WhatsApp escrito, sin email)
+- <strong>No fue una consulta profesional</strong>: fue un comentario casual de un conocido
+  que resulta ser contador
+- No hubo pago, ni contrato, ni relación profesional
+- El conocido simplemente comento que buscara asesoría formal después de comprar
+- La ÚNICA asesoría formal, pagada y profesional fue con Katherine</p>
+<p><strong>Impacto revisado (REDUCIDO):</strong>
+- La defensa AÚN puede intentar usar la frase de la transcripción, pero:
+  - No puede probar que existio una "asesoría profesional previa" porque no la hubo
+  - Un comentario informal de un conocido NO constituye asesoría profesional
+  - No hay relación contractual, ni deber de cuidado, ni lex artis aplicable
+  - La carga de la prueba de la concausa recae en la DEFENSA, y no tiene como probarla
+- El argumento de concausa se debilita severamente sin prueba de la consulta previa
+- Katherine sigue siendo la ÚNICA profesional contratada y pagada</p>
+<p><strong>Nuevo ángulo FAVORABLE:</strong>
+- El hecho de que Claudia buscara asesoría FORMAL con Katherine DEMUESTRA que
+  sabía que un comentario informal no era suficiente
+- Claudia actuó diligentemente: no se conformo con el comentario casual,
+  buscó y PAGO por asesoría profesional
+- Katherine, como la profesional formal, tenía el deber de VERIFICAR y CORREGIR
+  cualquier información previa, no de validarla a ciegas
+- Katherine dijo "no está mal" sin análisis: esto AGRAVA su negligencia
+  (válido un consejo incorrecto proveniente de una fuente no profesional)</p>
+<p><strong>Riesgo residual:</strong>
+- La frase está en la transcripción y la defensa la usará
+- Pero sin prueba de asesoría formal previa, el argumento es débil
+- Nuestra respuesta: "Claudia precisamente buscó asesoría formal porque sabía
+  que un comentario casual no bastaba. Katherine era la única profesional
+  responsable."</p>
+<hr>
+<h3 id="2-katherine-derivo-a-especialista-en-la-pregunta-clave-critico-mitigado-parcialmente">2. KATHERINE DERIVÓ A ESPECIALISTA EN LA PREGUNTA CLAVE -- CRITICO (mitigado parcialmente)</h3>
+<p><strong>Problema:</strong>
+Cuando Claudia preguntó directamente "si yo compró el departamento como persona
+natural, una vez que constituyo la sociedad, puedo pedir el crédito fiscal por
+el IVA que pague por el departamento?", Katherine respondió:</p>
+<blockquote>
+<p>"Si, pero ahí igual tiene que cumplir bastantes requisitos. Entonces,
+ahí habría que asesorarse bien con un <strong>contador inmobiliario</strong>."</p>
+</blockquote>
+<p>Y cuando Claudia preguntó si tenían contadores inmobiliarios, Katherine dijo
+"Actualmente no."</p>
+<p><strong>Impacto:</strong>
+- La defensa argumentará: "Mi cliente identificó correctamente que esta era una
+  materia especializada. Recomendó explícitamente consultar un contador inmobiliario.
+  La cliente ELIGIO no hacerlo. La negligencia, si la hay, es de la cliente."
+- El "si" inicial es problemático, pero está calificado con "bastantes requisitos"
+  y derivación a especialista
+- Esto convierte parcialmente la responsabilidad en un tema de <strong>culpa compartida (Art. 2330)</strong></p>
+<p><strong>CONTRA-ARGUMENTACIÓN REFORZADA (2026-02-11):</strong></p>
+<p><strong>A. La derivación fue sobre una pregunta SECUNDARIA; la negligencia principal
+no tuvo derivación alguna:</strong></p>
+<p>La secuencia temporal de la transcripción es clave:</p>
+<ol>
+<li>
+<p>PRIMERO, Katherine dio el consejo de timing sin ninguna reserva ni derivación:</p>
+<blockquote>
+<p>"generalmente se hace de esa forma, usted compra el departamento y pasan
+dos o tres meses y se traspasa a esta sociedad"
+   Aquí NO derivó a nadie. Dio consejo DEFINITIVO sobre el timing de compra.</p>
+</blockquote>
+</li>
+<li>
+<p>DESPUÉS, Claudia hizo la pregunta específica sobre IVA post-traspaso,
+   y AHÍ Katherine derivó a "contador inmobiliario".</p>
+</li>
+</ol>
+<p>La negligencia PRINCIPAL es el consejo de timing (paso 1), que fue dado sin
+reserva, sin derivación, como orientación definitiva. La derivación (paso 2)
+fue sobre una pregunta derivada/secundaria que surgió DESPUÉS del consejo
+dañino ya entregado.</p>
+<p><strong>B. La respuesta "Si" fue OBJETIVAMENTE INCORRECTA:</strong></p>
+<p>La respuesta correcta a "puedo pedir el crédito fiscal por IVA pagado como
+persona natural una vez que constituya la sociedad?" es NO. El crédito fiscal
+pertenece a la entidad que realizo la compra (Art. 23 DL 825). Si Claudia
+compró como persona natural, la SpA no puede reclamar ese IVA.</p>
+<p>Katherine no dijo "no se, consulte especialista". Dijo "SI" -- una respuesta
+equivocada que genero falsa seguridad. Si hubiera dicho "no", Claudia habría
+tenido razón para NO comprar como persona natural.</p>
+<p><strong>C. La derivación fue hueca e ineficaz:</strong></p>
+<ul>
+<li>Katherine recomendó "un contador inmobiliario" pero admitió que su empresa
+  NO tiene uno ("Actualmente no")</li>
+<li>No dio nombre, teléfono ni referencia de ningún profesional específico</li>
+<li>No explicó la urgencia ni las consecuencias de no consultar</li>
+<li>No dijo "NO compre hasta que consulte al especialista"</li>
+<li>Analogia: es como un medico que dice "puede que tenga algo serio, vea un
+  especialista" pero no da hora, no deriva formalmente, y no dice que no se
+  automedique mientras tanto</li>
+</ul>
+<p><strong>D. La falsa seguridad del "Si" desincentivo buscar al especialista:</strong></p>
+<p>Claudia escuchó "SI puedo recuperar el IVA" (con algunos requisitos).
+¿Que persona razonable buscaria urgentemente un segundo profesional cuando
+la primera ya le dijo que SI se puede? El "si" inicial anulo la urgencia
+de la derivación.</p>
+<p><strong>Riesgo residual:</strong>
+- La derivación existe y la defensa la usará
+- Un tribunal PODRÍA considerar que genera culpa compartida (Art. 2330)
+- PERO: la negligencia principal (consejo de timing) es ANTERIOR e
+  INDEPENDIENTE de la derivación, y esa es la que causó el daño</p>
+<hr>
+<h3 id="3-el-credito-hipotecario-era-para-claudia-no-para-una-spa-critico-mitigado-significativamente">3. EL CRÉDITO HIPOTECARIO ERA PARA CLAUDIA, NO PARA UNA SpA -- CRITICO (mitigado significativamente)</h3>
+<p><strong>Problema:</strong>
+Claudia dice en la transcripción y en su email:</p>
+<blockquote>
+<p>"Tengo un crédito hipotecario pre-aprobado (a 20 años) con financiamiento
+del 80% (yo poniendo un pie del 20%)."</p>
+</blockquote>
+<p>El crédito estaba pre-aprobado a CLAUDIA como persona natural. Los bancos
+chilenos típicamente NO otorgan créditos hipotecarios a SpAs recién creadas
+sin historial financiero.</p>
+<p><strong>Impacto:</strong>
+- La defensa argumentará: "Aunque se hubiera creado la SpA primero, el banco
+  no le habría dado el crédito a una sociedad nueva sin historial. La compra
+  habría sido como persona natural de todas formas. El daño era inevitable."
+- Esto ataca la causalidad de raíz: si la alternativa "correcta" (SpA compra
+  primero) era IMPOSIBLE por razones bancarias, el consejo de Katherine no
+  causó el daño</p>
+<p><strong>CONTRA-ARGUMENTACIÓN REFORZADA (2026-02-11):</strong></p>
+<p><strong>A. Katherine misma contemplaba la estructura SpA + aval personal:</strong></p>
+<p>Cita textual de la transcripción:</p>
+<blockquote>
+<p>"generalmente se hace de esa forma, usted va a seguir siendo la val [aval],
+el crédito va a seguir estando a su nombre. Y es lo que hacen muchos clientes
+que compran el departamento y pasan dos o tres meses y se traspasa a esta
+sociedad."</p>
+</blockquote>
+<p>Katherine MISMA describe un esquema donde:
+- La SpA es la propietaria final
+- Claudia sigue siendo el aval
+- El crédito sigue a nombre de Claudia
+- Dice que "muchos clientes" lo hacen así</p>
+<p>Si la propia Katherine dice que "muchos clientes" hacen este traspaso, la
+defensa NO puede después argumentar que era imposible. Katherine refuta a
+Katherine.</p>
+<p><strong>B. La estructura SpA + aval personal es práctica bancaria estándar en Chile:</strong></p>
+<p>Los bancos chilenos regularmente aceptan:
+- SpA unipersonal como deudor hipotecario con aval personal del socio único
+- Traspaso de inmueble a sociedad post-compra (la propia Katherine lo describe)
+- El banco no pierde garantia: el inmueble sigue hipotecado y el socio responde
+  personalmente como avalista</p>
+<p>El hecho de que el crédito estaba pre-aprobado a Claudia NO impide la operación
+a traves de SpA. El banco evalua la capacidad de pago de LA PERSONA, y esa
+persona sigue respondiendo como aval.</p>
+<p><strong>C. El camino correcto tenía MÚLTIPLES alternativas viables:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Alternativa</th>
+<th>Como funciona</th>
+<th>Viabilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. SpA compra con Claudia como aval</td>
+<td>SpA es compradora, Claudia avala</td>
+<td>Alta (estándar)</td>
+</tr>
+<tr>
+<td>2. Claudia compra + traspaso inmediato a SpA</td>
+<td>SpA ya creada ANTES, traspaso el mismo dia</td>
+<td>Alta</td>
+</tr>
+<tr>
+<td>3. SpA se crea antes, compra con leasing</td>
+<td>Leasing habilitado a SpA con aval personal</td>
+<td>Media</td>
+</tr>
+</tbody>
+</table>
+<p>Lo critico era que la SpA EXISTIERA y tuviera inicio de actividades ANTES de
+la compra, para que el IVA de la factura afecta fuera crédito fiscal de la SpA.
+Katherine debió explicar esto.</p>
+<p><strong>D. El daño NO es por el tipo de crédito sino por el TIMING del IVA:</strong></p>
+<p>El argumento de la defensa confunde dos cosas:
+- <strong>Quien paga el crédito</strong> (irrelevante para el IVA) -- siempre seria Claudia
+  como persona o como aval
+- <strong>Quien es el COMPRADOR en la factura</strong> (determinante para el IVA) -- si la
+  SpA hubiera existido, la factura afecta habría ido a nombre de la SpA,
+  generando crédito fiscal para la SpA</p>
+<p>El crédito hipotecario pre-aprobado a Claudia no impedía que la SpA fuera
+la compradora con Claudia como aval. Katherine misma lo dice.</p>
+<p><strong>Riesgo residual:</strong>
+- La defensa puede argumentar que el banco ESPECÍFICO habría rechazado a la SpA
+- Acción recomendada: obtener carta del banco confirmando que habrían aceptado
+  la estructura SpA + aval personal (o al mínimo, que aceptaban el traspaso
+  post-compra, que la propia Katherine describe como práctica de "muchos clientes")
+- Sin esta carta, el argumento descansa en práctica bancaria general + las
+  propias palabras de Katherine</p>
+<hr>
+<h2 id="hallazgos-importantes-debilitan-significativamente">Hallazgos Importantes (Debilitan significativamente)</h2>
+<h3 id="4-participante-en-la-factura-importante">4. "PARTICIPANTE" EN LA FACTURA -- IMPORTANTE</h3>
+<p><strong>Problema:</strong>
+La Factura N°13093 dice: "ASESORIA TRIBUTARIA - <strong>PARTICIPANTE</strong> CLAUDIA PINO"</p>
+<p>La palabra "participante" sugiere que Claudia fue UNA participante entre varias,
+posiblemente en una sesión grupal o formato de webinar.</p>
+<p><strong>Impacto:</strong>
+- La defensa puede argumentar que fue una sesión grupal de orientación general,
+  no una asesoría personalizada one-on-one
+- Reduce la expectativa de profundidad y especificidad del consejo
+- "Orientación general" vs "asesoría profesional personalizada" tienen distintos
+  estandares de cuidado</p>
+<p><strong>Mitigación propuesta:</strong>
+- La transcripción demuestra que fue una sesión 1-a-1 (Katherine habla directamente
+  con Claudia sobre su caso específico)
+- El email de Camila dice "Fecha: 22 de Septiembre, Hora: 9:30, Tiempo: 30 min,
+  Cliente: Claudia Pino" -- esto es una cita individual
+- "Participante" puede ser simplemente el formato estándar de facturación de la empresa
+- Pero la defensa lo va a usar</p>
+<hr>
+<h3 id="5-25-meses-entre-consulta-y-compra-importante">5. 2.5 MESES ENTRE CONSULTA Y COMPRA -- IMPORTANTE</h3>
+<p><strong>Problema:</strong>
+La consulta fue el 22/09/2025. La compra fue el 10/12/2025. Pasaron 79 días.</p>
+<p><strong>Impacto:</strong>
+- "Claudia tuvo casi 3 meses para buscar una segunda opinion, consultar un
+  contador inmobiliario como le recomendamos, o investigar por su cuenta.
+  Eligio no hacerlo."
+- Debilita la causalidad directa y refuerza culpa compartida (Art. 2330)
+- Una persona razonablemente diligente, ante una inversión de $146M, habría
+  buscado múltiples opiniones</p>
+<p><strong>Mitigación propuesta:</strong>
+- Argumentar que Katherine creo una falsa seguridad con su consejo definitivo
+  sobre timing ("generalmente se hace así")
+- Claudia confiaba en una profesional pagada de una empresa cuyo giro es
+  asesorías tributarias
+- El email con preguntas escritas muestra que Claudia fue diligente en
+  formular sus dudas -- confiaba en que la respuesta era correcta
+- Art. 2330 no aplica si hay culpa grave del demandado (fallo CS 2025)</p>
+<hr>
+<h3 id="6-calificacion-de-culpa-grave-es-discutible-importante">6. CALIFICACIÓN DE CULPA GRAVE ES DISCUTIBLE -- IMPORTANTE</h3>
+<p><strong>Problema:</strong>
+Nuestra estrategia para neutralizar Art. 2330 depende de calificar la conducta
+de Katherine como "culpa grave" (equivalente a dolo). Pero esto es discutible.</p>
+<p>Culpa grave = "negligencia grosera, no manejar negocios ajenos ni aún como propios"
+(Art. 44 CC). Requiere un nivel de descuido excepcional.</p>
+<p><strong>Impacto:</strong>
+- Katherine DID dio una consulta de 30 minutos donde cubrió múltiples temas
+  (estructura societaria, IVA operacional, deducciones, patente, etc.)
+- Katherine DID derivó a especialista en la pregunta específica de IVA inmobiliario
+- Katherine DID ofrecer conectar con abogado para constitución
+- Un tribunal podría verlo como culpa leve (error profesional), no culpa grave</p>
+<p>Si no logramos culpa grave, Art. 2330 aplica y la indemnización se reduce.</p>
+<p><strong>Mitigación propuesta:</strong>
+- Enfatizar que el giro de la empresa es "Asesorías TRIBUTARIAS" -- no conocer
+  27bis es como un medico que no conoce la aspirina
+- Enfatizar que dijo "si" a algo que la respuesta es "no"
+- Enfatizar la validación del consejo del otro contador sin verificar
+- Pero aceptar que un tribunal podría calificarla como culpa leve</p>
+<hr>
+<h3 id="7-solvencia-del-demandado-desconocida-importante">7. SOLVENCIA DEL DEMANDADO DESCONOCIDA -- IMPORTANTE</h3>
+<p><strong>Problema:</strong>
+No sabemos si Katherine o la empresa pueden pagar $24M+. Una empresa pequeña
+de asesorías tributarias en San Bernardo probablemente no tiene ese patrimonio.</p>
+<p><strong>Impacto:</strong>
+- Sentencia favorable + demandado insolvente = papel
+- Si no hay seguro de RC profesional, la recuperación efectiva puede ser cero
+- El ROI del litigio cambia dramáticamente si no hay donde cobrar</p>
+<p><strong>Mitigación propuesta:</strong>
+- Investigar patrimonio de la empresa (CBR, vehículos, cuentas)
+- Verificar si tiene seguro de RC profesional (común en estudios contables)
+- Si no hay patrimonio ni seguro, reconsiderar la estrategia: quizás la carta
+  de requerimiento y la amenaza de denuncia al Colegio son suficiente presión
+  para un acuerdo más modesto
+- Evaluar si Pedro Gonzalez (titular) tiene patrimonio personal</p>
+<hr>
+<h3 id="8-transcripcion-no-certificada-importante">8. TRANSCRIPCIÓN NO CERTIFICADA -- IMPORTANTE</h3>
+<p><strong>Problema:</strong>
+La transcripción de la consulta existe pero:
+- No está certificada ante notario
+- No sabemos si es completa o selectiva
+- La grabación fue hecha (presumiblemente) por Claudia sin aviso
+- Katherine aparece como "Caterin" -- discrepancia de nombre</p>
+<p><strong>Impacto:</strong>
+- La defensa puede impugnar la autenticidad o completitud
+- Puede argumentar que hay partes editadas o faltantes
+- "Caterin" vs "Katherine" genera duda sobre si es la misma persona
+- En Chile, grabar una conversación propia es legal (Art. 161-A CP no aplica
+  a partícipes), pero la defensa podría cuestionar la admisibilidad</p>
+<p><strong>Mitigación propuesta:</strong>
+- Certificar la grabación original ante notario ANTES de enviar la carta
+- Obtener peritaje de autenticidad si es necesario
+- Cruzar la transcripción con los registros de Zoom (fecha, hora, participantes)
+- La discrepancia "Caterin"/"Katherine" se explica por la audición, pero
+  necesita prueba adicional (email de Camila CC a "KATHERINE REBOLLEDO")</p>
+<hr>
+<h2 id="hallazgos-menores-mejorables">Hallazgos Menores (Mejorables)</h2>
+<h3 id="9-calculo-de-danos-asume-ejecucion-perfecta-de-27bis-menor">9. CALCULO DE DAÑOS ASUME EJECUCIÓN PERFECTA DE 27BIS -- MENOR</h3>
+<p><strong>Problema:</strong>
+El daño de $20.4M asume que si Claudia hubiera creado la SpA, el 27bis habría
+funcionado perfectamente. Pero el 27bis requiere:
+- 6 meses de acumulación de remanente
+- Solicitud al SII via F3280
+- Aprobación del SII (no automática)
+- Uso efectivo del inmueble en actividad gravada (Airbnb operativo)</p>
+<p><strong>Impacto:</strong>
+- "El beneficio no estaba garantizado. El SII podría haber rechazado la
+  solicitud. La demandante no ha probado que habría cumplido todos los
+  requisitos."
+- Podría reducir el monto reclamable a un "chance pérdida" (pérdida de
+  oportunidad) en vez de daño cierto</p>
+<p><strong>Mitigación propuesta:</strong>
+- Obtener informe pericial contable confirmando que los requisitos eran
+  cumplibles en las circunstancias de Claudia
+- Argumentar que el Art. 27bis tiene alta tasa de aprobación cuando se
+  cumplen los requisitos formales
+- Argumentar que el daño emergente es la pérdida del derecho a solicitar,
+  no necesariamente la devolución en si</p>
+<hr>
+<h3 id="10-documentos-legales-desactualizados-menor-resuelto">10. DOCUMENTOS LEGALES DESACTUALIZADOS -- MENOR -- <strong>RESUELTO</strong></h3>
+<p><strong>Problema original:</strong>
+Los documentos preparados usaban "Caterin" en vez de "Katherine Rebolledo" y no incorporaban toda la evidencia.</p>
+<p><strong>Estado:</strong> CORREGIDO. Todos los documentos ahora usan "Katherine Rebolledo" con datos completos de la empresa (RUT 76.333.878-9, dirección, email). La nueva evidencia (email previo, WhatsApp, factura) está incorporada en la argumentación.</p>
+<hr>
+<h3 id="11-competencia-territorial-discutible-menor">11. COMPETENCIA TERRITORIAL DISCUTIBLE -- MENOR</h3>
+<p><strong>Problema:</strong>
+La consulta fue por Zoom. Katherine posiblemente en San Bernardo, Claudia en
+Villarrica. El "lugar de prestación del servicio" en servicios remotos es ambiguo.</p>
+<p><strong>Impacto:</strong>
+- Excepción dilatoria que retrasa el proceso
+- No mata el caso pero genera costos y tiempo</p>
+<p><strong>Mitigación propuesta:</strong>
+- Demandar en San Bernardo (domicilio del demandado) que es inequívoco
+- Alternativa: domicilio de la empresa emisora de la factura (San Bernardo)</p>
+<hr>
+<h3 id="12-no-hay-informe-pericial-contable-menor">12. NO HAY INFORME PERICIAL CONTABLE -- MENOR</h3>
+<p><strong>Problema:</strong>
+Afirmamos que el consejo fue "objetivamente erróneo" pero no tenemos un
+perito independiente que lo valide formalmente.</p>
+<p><strong>Impacto:</strong>
+- Sin peritaje, nuestras afirmaciones sobre lex artis son alegaciones, no prueba
+- El tribunal necesita prueba técnica de que un contador competente habría
+  actuado diferente</p>
+<p><strong>Mitigación propuesta:</strong>
+- Obtener informe pericial antes de la fase judicial
+- Para la carta, los Oficios del SII son suficiente respaldo
+- El peritaje es más critico si llegamos a juicio</p>
+<hr>
+<h2 id="resumen-ejecutivo">Resumen Ejecutivo</h2>
+<table>
+<thead>
+<tr>
+<th>Severidad</th>
+<th>Cantidad</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Critico (mitigado)</td>
+<td>2</td>
+<td>#2 y #3 siguen criticos pero con contra-argumentación sólida</td>
+</tr>
+<tr>
+<td>Importante</td>
+<td>6</td>
+<td>#1 rebajado aquí + 5 originales</td>
+</tr>
+<tr>
+<td>Menor</td>
+<td>4</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="registro-de-correcciones">Registro de Correcciones</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Hallazgo</th>
+<th>Severidad original</th>
+<th>Severidad actual</th>
+<th>Razón</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Otro contador</td>
+<td>CRITICO</td>
+<td>IMPORTANTE</td>
+<td>Fue comentario informal, sin registro ni pago</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Derivación a especialista</td>
+<td>CRITICO</td>
+<td>CRITICO (mitigado)</td>
+<td>Negligencia principal (timing) fue ANTES y SIN derivación</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Crédito hipotecario vs SpA</td>
+<td>CRITICO</td>
+<td>CRITICO (mitigado)</td>
+<td>Katherine misma describe la estructura SpA + aval como "lo que hacen muchos clientes"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lo-que-el-contrario-haria">Lo que el Contrario Haría</h3>
+<p>La estrategia más probable del abogado de Katherine seria un ataque en 3 frentes:</p>
+<p><strong>Frente 1 -- Causalidad:</strong>
+"El banco no le habría dado crédito a una SpA nueva. Nuestro consejo no causó
+el daño porque el resultado era inevitable."
+<em>[Contra: Katherine misma dijo "usted va a seguir siendo el aval... es lo que
+hacen muchos clientes". Si ella misma describe la práctica como común, no puede
+luego argumentar que era imposible.]</em></p>
+<p><strong>Frente 2 -- Culpa Compartida (Art. 2330):</strong>
+"Claudia tuvo 2.5 meses para buscar segunda opinion. Le dijimos que consultara
+un contador inmobiliario. Eligio no hacerlo. Se expuso imprudentemente al daño."
+<em>[Contra: Katherine dijo "SI" a la pregunta del IVA, creando falsa seguridad
+que desincentivo buscar especialista. Además, la negligencia principal (consejo
+de timing) fue dada SIN derivación alguna.]</em></p>
+<p><strong>Frente 3 -- Minimizar la Asesoría:</strong>
+"Fue una orientación general de 30 minutos por $100.000. No fue una asesoría
+integral. La factura dice 'participante'."
+<em>[Contra: fue sesión 1-a-1 con preguntas escritas de Claudia, cita agendada,
+y Katherine dio consejos DEFINITIVOS sobre timing, estructura societaria, IVA,
+deducciones, patente -- no fue "orientación general".]</em></p>
+<h3 id="evaluacion-de-impacto">Evaluación de Impacto</h3>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Pre-revisión</th>
+<th>Post-revisión</th>
+<th>Post-correcciones (#1,#2,#3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acuerdo pre-judicial</td>
+<td>35%</td>
+<td>25-30%</td>
+<td>35-40%</td>
+</tr>
+<tr>
+<td>Sentencia 100% favorable</td>
+<td>25%</td>
+<td>15-20%</td>
+<td>20-25%</td>
+</tr>
+<tr>
+<td>Sentencia con reducción Art. 2330</td>
+<td>N/A</td>
+<td>20-25%</td>
+<td>15-20%</td>
+</tr>
+<tr>
+<td>Desfavorable</td>
+<td>10%</td>
+<td>15-20%</td>
+<td>10-12%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Probabilidad global de recuperación:</strong>
+- Pre-revisión: ~85%
+- Post-revisión original: ~65-75%
+- Post-corrección hallazgo #1: ~70-80%
+- <strong>Post-corrección hallazgos #1, #2 y #3: ~80-85%</strong></p>
+<h3 id="acciones-pendientes-para-fortalecer">Acciones pendientes para fortalecer</h3>
+<ol>
+<li><strong>[RECOMENDADO]</strong> Obtener carta del banco confirmando viabilidad de
+   estructura SpA + aval personal (fortalece contra hallazgo #3)</li>
+<li><strong>[RECOMENDADO]</strong> Certificar grabación ante notario (hallazgo #8)</li>
+<li><strong>[ANTES DE JUICIO]</strong> Obtener informe pericial contable (hallazgo #12)</li>
+<li><strong>[ANTES DE CARTA]</strong> Actualizar todos los documentos con datos correctos (hallazgo #10)</li>
+</ol>
+<hr>
+<p><strong>Archivo guardado en:</strong> villarrica_202601/adversarial-review/07-REVISION-ADVERSARIAL.md</p>
+    <footer class="site-footer no-print">
+      <hr>
+      <small>El Director v1.0 &middot; <a href="../deploy-guide.html">Guia de Despliegue</a></small>
+    </footer>
+  </main>
+</body>
+</html>

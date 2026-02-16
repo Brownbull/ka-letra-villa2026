@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chilean Tax Advisory Application - Specification</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+</head>
+<body>
+  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
+  <nav class="sidebar">
+    <h2>villarrica_202601</h2>
+    <ul>
+<li><a href="../03-ESTRATEGIA.html">03 Estrategia</a></li>
+<li><a href="../05-DEFENSA.html">05 Defensa</a></li>
+<li class="section-title">99 Entregable</li>
+<ul>
+<li class="section-title">01 Critico</li>
+<ul>
+<li><a href="../99_entregable/01_critico/certificar-grabacion.html">Certificar Grabacion</a></li>
+<li><a href="../99_entregable/01_critico/contratar-abogado.html">Contratar Abogado</a></li>
+<li><a href="../99_entregable/01_critico/preservar-tiktok.html">Preservar Tiktok</a></li>
+</ul>
+<li class="section-title">02 Bloqueantes</li>
+<ul>
+<li><a href="../99_entregable/02_bloqueantes/decision-cautelar.html">Decision Cautelar</a></li>
+</ul>
+<li class="section-title">03 Siguientes-Pasos</li>
+<ul>
+<li><a href="../99_entregable/03_siguientes-pasos/paso-1-solvencia-nivel1.html">Paso 1 Solvencia Nivel1</a></li>
+<li><a href="../99_entregable/03_siguientes-pasos/paso-2-medida-cautelar.html">Paso 2 Medida Cautelar</a></li>
+<li><a href="../99_entregable/03_siguientes-pasos/paso-3-consulta-banco.html">Paso 3 Consulta Banco</a></li>
+</ul>
+<li class="section-title">04 Documentos</li>
+<ul>
+<li><a href="../99_entregable/04_documentos/00-INDICE-DOCUMENTOS.html">00 Indice Documentos</a></li>
+<li><a href="../99_entregable/04_documentos/01-CARTA-REQUERIMIENTO.html">01 Carta Requerimiento</a></li>
+<li><a href="../99_entregable/04_documentos/02-DENUNCIA-ETICA.html">02 Denuncia Etica</a></li>
+<li><a href="../99_entregable/04_documentos/03-ACUERDO-TRANSACCIONAL.html">03 Acuerdo Transaccional</a></li>
+<li><a href="../99_entregable/04_documentos/04-CALCULO-DANOS.html">04 Calculo Danos</a></li>
+<li><a href="../99_entregable/04_documentos/05-GUION-NEGOCIACION.html">05 Guion Negociacion</a></li>
+</ul>
+<li class="section-title">05 Requiere-Profesional</li>
+<ul>
+<li><a href="../99_entregable/05_requiere-profesional/medida-cautelar-abogado.html">Medida Cautelar Abogado</a></li>
+</ul>
+<li><a href="../99_entregable/PANEL.html">Panel</a></li>
+<li class="section-title">Entrega-Profesional</li>
+<ul>
+<li><a href="../99_entregable/entrega-profesional/ESTIMACION-COSTOS-LEGALES.html">Estimacion Costos Legales</a></li>
+<li><a href="../99_entregable/entrega-profesional/ESTRATEGIA-ACUERDO-EXTRAJUDICIAL.html">Estrategia Acuerdo Extrajudicial</a></li>
+<li><a href="../99_entregable/entrega-profesional/ESTRATEGIA-LEGAL-PROCEDIMIENTO.html">Estrategia Legal Procedimiento</a></li>
+<li><a href="../99_entregable/entrega-profesional/EVALUACION-VIABILIDAD.html">Evaluacion Viabilidad</a></li>
+<li><a href="../99_entregable/entrega-profesional/RESUMEN-CASO-ABOGADO.html">Resumen Caso Abogado</a></li>
+</ul>
+</ul>
+<li><a href="../ACCIONES-PENDIENTES.html">Acciones Pendientes</a></li>
+<li><a href="../CASE.html">Case</a></li>
+<li class="section-title">Adversarial-Review</li>
+<ul>
+<li><a href="../adversarial-review/07-REVISION-ADVERSARIAL.html">07 Revision Adversarial</a></li>
+</ul>
+<li class="section-title">Archivo</li>
+<ul>
+<li><a href="../archivo/00-LEEME-ABOGADO.html">00 Leeme Abogado</a></li>
+<li><a href="../archivo/APPLICATION-SPEC.html">Application Spec</a></li>
+<li><a href="../archivo/borrador_carta_reclamo.html">Borrador Carta Reclamo</a></li>
+<li><a href="../archivo/email_contacto_abogados.html">Email Contacto Abogados</a></li>
+<li><a href="../archivo/initial-findings.html">Initial Findings</a></li>
+<li class="section-title">Property-Legal-Research</li>
+<ul>
+<li><a href="../archivo/property-legal-research/README.html">Readme</a></li>
+<li><a href="../archivo/property-legal-research/RESEARCH-REPORT-v1.html">Research Report V1</a></li>
+</ul>
+</ul>
+<li class="section-title">Legal-Research</li>
+<ul>
+<li><a href="../legal-research/13-27bis-requirements.html">13 27Bis Requirements</a></li>
+<li><a href="../legal-research/14-professional-liability.html">14 Professional Liability</a></li>
+<li><a href="../legal-research/15-investigacion-pre-roast.html">15 Investigacion Pre Roast</a></li>
+<li><a href="../legal-research/16-admisibilidad-grabacion.html">16 Admisibilidad Grabacion</a></li>
+<li><a href="../legal-research/parallel-ai-analysis.html">Parallel Ai Analysis</a></li>
+<li><a href="../legal-research/recommended-attorneys.html">Recommended Attorneys</a></li>
+</ul>
+<li class="section-title">Paquete-Abogado</li>
+<ul>
+<li><a href="../paquete-abogado/00-LEEME.html">00 Leeme</a></li>
+<li><a href="../paquete-abogado/01-RESUMEN-CASO.html">01 Resumen Caso</a></li>
+<li><a href="../paquete-abogado/email-contacto.html">Email Contacto</a></li>
+</ul>
+<li><a href="../strength-tracker.html">Strength Tracker</a></li>
+</ul>
+  </nav>
+  <main class="content">
+    <div class="top-actions no-print">
+      <button class="print-btn" onclick="window.print()">Exportar PDF</button>
+    </div>
+    <h1 id="chilean-tax-advisory-application-specification">Chilean Tax Advisory Application - Specification</h1>
+<p><strong>Codename:</strong> TBD (ideas: TribuChile, ImpuestosAI, ContadorIA)
+<strong>Purpose:</strong> Help average Chileans navigate tax situations without relying on incompetent professionals</p>
+<h2 id="vision">Vision</h2>
+<p>An AI-powered tool where anyone can:
+1. Describe their situation (job loss, freelance income, property, etc.)
+2. Get accurate, actionable tax advice based on Chilean law
+3. Understand their rights and options
+4. Know what documents they need
+5. Calculate potential deductions/obligations</p>
+<h2 id="target-users">Target Users</h2>
+<ul>
+<li>People who lost their jobs (finiquito, cesantía)</li>
+<li>Freelancers / boleta de honorarios workers</li>
+<li>Property owners with tax questions</li>
+<li>Small business owners</li>
+<li>Anyone tired of paying accountants for vague answers</li>
+</ul>
+<h2 id="core-use-cases-mvp">Core Use Cases (MVP)</h2>
+<h3 id="1-job-loss-layoff">1. Job Loss / Layoff</h3>
+<ul>
+<li>Finiquito taxation</li>
+<li>Unemployment benefits (seguro de cesantía)</li>
+<li>Deductible expenses during unemployment</li>
+<li>Tax implications of severance packages</li>
+</ul>
+<h3 id="2-freelance-honorarios">2. Freelance / Honorarios</h3>
+<ul>
+<li>Monthly PPM obligations</li>
+<li>Annual tax return (F22)</li>
+<li>Deductible expenses for independent workers</li>
+<li>Boleta vs Factura decision</li>
+</ul>
+<h3 id="3-property-related">3. Property Related</h3>
+<ul>
+<li>Contribuciones</li>
+<li>Rental income taxation</li>
+<li>Property sale tax implications</li>
+<li>First-home benefits</li>
+</ul>
+<h2 id="technical-approach">Technical Approach</h2>
+<ul>
+<li><strong>Stack:</strong> TBD (likely React + Firebase similar to Boletapp, or Next.js)</li>
+<li><strong>AI Backend:</strong> Gemini or Claude for natural language understanding</li>
+<li><strong>Knowledge Base:</strong> Curated Chilean tax law database (SII regulations)</li>
+<li><strong>Sources:</strong> SII.cl, Código Tributario, relevant DFLs and laws</li>
+</ul>
+<h2 id="key-laws-to-index">Key Laws to Index</h2>
+<ul>
+<li>Código Tributario (DL 830)</li>
+<li>Ley de Impuesto a la Renta (DL 824)</li>
+<li>Código del Trabajo (relevant sections)</li>
+<li>Circulares SII</li>
+<li>Relevant jurisprudence</li>
+</ul>
+<h2 id="competitive-advantage">Competitive Advantage</h2>
+<ul>
+<li>Free or low-cost (vs expensive accountants)</li>
+<li>Available 24/7</li>
+<li>Consistent, accurate answers based on actual law</li>
+<li>Transparent reasoning (shows which law applies)</li>
+<li>No "we'll see" bullshit</li>
+</ul>
+<h2 id="development-phases">Development Phases</h2>
+<h3 id="phase-1-research-knowledge-base">Phase 1: Research &amp; Knowledge Base</h3>
+<ul>
+<li>Document common scenarios</li>
+<li>Gather relevant laws and SII interpretations</li>
+<li>Create structured knowledge base</li>
+</ul>
+<h3 id="phase-2-mvp">Phase 2: MVP</h3>
+<ul>
+<li>Single use case (job loss scenario)</li>
+<li>Basic Q&amp;A interface</li>
+<li>Reference to relevant laws</li>
+</ul>
+<h3 id="phase-3-expansion">Phase 3: Expansion</h3>
+<ul>
+<li>Additional use cases</li>
+<li>Document generation</li>
+<li>Calculator tools</li>
+</ul>
+<hr>
+<p><em>Created: 2025-01-28</em></p>
+    <footer class="site-footer no-print">
+      <hr>
+      <small>El Director v1.0 &middot; <a href="../deploy-guide.html">Guia de Despliegue</a></small>
+    </footer>
+  </main>
+</body>
+</html>

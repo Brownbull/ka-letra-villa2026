@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CÁLCULO DETALLADO DE DAÑOS</title>
+  <link rel="stylesheet" href="../../assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+</head>
+<body>
+  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
+  <nav class="sidebar">
+    <h2>villarrica_202601</h2>
+    <ul>
+<li><a href="../../03-ESTRATEGIA.html">03 Estrategia</a></li>
+<li><a href="../../05-DEFENSA.html">05 Defensa</a></li>
+<li class="section-title">99 Entregable</li>
+<ul>
+<li class="section-title">01 Critico</li>
+<ul>
+<li><a href="../../99_entregable/01_critico/certificar-grabacion.html">Certificar Grabacion</a></li>
+<li><a href="../../99_entregable/01_critico/contratar-abogado.html">Contratar Abogado</a></li>
+<li><a href="../../99_entregable/01_critico/preservar-tiktok.html">Preservar Tiktok</a></li>
+</ul>
+<li class="section-title">02 Bloqueantes</li>
+<ul>
+<li><a href="../../99_entregable/02_bloqueantes/decision-cautelar.html">Decision Cautelar</a></li>
+</ul>
+<li class="section-title">03 Siguientes-Pasos</li>
+<ul>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-1-solvencia-nivel1.html">Paso 1 Solvencia Nivel1</a></li>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-2-medida-cautelar.html">Paso 2 Medida Cautelar</a></li>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-3-consulta-banco.html">Paso 3 Consulta Banco</a></li>
+</ul>
+<li class="section-title">04 Documentos</li>
+<ul>
+<li><a href="../../99_entregable/04_documentos/00-INDICE-DOCUMENTOS.html">00 Indice Documentos</a></li>
+<li><a href="../../99_entregable/04_documentos/01-CARTA-REQUERIMIENTO.html">01 Carta Requerimiento</a></li>
+<li><a href="../../99_entregable/04_documentos/02-DENUNCIA-ETICA.html">02 Denuncia Etica</a></li>
+<li><a href="../../99_entregable/04_documentos/03-ACUERDO-TRANSACCIONAL.html">03 Acuerdo Transaccional</a></li>
+<li><a href="../../99_entregable/04_documentos/04-CALCULO-DANOS.html">04 Calculo Danos</a></li>
+<li><a href="../../99_entregable/04_documentos/05-GUION-NEGOCIACION.html">05 Guion Negociacion</a></li>
+</ul>
+<li class="section-title">05 Requiere-Profesional</li>
+<ul>
+<li><a href="../../99_entregable/05_requiere-profesional/medida-cautelar-abogado.html">Medida Cautelar Abogado</a></li>
+</ul>
+<li><a href="../../99_entregable/PANEL.html">Panel</a></li>
+<li class="section-title">Entrega-Profesional</li>
+<ul>
+<li><a href="../../99_entregable/entrega-profesional/ESTIMACION-COSTOS-LEGALES.html">Estimacion Costos Legales</a></li>
+<li><a href="../../99_entregable/entrega-profesional/ESTRATEGIA-ACUERDO-EXTRAJUDICIAL.html">Estrategia Acuerdo Extrajudicial</a></li>
+<li><a href="../../99_entregable/entrega-profesional/ESTRATEGIA-LEGAL-PROCEDIMIENTO.html">Estrategia Legal Procedimiento</a></li>
+<li><a href="../../99_entregable/entrega-profesional/EVALUACION-VIABILIDAD.html">Evaluacion Viabilidad</a></li>
+<li><a href="../../99_entregable/entrega-profesional/RESUMEN-CASO-ABOGADO.html">Resumen Caso Abogado</a></li>
+</ul>
+</ul>
+<li><a href="../../ACCIONES-PENDIENTES.html">Acciones Pendientes</a></li>
+<li><a href="../../CASE.html">Case</a></li>
+<li class="section-title">Adversarial-Review</li>
+<ul>
+<li><a href="../../adversarial-review/07-REVISION-ADVERSARIAL.html">07 Revision Adversarial</a></li>
+</ul>
+<li class="section-title">Archivo</li>
+<ul>
+<li><a href="../../archivo/00-LEEME-ABOGADO.html">00 Leeme Abogado</a></li>
+<li><a href="../../archivo/APPLICATION-SPEC.html">Application Spec</a></li>
+<li><a href="../../archivo/borrador_carta_reclamo.html">Borrador Carta Reclamo</a></li>
+<li><a href="../../archivo/email_contacto_abogados.html">Email Contacto Abogados</a></li>
+<li><a href="../../archivo/initial-findings.html">Initial Findings</a></li>
+<li class="section-title">Property-Legal-Research</li>
+<ul>
+<li><a href="../../archivo/property-legal-research/README.html">Readme</a></li>
+<li><a href="../../archivo/property-legal-research/RESEARCH-REPORT-v1.html">Research Report V1</a></li>
+</ul>
+</ul>
+<li class="section-title">Legal-Research</li>
+<ul>
+<li><a href="../../legal-research/13-27bis-requirements.html">13 27Bis Requirements</a></li>
+<li><a href="../../legal-research/14-professional-liability.html">14 Professional Liability</a></li>
+<li><a href="../../legal-research/15-investigacion-pre-roast.html">15 Investigacion Pre Roast</a></li>
+<li><a href="../../legal-research/16-admisibilidad-grabacion.html">16 Admisibilidad Grabacion</a></li>
+<li><a href="../../legal-research/parallel-ai-analysis.html">Parallel Ai Analysis</a></li>
+<li><a href="../../legal-research/recommended-attorneys.html">Recommended Attorneys</a></li>
+</ul>
+<li class="section-title">Paquete-Abogado</li>
+<ul>
+<li><a href="../../paquete-abogado/00-LEEME.html">00 Leeme</a></li>
+<li><a href="../../paquete-abogado/01-RESUMEN-CASO.html">01 Resumen Caso</a></li>
+<li><a href="../../paquete-abogado/email-contacto.html">Email Contacto</a></li>
+</ul>
+<li><a href="../../strength-tracker.html">Strength Tracker</a></li>
+</ul>
+  </nav>
+  <main class="content">
+    <div class="top-actions no-print">
+      <button class="print-btn" onclick="window.print()">Exportar PDF</button>
+    </div>
+    <h1 id="calculo-detallado-de-danos">CÁLCULO DETALLADO DE DAÑOS</h1>
+<blockquote>
+<p><strong>IMPORTANTE</strong>: Este documento ha sido elaborado con inteligencia artificial.
+NO constituye asesoria legal profesional y su contenido es <strong>no vinculante</strong>.
+DEBE ser revisado por un abogado habilitado antes de usar.
+Ver seccion <strong>Contactos para Verificacion Profesional</strong> al final.</p>
+</blockquote>
+<hr>
+<p><strong>Fecha de cálculo:</strong> [FECHA]
+<strong>Caso:</strong> Negligencia profesional - Pérdida beneficio Art. 27 bis
+<strong>Afectada:</strong> Claudia [Apellido]</p>
+<hr>
+<h2 id="1-datos-del-inmueble">1. DATOS DEL INMUEBLE</h2>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dirección</td>
+<td>[DIRECCIÓN DEL INMUEBLE]</td>
+</tr>
+<tr>
+<td>Comuna</td>
+<td>[COMUNA]</td>
+</tr>
+<tr>
+<td>Fecha de compra</td>
+<td>10 de diciembre de 2025</td>
+</tr>
+<tr>
+<td>Fecha escritura</td>
+<td>[FECHA ESCRITURA]</td>
+</tr>
+<tr>
+<td>Rol de avalúo</td>
+<td>[ROL SII]</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="2-precio-de-compra">2. PRECIO DE COMPRA</h2>
+<h3 id="21-segun-escriturafactura">2.1 Según escritura/factura</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>UF</th>
+<th>CLP (valor UF: $[VALOR UF])</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Precio total</td>
+<td>[PRECIO UF] UF</td>
+<td>$[PRECIO CLP]</td>
+</tr>
+<tr>
+<td>Valor terreno</td>
+<td>[TERRENO UF] UF</td>
+<td>$[TERRENO CLP]</td>
+</tr>
+<tr>
+<td>Valor construcción</td>
+<td>[CONSTRUCCIÓN UF] UF</td>
+<td>$[CONSTRUCCIÓN CLP]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-desglose-de-la-factura">2.2 Desglose de la factura</h3>
+<table>
+<thead>
+<tr>
+<th>Ítem</th>
+<th>Monto</th>
+<th>IVA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Terreno (exento)</td>
+<td>$[MONTO]</td>
+<td>$0</td>
+</tr>
+<tr>
+<td>Construcción (afecto)</td>
+<td>$[MONTO]</td>
+<td>$[IVA]</td>
+</tr>
+<tr>
+<td><strong>TOTALES</strong></td>
+<td><strong>$[TOTAL]</strong></td>
+<td><strong>$[TOTAL IVA]</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-calculo-del-iva-perdido-art-27-bis">3. CÁLCULO DEL IVA PERDIDO (ART. 27 BIS)</h2>
+<h3 id="31-base-de-calculo">3.1 Base de cálculo</h3>
+<pre><code>Valor construcción (neto):     $[MONTO]
+IVA (19%):                     $[MONTO]
+────────────────────────────────────────
+Total construcción con IVA:    $[MONTO]
+</code></pre>
+<h3 id="32-beneficio-27-bis-perdido">3.2 Beneficio 27 bis perdido</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Monto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IVA pagado en construcción</td>
+<td>$[MONTO IVA]</td>
+</tr>
+<tr>
+<td>Recuperable vía Art. 27 bis</td>
+<td>100%</td>
+</tr>
+<tr>
+<td><strong>MONTO PERDIDO</strong></td>
+<td><strong>$[MONTO IVA]</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="4-estimacion-si-no-hay-factura-detallada">4. ESTIMACIÓN SI NO HAY FACTURA DETALLADA</h2>
+<p><em>(Usar solo si la factura no desglosa terreno/construcción)</em></p>
+<h3 id="41-tipo-de-inmueble-departamento-en-torre">4.1 Tipo de inmueble: DEPARTAMENTO EN TORRE</h3>
+<p><strong>Nota:</strong> En departamentos en edificios/torres, la proporción de terreno es MENOR que en casas, porque el terreno se divide entre todas las unidades del edificio. Esto significa que la proporción de construcción es MAYOR, y por lo tanto el IVA recuperable es MAYOR.</p>
+<table>
+<thead>
+<tr>
+<th>Tipo de Inmueble</th>
+<th>Terreno</th>
+<th>Construcción</th>
+<th>IVA Recuperable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Casa en parcela</td>
+<td>25-40%</td>
+<td>60-75%</td>
+<td>11-14% del precio</td>
+</tr>
+<tr>
+<td><strong>Departamento en torre</strong></td>
+<td><strong>10-20%</strong></td>
+<td><strong>80-90%</strong></td>
+<td><strong>15-17% del precio</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-metodo-proporcional-para-departamento">4.2 Método proporcional para departamento</h3>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Precio total</td>
+<td>$[PRECIO TOTAL]</td>
+</tr>
+<tr>
+<td>Proporción construcción estimada</td>
+<td><strong>85-90%</strong> (departamento en torre)</td>
+</tr>
+<tr>
+<td>Valor construcción estimado</td>
+<td>$[PRECIO x 0.87]</td>
+</tr>
+<tr>
+<td>IVA sobre construcción (19%)</td>
+<td>$[CONSTRUCCIÓN x 0.19]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-rango-de-iva-perdido-departamento">4.3 Rango de IVA perdido (departamento)</h3>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>% Construcción</th>
+<th>IVA Perdido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conservador</td>
+<td>80%</td>
+<td>$[CÁLCULO]</td>
+</tr>
+<tr>
+<td><strong>Moderado</strong></td>
+<td><strong>87%</strong></td>
+<td><strong>$[CÁLCULO]</strong></td>
+</tr>
+<tr>
+<td>Alto</td>
+<td>92%</td>
+<td>$[CÁLCULO]</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="5-resumen-de-danos">5. RESUMEN DE DAÑOS</h2>
+<h3 id="51-dano-emergente-cuantificable">5.1 Daño emergente (cuantificable)</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Monto</th>
+<th>Respaldo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IVA irrecuperable (27 bis)</td>
+<td>$[MONTO]</td>
+<td>Factura de compra</td>
+</tr>
+<tr>
+<td><strong>Subtotal daño emergente</strong></td>
+<td><strong>$[MONTO]</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-otros-conceptos-reclamables">5.2 Otros conceptos reclamables</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Monto</th>
+<th>Justificación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daño moral</td>
+<td>$3.000.000 - $5.000.000</td>
+<td>Angustia, pérdida de confianza</td>
+</tr>
+<tr>
+<td>Costos legales incurridos</td>
+<td>$[MONTO]</td>
+<td>Boletas/facturas de abogado</td>
+</tr>
+<tr>
+<td>Intereses (desde fecha daño)</td>
+<td>$[MONTO]</td>
+<td>Cálculo desde 10/12/2025</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-calculo-de-intereses">5.3 Cálculo de intereses</h3>
+<pre><code>Monto base:                    $[IVA PERDIDO]
+Fecha del daño:                10 de diciembre de 2025
+Fecha actual:                  [FECHA ACTUAL]
+Días transcurridos:            [DÍAS]
+Tasa interés corriente anual:  ~12% (referencial)
+Tasa diaria:                   0.0329%
+────────────────────────────────────────
+Intereses acumulados:          $[MONTO x DÍAS x 0.000329]
+</code></pre>
+<hr>
+<h2 id="6-total-a-reclamar">6. TOTAL A RECLAMAR</h2>
+<h3 id="61-desglose-completo">6.1 Desglose completo</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Monto Mínimo</th>
+<th>Monto Solicitado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daño emergente (IVA)</td>
+<td>$[MONTO]</td>
+<td>$[MONTO]</td>
+</tr>
+<tr>
+<td>Daño moral</td>
+<td>$3.000.000</td>
+<td>$5.000.000</td>
+</tr>
+<tr>
+<td>Costos legales</td>
+<td>$500.000</td>
+<td>$2.000.000</td>
+</tr>
+<tr>
+<td>Intereses</td>
+<td>$[MONTO]</td>
+<td>$[MONTO]</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>$[MÍNIMO]</strong></td>
+<td><strong>$[SOLICITADO]</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-rangos-para-negociacion">6.2 Rangos para negociación</h3>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Monto</th>
+<th>% del daño real</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pedido inicial</td>
+<td>$33.000.000 - $35.000.000</td>
+<td>118-125%</td>
+</tr>
+<tr>
+<td>Objetivo realista</td>
+<td>$22.000.000 - $25.000.000</td>
+<td>79-89%</td>
+</tr>
+<tr>
+<td>Mínimo aceptable</td>
+<td>$18.000.000</td>
+<td>64%</td>
+</tr>
+<tr>
+<td>Piso absoluto</td>
+<td>$15.000.000</td>
+<td>54%</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="7-documentos-de-respaldo">7. DOCUMENTOS DE RESPALDO</h2>
+<h3 id="71-obligatorios">7.1 Obligatorios</h3>
+<ul>
+<li>[ ] Escritura de compraventa</li>
+<li>[ ] Factura de compra (con desglose IVA)</li>
+<li>[ ] Transcripción de la asesoría</li>
+<li>[ ] Audio de la asesoría</li>
+</ul>
+<h3 id="72-complementarios">7.2 Complementarios</h3>
+<ul>
+<li>[ ] Certificado de dominio (CBR)</li>
+<li>[ ] Certificado de avalúo fiscal (SII)</li>
+<li>[ ] Boletas/facturas de gastos legales</li>
+<li>[ ] Comunicaciones con la contadora</li>
+</ul>
+<hr>
+<h2 id="8-notas-para-completar">8. NOTAS PARA COMPLETAR</h2>
+<h3 id="informacion-faltante">Información faltante:</h3>
+<ol>
+<li><strong>De la factura de compra:</strong></li>
+<li>[ ] Valor del terreno (neto)</li>
+<li>[ ] Valor de la construcción (neto)</li>
+<li>[ ] IVA desglosado</li>
+<li>[ ] Número de factura</li>
+<li>
+<p>[ ] Fecha de emisión</p>
+</li>
+<li>
+<p><strong>Del inmueble:</strong></p>
+</li>
+<li>[ ] Dirección exacta</li>
+<li>[ ] Rol de avalúo SII</li>
+<li>
+<p>[ ] Superficie construida</p>
+</li>
+<li>
+<p><strong>Valor UF a la fecha de compra:</strong></p>
+</li>
+<li>Valor UF 10/12/2025: $[BUSCAR]</li>
+<li>Esto permite convertir UF a CLP exactos</li>
+</ol>
+<hr>
+<h2 id="9-calculo-real-con-facturas">9. CÁLCULO REAL (CON FACTURAS)</h2>
+<pre><code>══════════════════════════════════════════════════════════════
+            DATOS REALES DEL CASO (FACTURAS OBTENIDAS)
+══════════════════════════════════════════════════════════════
+
+INMUEBLE: Departamento 309 + Bodega B26 + Estacionamiento E94
+EDIFICIO: LINK, Villarrica
+VENDEDOR: Inmobiliaria Isiete Araucania X SpA (RUT 77.128.328-4)
+FECHA:    10 de diciembre de 2025
+
+──────────────────────────────────────────────────────────────
+FACTURA EXENTA N°12 (TERRENO)
+──────────────────────────────────────────────────────────────
+Terreno Depto 309 (342,5 UF)        $13.601.675
+Terreno Bodega B26 (27,9 UF)         $1.108.079
+Terreno Estac. E94 (87,2 UF)         $3.462.748
+────────────────────────────────────────────────
+TOTAL TERRENO (EXENTO):            $18.172.502
+
+──────────────────────────────────────────────────────────────
+FACTURA AFECTA N°32 (CONSTRUCCIÓN + IVA)
+──────────────────────────────────────────────────────────────
+Departamento 309 (2.499,12 UF)      $99.246.553
+Bodega B26 (31,17 UF)                $1.237.842
+Estacionamiento E94 (178,83 UF)      $7.101.804
+────────────────────────────────────────────────
+NETO CONSTRUCCIÓN:                $107.586.199
+IVA 19%:                           $20.441.378
+────────────────────────────────────────────────
+TOTAL AFECTO:                     $128.027.577
+
+══════════════════════════════════════════════════════════════
+RESUMEN TOTAL
+══════════════════════════════════════════════════════════════
+Terreno (exento):                  $18.172.502
+Construcción (neto):              $107.586.199
+IVA 19%:                           $20.441.378
+────────────────────────────────────────────────
+PRECIO TOTAL:                     $146.200.079
+
+══════════════════════════════════════════════════════════════
+IVA PERDIDO (ART. 27 BIS):         $20.441.378
+══════════════════════════════════════════════════════════════
+
+RECLAMACIÓN:
+Daño emergente (IVA):              $20.441.378
+Daño moral:                         $5.000.000
+Costos legales:                     $2.000.000
+Intereses (~2 meses):                 $558.622
+────────────────────────────────────────────────
+TOTAL A SOLICITAR:                 $28.000.000
+══════════════════════════════════════════════════════════════
+</code></pre>
+<hr>
+<h3 id="instrucciones">INSTRUCCIONES:</h3>
+<ol>
+<li>Obtener la factura de compra del inmueble</li>
+<li>Identificar el desglose terreno/construcción</li>
+<li>Calcular el IVA exacto sobre la construcción</li>
+<li>Completar los campos de este documento</li>
+<li>Usar estos números en la carta de requerimiento</li>
+</ol>
+<hr>
+<h2 id="contactos-para-verificacion-profesional">Contactos para Verificación Profesional</h2>
+<table>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>Nombre</th>
+<th>Contacto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abogados litigantes</td>
+<td>Colegio de Abogados de Chile</td>
+<td>colegioabogados.cl / +56 2 2633 6720</td>
+</tr>
+<tr>
+<td>Asistencia judicial gratuita</td>
+<td>Corporación de Asistencia Judicial</td>
+<td>cajmetro.cl / +56 2 2787 3700</td>
+</tr>
+<tr>
+<td>Consulta estado de causas</td>
+<td>Poder Judicial</td>
+<td>pjud.cl / +56 2 2387 3000</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="glosario">Glosario</h2>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Explicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Requerimiento extrajudicial</td>
+<td>Solicitud formal de pago o acción enviada antes de demandar</td>
+</tr>
+<tr>
+<td>Prescripción</td>
+<td>Plazo legal tras el cual se pierde el derecho a demandar</td>
+</tr>
+<tr>
+<td>Daño emergente</td>
+<td>Pérdida económica efectiva y directa sufrida</td>
+</tr>
+<tr>
+<td>Daño moral</td>
+<td>Sufrimiento psicológico o afectación no patrimonial</td>
+</tr>
+<tr>
+<td>Art. 27bis DL 825</td>
+<td>Norma que permite a una SpA recuperar IVA en compra de inmuebles nuevos</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<blockquote>
+<p><strong>Nivel INFORMADO</strong>: Los términos técnicos se explican entre paréntesis la primera vez que aparecen.
+<strong>Nivel GUIADO</strong>: Este documento REQUIERE revisión por abogado. No usar sin asesoría profesional.</p>
+</blockquote>
+    <footer class="site-footer no-print">
+      <hr>
+      <small>El Director v1.0 &middot; <a href="../../deploy-guide.html">Guia de Despliegue</a></small>
+    </footer>
+  </main>
+</body>
+</html>

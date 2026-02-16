@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESTIMACIÓN DE COSTOS LEGALES</title>
+  <link rel="stylesheet" href="../../assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+</head>
+<body>
+  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
+  <nav class="sidebar">
+    <h2>villarrica_202601</h2>
+    <ul>
+<li><a href="../../03-ESTRATEGIA.html">03 Estrategia</a></li>
+<li><a href="../../05-DEFENSA.html">05 Defensa</a></li>
+<li class="section-title">99 Entregable</li>
+<ul>
+<li class="section-title">01 Critico</li>
+<ul>
+<li><a href="../../99_entregable/01_critico/certificar-grabacion.html">Certificar Grabacion</a></li>
+<li><a href="../../99_entregable/01_critico/contratar-abogado.html">Contratar Abogado</a></li>
+<li><a href="../../99_entregable/01_critico/preservar-tiktok.html">Preservar Tiktok</a></li>
+</ul>
+<li class="section-title">02 Bloqueantes</li>
+<ul>
+<li><a href="../../99_entregable/02_bloqueantes/decision-cautelar.html">Decision Cautelar</a></li>
+</ul>
+<li class="section-title">03 Siguientes-Pasos</li>
+<ul>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-1-solvencia-nivel1.html">Paso 1 Solvencia Nivel1</a></li>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-2-medida-cautelar.html">Paso 2 Medida Cautelar</a></li>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-3-consulta-banco.html">Paso 3 Consulta Banco</a></li>
+</ul>
+<li class="section-title">04 Documentos</li>
+<ul>
+<li><a href="../../99_entregable/04_documentos/00-INDICE-DOCUMENTOS.html">00 Indice Documentos</a></li>
+<li><a href="../../99_entregable/04_documentos/01-CARTA-REQUERIMIENTO.html">01 Carta Requerimiento</a></li>
+<li><a href="../../99_entregable/04_documentos/02-DENUNCIA-ETICA.html">02 Denuncia Etica</a></li>
+<li><a href="../../99_entregable/04_documentos/03-ACUERDO-TRANSACCIONAL.html">03 Acuerdo Transaccional</a></li>
+<li><a href="../../99_entregable/04_documentos/04-CALCULO-DANOS.html">04 Calculo Danos</a></li>
+<li><a href="../../99_entregable/04_documentos/05-GUION-NEGOCIACION.html">05 Guion Negociacion</a></li>
+</ul>
+<li class="section-title">05 Requiere-Profesional</li>
+<ul>
+<li><a href="../../99_entregable/05_requiere-profesional/medida-cautelar-abogado.html">Medida Cautelar Abogado</a></li>
+</ul>
+<li><a href="../../99_entregable/PANEL.html">Panel</a></li>
+<li class="section-title">Entrega-Profesional</li>
+<ul>
+<li><a href="../../99_entregable/entrega-profesional/ESTIMACION-COSTOS-LEGALES.html">Estimacion Costos Legales</a></li>
+<li><a href="../../99_entregable/entrega-profesional/ESTRATEGIA-ACUERDO-EXTRAJUDICIAL.html">Estrategia Acuerdo Extrajudicial</a></li>
+<li><a href="../../99_entregable/entrega-profesional/ESTRATEGIA-LEGAL-PROCEDIMIENTO.html">Estrategia Legal Procedimiento</a></li>
+<li><a href="../../99_entregable/entrega-profesional/EVALUACION-VIABILIDAD.html">Evaluacion Viabilidad</a></li>
+<li><a href="../../99_entregable/entrega-profesional/RESUMEN-CASO-ABOGADO.html">Resumen Caso Abogado</a></li>
+</ul>
+</ul>
+<li><a href="../../ACCIONES-PENDIENTES.html">Acciones Pendientes</a></li>
+<li><a href="../../CASE.html">Case</a></li>
+<li class="section-title">Adversarial-Review</li>
+<ul>
+<li><a href="../../adversarial-review/07-REVISION-ADVERSARIAL.html">07 Revision Adversarial</a></li>
+</ul>
+<li class="section-title">Archivo</li>
+<ul>
+<li><a href="../../archivo/00-LEEME-ABOGADO.html">00 Leeme Abogado</a></li>
+<li><a href="../../archivo/APPLICATION-SPEC.html">Application Spec</a></li>
+<li><a href="../../archivo/borrador_carta_reclamo.html">Borrador Carta Reclamo</a></li>
+<li><a href="../../archivo/email_contacto_abogados.html">Email Contacto Abogados</a></li>
+<li><a href="../../archivo/initial-findings.html">Initial Findings</a></li>
+<li class="section-title">Property-Legal-Research</li>
+<ul>
+<li><a href="../../archivo/property-legal-research/README.html">Readme</a></li>
+<li><a href="../../archivo/property-legal-research/RESEARCH-REPORT-v1.html">Research Report V1</a></li>
+</ul>
+</ul>
+<li class="section-title">Legal-Research</li>
+<ul>
+<li><a href="../../legal-research/13-27bis-requirements.html">13 27Bis Requirements</a></li>
+<li><a href="../../legal-research/14-professional-liability.html">14 Professional Liability</a></li>
+<li><a href="../../legal-research/15-investigacion-pre-roast.html">15 Investigacion Pre Roast</a></li>
+<li><a href="../../legal-research/16-admisibilidad-grabacion.html">16 Admisibilidad Grabacion</a></li>
+<li><a href="../../legal-research/parallel-ai-analysis.html">Parallel Ai Analysis</a></li>
+<li><a href="../../legal-research/recommended-attorneys.html">Recommended Attorneys</a></li>
+</ul>
+<li class="section-title">Paquete-Abogado</li>
+<ul>
+<li><a href="../../paquete-abogado/00-LEEME.html">00 Leeme</a></li>
+<li><a href="../../paquete-abogado/01-RESUMEN-CASO.html">01 Resumen Caso</a></li>
+<li><a href="../../paquete-abogado/email-contacto.html">Email Contacto</a></li>
+</ul>
+<li><a href="../../strength-tracker.html">Strength Tracker</a></li>
+</ul>
+  </nav>
+  <main class="content">
+    <div class="top-actions no-print">
+      <button class="print-btn" onclick="window.print()">Exportar PDF</button>
+    </div>
+    <h1 id="estimacion-de-costos-legales">ESTIMACIÓN DE COSTOS LEGALES</h1>
+<blockquote>
+<p><strong>IMPORTANTE</strong>: Este documento ha sido elaborado con inteligencia artificial.
+NO constituye asesoría legal profesional y su contenido es <strong>no vinculante</strong>.
+Debe ser revisado por un abogado habilitado antes de actuar sobre su contenido.
+Ver sección <strong>Contactos para Verificación Profesional</strong> al final.</p>
+</blockquote>
+<h2 id="caso-negligencia-profesional-de-contador">Caso: Negligencia Profesional de Contador</h2>
+<p><strong>Fecha:</strong> 28 de enero de 2025
+<strong>Valor en disputa:</strong> ~$28.000.000 CLP
+<strong>UF referencial:</strong> ~$38.500 CLP</p>
+<hr>
+<h2 id="1-resumen-ejecutivo">1. RESUMEN EJECUTIVO</h2>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Costo Total Estimado</th>
+<th>% del Valor en Disputa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bajo costo</strong> (abogado junior/solo)</td>
+<td>$2.500.000 - $4.500.000</td>
+<td>9-16%</td>
+</tr>
+<tr>
+<td><strong>Costo promedio</strong> (estudio mediano)</td>
+<td>$5.000.000 - $8.000.000</td>
+<td>18-29%</td>
+</tr>
+<tr>
+<td><strong>Alto costo</strong> (estudio grande/especializado)</td>
+<td>$10.000.000 - $15.000.000</td>
+<td>36-54%</td>
+</tr>
+<tr>
+<td><strong>Cuota litis</strong> (contingencia)</td>
+<td>20-30% de lo recuperado</td>
+<td>$5.6M - $8.4M si ganas</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="2-desglose-por-etapa-del-proceso">2. DESGLOSE POR ETAPA DEL PROCESO</h2>
+<h3 id="21-fase-pre-judicial">2.1 Fase Pre-Judicial</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Bajo</th>
+<th>Promedio</th>
+<th>Alto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consulta inicial (1-2 hrs)</td>
+<td>Gratis - $80.000</td>
+<td>$80.000 - $150.000</td>
+<td>$150.000 - $300.000</td>
+</tr>
+<tr>
+<td>Estudio del caso y estrategia</td>
+<td>$200.000 - $400.000</td>
+<td>$400.000 - $800.000</td>
+<td>$800.000 - $1.500.000</td>
+</tr>
+<tr>
+<td>Carta de requerimiento</td>
+<td>$150.000 - $300.000</td>
+<td>$300.000 - $500.000</td>
+<td>$500.000 - $800.000</td>
+</tr>
+<tr>
+<td>Negociación extrajudicial</td>
+<td>$200.000 - $400.000</td>
+<td>$400.000 - $800.000</td>
+<td>$800.000 - $1.500.000</td>
+</tr>
+<tr>
+<td><strong>Subtotal Pre-Judicial</strong></td>
+<td><strong>$550.000 - $1.180.000</strong></td>
+<td><strong>$1.180.000 - $2.250.000</strong></td>
+<td><strong>$2.250.000 - $4.100.000</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-primera-instancia-juicio-ordinario">2.2 Primera Instancia (Juicio Ordinario)</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Bajo</th>
+<th>Promedio</th>
+<th>Alto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Redacción de demanda</td>
+<td>$300.000 - $600.000</td>
+<td>$600.000 - $1.200.000</td>
+<td>$1.200.000 - $2.000.000</td>
+</tr>
+<tr>
+<td>Réplica</td>
+<td>$150.000 - $300.000</td>
+<td>$300.000 - $500.000</td>
+<td>$500.000 - $800.000</td>
+</tr>
+<tr>
+<td>Audiencia de conciliación</td>
+<td>$100.000 - $200.000</td>
+<td>$200.000 - $400.000</td>
+<td>$400.000 - $600.000</td>
+</tr>
+<tr>
+<td>Período probatorio</td>
+<td>$400.000 - $800.000</td>
+<td>$800.000 - $1.500.000</td>
+<td>$1.500.000 - $2.500.000</td>
+</tr>
+<tr>
+<td>Observaciones a la prueba</td>
+<td>$150.000 - $300.000</td>
+<td>$300.000 - $500.000</td>
+<td>$500.000 - $800.000</td>
+</tr>
+<tr>
+<td>Alegatos y sentencia</td>
+<td>$200.000 - $400.000</td>
+<td>$400.000 - $700.000</td>
+<td>$700.000 - $1.200.000</td>
+</tr>
+<tr>
+<td><strong>Subtotal 1ª Instancia</strong></td>
+<td><strong>$1.300.000 - $2.600.000</strong></td>
+<td><strong>$2.600.000 - $4.800.000</strong></td>
+<td><strong>$4.800.000 - $7.900.000</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-segunda-instancia-apelacion-si-es-necesaria">2.3 Segunda Instancia (Apelación - si es necesaria)</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Bajo</th>
+<th>Promedio</th>
+<th>Alto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recurso de apelación</td>
+<td>$400.000 - $800.000</td>
+<td>$800.000 - $1.500.000</td>
+<td>$1.500.000 - $2.500.000</td>
+</tr>
+<tr>
+<td>Alegatos en Corte</td>
+<td>$200.000 - $400.000</td>
+<td>$400.000 - $700.000</td>
+<td>$700.000 - $1.200.000</td>
+</tr>
+<tr>
+<td><strong>Subtotal Apelación</strong></td>
+<td><strong>$600.000 - $1.200.000</strong></td>
+<td><strong>$1.200.000 - $2.200.000</strong></td>
+<td><strong>$2.200.000 - $3.700.000</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-ejecucion-de-sentencia">2.4 Ejecución de Sentencia</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Bajo</th>
+<th>Promedio</th>
+<th>Alto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cumplimiento/Embargo</td>
+<td>$200.000 - $400.000</td>
+<td>$400.000 - $600.000</td>
+<td>$600.000 - $1.000.000</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-gastos-adicionales-no-incluidos-en-honorarios">3. GASTOS ADICIONALES (NO INCLUIDOS EN HONORARIOS)</h2>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Costo Estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Notificaciones judiciales</td>
+<td>$50.000 - $150.000</td>
+</tr>
+<tr>
+<td>Perito contable</td>
+<td>$500.000 - $1.500.000</td>
+</tr>
+<tr>
+<td>Certificados (CBR, SII, etc.)</td>
+<td>$50.000 - $100.000</td>
+</tr>
+<tr>
+<td>Copias y documentos</td>
+<td>$30.000 - $80.000</td>
+</tr>
+<tr>
+<td>Transcripción certificada</td>
+<td>$50.000 - $150.000</td>
+</tr>
+<tr>
+<td>Gastos de receptor judicial</td>
+<td>$80.000 - $200.000</td>
+</tr>
+<tr>
+<td><strong>Total Gastos</strong></td>
+<td><strong>$760.000 - $2.180.000</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="4-escenarios-totales">4. ESCENARIOS TOTALES</h2>
+<h3 id="escenario-a-resolucion-rapida-acuerdo-pre-judicial">Escenario A: Resolución Rápida (Acuerdo Pre-Judicial)</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Bajo</th>
+<th>Promedio</th>
+<th>Alto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Honorarios</td>
+<td>$550.000</td>
+<td>$1.500.000</td>
+<td>$3.000.000</td>
+</tr>
+<tr>
+<td>Gastos</td>
+<td>$100.000</td>
+<td>$200.000</td>
+<td>$300.000</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>$650.000</strong></td>
+<td><strong>$1.700.000</strong></td>
+<td><strong>$3.300.000</strong></td>
+</tr>
+<tr>
+<td><strong>% de recuperación</strong></td>
+<td>2.3%</td>
+<td>6.1%</td>
+<td>11.8%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="escenario-b-conciliacion-judicial">Escenario B: Conciliación Judicial</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Bajo</th>
+<th>Promedio</th>
+<th>Alto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Honorarios (hasta conciliación)</td>
+<td>$1.500.000</td>
+<td>$3.500.000</td>
+<td>$6.500.000</td>
+</tr>
+<tr>
+<td>Gastos</td>
+<td>$400.000</td>
+<td>$800.000</td>
+<td>$1.200.000</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>$1.900.000</strong></td>
+<td><strong>$4.300.000</strong></td>
+<td><strong>$7.700.000</strong></td>
+</tr>
+<tr>
+<td><strong>% de recuperación</strong></td>
+<td>6.8%</td>
+<td>15.4%</td>
+<td>27.5%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="escenario-c-juicio-completo-1a-instancia-sentencia">Escenario C: Juicio Completo (1ª Instancia + Sentencia)</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Bajo</th>
+<th>Promedio</th>
+<th>Alto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Honorarios</td>
+<td>$2.500.000</td>
+<td>$5.500.000</td>
+<td>$10.000.000</td>
+</tr>
+<tr>
+<td>Gastos</td>
+<td>$800.000</td>
+<td>$1.500.000</td>
+<td>$2.200.000</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>$3.300.000</strong></td>
+<td><strong>$7.000.000</strong></td>
+<td><strong>$12.200.000</strong></td>
+</tr>
+<tr>
+<td><strong>% de recuperación</strong></td>
+<td>11.8%</td>
+<td>25%</td>
+<td>43.6%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="escenario-d-juicio-con-apelacion">Escenario D: Juicio con Apelación</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Bajo</th>
+<th>Promedio</th>
+<th>Alto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Honorarios</td>
+<td>$3.500.000</td>
+<td>$7.500.000</td>
+<td>$14.000.000</td>
+</tr>
+<tr>
+<td>Gastos</td>
+<td>$1.000.000</td>
+<td>$1.800.000</td>
+<td>$2.500.000</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>$4.500.000</strong></td>
+<td><strong>$9.300.000</strong></td>
+<td><strong>$16.500.000</strong></td>
+</tr>
+<tr>
+<td><strong>% de recuperación</strong></td>
+<td>16.1%</td>
+<td>33.2%</td>
+<td>58.9%</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="5-modalidades-de-pago">5. MODALIDADES DE PAGO</h2>
+<h3 id="51-honorarios-por-etapa-mas-comun">5.1 Honorarios por Etapa (más común)</h3>
+<ul>
+<li>Pago inicial al comenzar</li>
+<li>Pagos adicionales por hitos (demanda, prueba, sentencia)</li>
+<li><strong>Ventaja:</strong> Control sobre gastos, puedes detenerte</li>
+<li><strong>Desventaja:</strong> Requiere liquidez</li>
+</ul>
+<h3 id="52-suma-alzada-todo-evento">5.2 Suma Alzada / Todo Evento</h3>
+<ul>
+<li>Monto fijo acordado al inicio</li>
+<li>Cubre todo el proceso sin importar duración</li>
+<li><strong>Ventaja:</strong> Certeza de costo total</li>
+<li><strong>Desventaja:</strong> Si se resuelve rápido, pagas de más</li>
+</ul>
+<h3 id="53-cuota-litis-contingencia">5.3 Cuota Litis (Contingencia)</h3>
+<ul>
+<li>Sin pago inicial (o pago mínimo)</li>
+<li>Abogado cobra 20-30% de lo recuperado</li>
+<li><strong>Ventaja:</strong> Sin riesgo financiero inicial</li>
+<li><strong>Desventaja:</strong> Si ganas $28M, pagas $5.6-8.4M</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Si recuperas...</th>
+<th>Cuota Litis 20%</th>
+<th>Cuota Litis 25%</th>
+<th>Cuota Litis 30%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$28.000.000</td>
+<td>$5.600.000</td>
+<td>$7.000.000</td>
+<td>$8.400.000</td>
+</tr>
+<tr>
+<td>$20.000.000</td>
+<td>$4.000.000</td>
+<td>$5.000.000</td>
+<td>$6.000.000</td>
+</tr>
+<tr>
+<td>$15.000.000</td>
+<td>$3.000.000</td>
+<td>$3.750.000</td>
+<td>$4.500.000</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54-modelo-hibrido-recomendado">5.4 Modelo Híbrido (Recomendado)</h3>
+<ul>
+<li>Honorario base reducido + cuota litis menor</li>
+<li>Ejemplo: $2.000.000 base + 15% de lo recuperado</li>
+<li><strong>Ventaja:</strong> Alinea intereses, reduce riesgo mutuo</li>
+</ul>
+<hr>
+<h2 id="6-tarifas-por-hora-referencia">6. TARIFAS POR HORA (REFERENCIA)</h2>
+<table>
+<thead>
+<tr>
+<th>Tipo de Abogado</th>
+<th>Tarifa por Hora</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recién egresado / Junior</td>
+<td>$30.000 - $50.000</td>
+</tr>
+<tr>
+<td>3-5 años experiencia</td>
+<td>$50.000 - $80.000</td>
+</tr>
+<tr>
+<td>5-10 años experiencia</td>
+<td>$80.000 - $120.000</td>
+</tr>
+<tr>
+<td>Senior / Especialista</td>
+<td>$120.000 - $200.000</td>
+</tr>
+<tr>
+<td>Socio estudio grande</td>
+<td>$200.000 - $400.000</td>
+</tr>
+<tr>
+<td>Estudio Big Law (Carey, etc.)</td>
+<td>$300.000 - $600.000+</td>
+</tr>
+</tbody>
+</table>
+<p><em>Fuente: Promedio mercado chileno 2025, puede variar por ubicación y especialidad.</em></p>
+<hr>
+<h2 id="7-analisis-costo-beneficio">7. ANÁLISIS COSTO-BENEFICIO</h2>
+<h3 id="71-valor-esperado-del-caso">7.1 Valor Esperado del Caso</h3>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Probabilidad</th>
+<th>Resultado</th>
+<th>Valor Esperado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acuerdo pre-judicial</td>
+<td>30%</td>
+<td>$20M</td>
+<td>$6.0M</td>
+</tr>
+<tr>
+<td>Acuerdo conciliación</td>
+<td>25%</td>
+<td>$22M</td>
+<td>$5.5M</td>
+</tr>
+<tr>
+<td>Sentencia favorable</td>
+<td>35%</td>
+<td>$28M + intereses</td>
+<td>$10.5M</td>
+</tr>
+<tr>
+<td>Sentencia desfavorable</td>
+<td>10%</td>
+<td>$0</td>
+<td>$0</td>
+</tr>
+<tr>
+<td><strong>VALOR ESPERADO TOTAL</strong></td>
+<td></td>
+<td></td>
+<td><strong>$22.0M</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-retorno-neto-esperado">7.2 Retorno Neto Esperado</h3>
+<table>
+<thead>
+<tr>
+<th>Modalidad</th>
+<th>Costo Estimado</th>
+<th>Valor Esperado</th>
+<th>Retorno Neto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bajo costo</td>
+<td>$3.3M</td>
+<td>$22M</td>
+<td><strong>$18.7M</strong></td>
+</tr>
+<tr>
+<td>Costo promedio</td>
+<td>$7.0M</td>
+<td>$22M</td>
+<td><strong>$15.0M</strong></td>
+</tr>
+<tr>
+<td>Alto costo</td>
+<td>$12.2M</td>
+<td>$22M</td>
+<td><strong>$9.8M</strong></td>
+</tr>
+<tr>
+<td>Cuota litis 25%</td>
+<td>$5.5M (si ganas $22M)</td>
+<td>$22M</td>
+<td><strong>$16.5M</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="73-recomendacion-economica">7.3 Recomendación Económica</h3>
+<p><strong>OPCIÓN ÓPTIMA:</strong> Abogado de costo promedio o cuota litis
+- Evitar estudios muy grandes (costo no justificado para este monto)
+- Evitar abogados muy baratos (pueden no tener experiencia necesaria)
+- Cuota litis es atractiva si no tienes liquidez inmediata</p>
+<hr>
+<h2 id="8-preguntas-para-hacer-al-abogado">8. PREGUNTAS PARA HACER AL ABOGADO</h2>
+<ol>
+<li>¿Cuál es su estructura de honorarios para este caso?</li>
+<li>¿Trabaja con cuota litis? ¿Qué porcentaje?</li>
+<li>¿Los gastos (perito, notificaciones) están incluidos o son adicionales?</li>
+<li>¿Cuánto estima que costará llegar a conciliación?</li>
+<li>¿Y si vamos hasta sentencia?</li>
+<li>¿Cobra por las comunicaciones (llamadas, emails)?</li>
+<li>¿Hay pago inicial mínimo?</li>
+<li>¿Acepta pago en cuotas?</li>
+</ol>
+<hr>
+<h2 id="9-conclusion">9. CONCLUSIÓN</h2>
+<h3 id="para-tu-caso-especifico-28m-en-disputa">Para tu caso específico ($28M en disputa):</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Recomendación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Modalidad ideal</strong></td>
+<td>Cuota litis o modelo híbrido</td>
+</tr>
+<tr>
+<td><strong>Rango aceptable de costo</strong></td>
+<td>$3M - $8M (11-29% del valor)</td>
+</tr>
+<tr>
+<td><strong>Máximo recomendado</strong></td>
+<td>$10M (36% del valor)</td>
+</tr>
+<tr>
+<td><strong>Si supera 40% del valor</strong></td>
+<td>Considerar no proceder</td>
+</tr>
+</tbody>
+</table>
+<h3 id="senales-de-alerta">Señales de alerta:</h3>
+<ul>
+<li>❌ Abogado que pide más de $10M por adelantado</li>
+<li>❌ No quiere dar estimación por escrito</li>
+<li>❌ Cuota litis superior al 35%</li>
+<li>❌ Gastos de perito no incluidos en el presupuesto</li>
+</ul>
+<h3 id="buenas-senales">Buenas señales:</h3>
+<ul>
+<li>✅ Presupuesto detallado por etapa</li>
+<li>✅ Acepta cuota litis o modelo híbrido</li>
+<li>✅ Experiencia en responsabilidad profesional</li>
+<li>✅ Conoce el Art. 27 bis y temas tributarios</li>
+</ul>
+<hr>
+<p><em>Documento preparado con fines informativos. Los valores son estimaciones basadas en el mercado legal chileno 2025 y pueden variar según el profesional y las circunstancias del caso.</em></p>
+<hr>
+<h2 id="contactos-para-verificacion-profesional">Contactos para Verificación Profesional</h2>
+<table>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>Nombre</th>
+<th>Contacto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abogados litigantes</td>
+<td>Colegio de Abogados de Chile</td>
+<td>colegioabogados.cl / +56 2 2633 6720</td>
+</tr>
+<tr>
+<td>Asistencia judicial gratuita</td>
+<td>Corporación de Asistencia Judicial</td>
+<td>cajmetro.cl / +56 2 2787 3700</td>
+</tr>
+<tr>
+<td>Consulta estado de causas</td>
+<td>Poder Judicial</td>
+<td>pjud.cl / +56 2 2387 3000</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<blockquote>
+<p><strong>Nivel INFORMADO</strong>: Los términos técnicos se explican entre paréntesis la primera vez que aparecen.
+<strong>Nivel GUIADO</strong>: Este documento es material de referencia para un abogado. No actuar sin asesoría profesional.</p>
+</blockquote>
+    <footer class="site-footer no-print">
+      <hr>
+      <small>El Director v1.0 &middot; <a href="../../deploy-guide.html">Guia de Despliegue</a></small>
+    </footer>
+  </main>
+</body>
+</html>
