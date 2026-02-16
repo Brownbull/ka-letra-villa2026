@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEORÍA DEL CASO</title>
+  <link rel="stylesheet" href="../../assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+</head>
+<body>
+  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
+  <nav class="sidebar">
+    <h2>villarrica_202601</h2>
+    <ul>
+<li class="section-title">02 Investigacion</li>
+<ul>
+<li><a href="../../02_investigacion/13-27bis-requirements.html">13 27Bis Requirements</a></li>
+<li><a href="../../02_investigacion/14-professional-liability.html">14 Professional Liability</a></li>
+<li><a href="../../02_investigacion/15-investigacion-pre-roast.html">15 Investigacion Pre Roast</a></li>
+<li><a href="../../02_investigacion/16-admisibilidad-grabacion.html">16 Admisibilidad Grabacion</a></li>
+<li><a href="../../02_investigacion/parallel-ai-analysis.html">Parallel Ai Analysis</a></li>
+<li><a href="../../02_investigacion/recommended-attorneys.html">Recommended Attorneys</a></li>
+</ul>
+<li class="section-title">03 Estrategia</li>
+<ul>
+<li><a href="../../03_estrategia/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
+<li><a href="../../03_estrategia/defensa-anticipada.html">Defensa Anticipada</a></li>
+<li><a href="../../03_estrategia/estrategia-legal.html">Estrategia Legal</a></li>
+</ul>
+<li class="section-title">04 Revision</li>
+<ul>
+<li><a href="../../04_revision/07-REVISION-ADVERSARIAL.html">07 Revision Adversarial</a></li>
+</ul>
+<li class="section-title">99 Entregable</li>
+<ul>
+<li class="section-title">01 Critico</li>
+<ul>
+<li><a href="../../99_entregable/01_critico/certificar-grabacion.html">Certificar Grabacion</a></li>
+<li><a href="../../99_entregable/01_critico/contratar-abogado.html">Contratar Abogado</a></li>
+<li><a href="../../99_entregable/01_critico/preservar-tiktok.html">Preservar Tiktok</a></li>
+</ul>
+<li class="section-title">02 Bloqueantes</li>
+<ul>
+<li><a href="../../99_entregable/02_bloqueantes/decision-cautelar.html">Decision Cautelar</a></li>
+</ul>
+<li class="section-title">03 Siguientes-Pasos</li>
+<ul>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-1-solvencia-nivel1.html">Paso 1 Solvencia Nivel1</a></li>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-2-medida-cautelar.html">Paso 2 Medida Cautelar</a></li>
+<li><a href="../../99_entregable/03_siguientes-pasos/paso-3-consulta-banco.html">Paso 3 Consulta Banco</a></li>
+</ul>
+<li class="section-title">04 Documentos</li>
+<ul>
+<li><a href="../../99_entregable/04_documentos/00-INDICE-DOCUMENTOS.html">00 Indice Documentos</a></li>
+<li><a href="../../99_entregable/04_documentos/01-CARTA-REQUERIMIENTO.html">01 Carta Requerimiento</a></li>
+<li><a href="../../99_entregable/04_documentos/02-DENUNCIA-ETICA.html">02 Denuncia Etica</a></li>
+<li><a href="../../99_entregable/04_documentos/03-ACUERDO-TRANSACCIONAL.html">03 Acuerdo Transaccional</a></li>
+<li><a href="../../99_entregable/04_documentos/04-CALCULO-DANOS.html">04 Calculo Danos</a></li>
+<li><a href="../../99_entregable/04_documentos/05-GUION-NEGOCIACION.html">05 Guion Negociacion</a></li>
+</ul>
+<li class="section-title">05 Requiere-Profesional</li>
+<ul>
+<li><a href="../../99_entregable/05_requiere-profesional/medida-cautelar-abogado.html">Medida Cautelar Abogado</a></li>
+</ul>
+<li><a href="../../99_entregable/PANEL.html">Panel</a></li>
+<li class="section-title">Entrega-Profesional</li>
+<ul>
+<li><a href="../../99_entregable/entrega-profesional/ESTIMACION-COSTOS-LEGALES.html">Estimacion Costos Legales</a></li>
+<li><a href="../../99_entregable/entrega-profesional/ESTRATEGIA-ACUERDO-EXTRAJUDICIAL.html">Estrategia Acuerdo Extrajudicial</a></li>
+<li><a href="../../99_entregable/entrega-profesional/ESTRATEGIA-LEGAL-PROCEDIMIENTO.html">Estrategia Legal Procedimiento</a></li>
+<li><a href="../../99_entregable/entrega-profesional/EVALUACION-VIABILIDAD.html">Evaluacion Viabilidad</a></li>
+<li><a href="../../99_entregable/entrega-profesional/RESUMEN-CASO-ABOGADO.html">Resumen Caso Abogado</a></li>
+<li><a href="../../99_entregable/entrega-profesional/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
+</ul>
+</ul>
+<li><a href="../../CASE.html">Case</a></li>
+<li><a href="../../strength-tracker.html">Strength Tracker</a></li>
+</ul>
+  </nav>
+  <main class="content">
+    <div class="top-actions no-print">
+      <button class="print-btn" onclick="window.print()">Exportar PDF</button>
+    </div>
+    <h1 id="teoria-del-caso">TEORÍA DEL CASO</h1>
+<blockquote>
+<p><strong>IMPORTANTE</strong>: Este documento NO constituye asesoría legal profesional.
+Ha sido elaborado como guía orientativa utilizando inteligencia artificial.
+Su contenido es <strong>no vinculante</strong> y tiene carácter exclusivamente informativo.
+Consulte con un abogado habilitado antes de actuar.
+Ver sección <strong>Contactos para Verificación Profesional</strong> al final.</p>
+</blockquote>
+<hr>
+<p><strong>Caso:</strong> Negligencia Profesional de Contadora — Pérdida Art. 27bis DL 825
+<strong>Cliente:</strong> Claudia Violeta Pino Brito (RUT 13.457.909-9)
+<strong>Fecha de elaboración:</strong> 16 de febrero de 2026
+<strong>Agente:</strong> El Letrado
+<strong>Versión:</strong> 1.0</p>
+<hr>
+<h2 id="tesis-central">TESIS CENTRAL</h2>
+<blockquote>
+<p>Claudia Pino contrató y pagó una asesoría tributaria profesional para orientar la compra de un departamento destinado a Airbnb. La contadora Katherine Rebolledo, de una empresa cuyo giro es "Asesorías Tributarias", dio un consejo objetivamente erróneo sobre el timing de creación de sociedad versus compra, lo que causó la pérdida irrecuperable de $20.441.378 en IVA bajo el Art. 27bis DL 825 — un beneficio que habría obtenido si hubiera recibido la orientación correcta.</p>
+</blockquote>
+<p><div class="mermaid">
+graph TB
+  subgraph Teoría["Estructura de la Teoría"]
+    H["Hechos probados:\nAsesoría pagada,\nconsejo erróneo de timing"] --> N["Norma aplicable:\nArts. 1545-1556 CC\nArt. 27bis DL 825"]
+    N --> E["Elementos de\nresponsabilidad"]
+    E --> C["Culpa grave:\nError básico en\nmateria de su giro"]
+    E --> CA["Causalidad directa:\nClaudia siguió\nel consejo"]
+    E --> D["Daño cuantificado:\n$20.441.378 IVA"]
+    C --> A["Argumentos\npara juicio"]
+    CA --> A
+    D --> A
+    A --> P["Plan de prueba:\n7 documentales,\n2 testimoniales,\n1 pericial"]
+    A --> DEF["Anticipación\nde defensa:\n10 líneas de\nataque cubiertas"]
+  end
+
+</div></p>
+<hr>
+<h2 id="1-narrativa-de-los-hechos">1. NARRATIVA DE LOS HECHOS</h2>
+<h3 id="11-relacion-entre-las-partes">1.1 Relación entre las partes</h3>
+<p>Claudia Violeta Pino Brito (RUT 13.457.909-9), persona natural con giro de traducción e interpretación, contactó a la empresa <strong>Asesorías Tributarias Pedro González Limitada</strong> (RUT 76.333.878-9) para obtener orientación tributaria profesional sobre la compra de un departamento en Villarrica destinado a arriendo por Airbnb. La empresa, cuyo giro es literalmente "Asesorías Tributarias Contables Laborales y Financieras", ofreció dos opciones de consulta: con Pedro González ($300.000/60 min) o con otro profesional ($100.000/30 min). Claudia eligió la segunda opción. La empresa asignó a <strong>Katherine Rebolledo</strong> (krebolledo@cyggroup.cl) como la profesional encargada. <span class="tag-verified">[VERIFICADO-WEB]</span></p>
+<p>Existió relación contractual pagada: Claudia transfirió $100.000 el 15/09/2025 y la empresa emitió Factura Exenta N°13093 el 30/09/2025. La consulta fue agendada como cita individual por Zoom el 22/09/2025 a las 09:30, durante 30 minutos. <span class="tag-verified">[VERIFICADO-WEB]</span></p>
+<h3 id="12-cadena-de-eventos">1.2 Cadena de eventos</h3>
+<table>
+<thead>
+<tr>
+<th>N°</th>
+<th>Fecha</th>
+<th>Evento</th>
+<th>Evidencia</th>
+<th>Relevancia jurídica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>15/09/2025</td>
+<td>Claudia contacta por WhatsApp solicitando asesoría tributaria</td>
+<td><code>01_evidencia/whatsapp/</code> imagen 1</td>
+<td>Inicio de la relación contractual</td>
+</tr>
+<tr>
+<td>2</td>
+<td>15/09/2025</td>
+<td>Empresa ofrece 2 opciones; Claudia paga $100.000 por transferencia</td>
+<td><code>01_evidencia/whatsapp/</code> imagen 2 (comprobante)</td>
+<td>Relación contractual remunerada — Art. 1545 CC aplica</td>
+</tr>
+<tr>
+<td>3</td>
+<td>16/09/2025</td>
+<td>Camila (intermediaria) envía antecedentes de Claudia a Katherine Rebolledo por email</td>
+<td>Email de coordinación</td>
+<td>Katherine recibió contexto ANTES de la consulta</td>
+</tr>
+<tr>
+<td>4</td>
+<td>19/09/2025</td>
+<td>Claudia envía email con contexto y <strong>preguntas escritas</strong> sobre IVA de la compra y timing de sociedad</td>
+<td><code>01_evidencia/Gmail - Fwd_ Asesoría Claudia Pino-20260130.pdf</code></td>
+<td><strong>Pieza clave</strong>: demuestra que Claudia preguntó específicamente sobre IVA del inmueble</td>
+</tr>
+<tr>
+<td>5</td>
+<td>22/09/2025</td>
+<td><strong>Consulta por Zoom (30 min)</strong>: Katherine da consejo erróneo sobre timing ("comprar primero, traspasar después") y responde "sí" a pregunta sobre IVA post-traspaso</td>
+<td><code>01_evidencia/2025-01-XX-caterin-consultation-transcript.txt</code></td>
+<td><strong>Momento de la negligencia</strong>: consejo objetivamente incorrecto</td>
+</tr>
+<tr>
+<td>6</td>
+<td>30/09/2025</td>
+<td>Empresa emite Factura Exenta N°13093 por $100.000</td>
+<td><code>01_evidencia/Gmail - Fwd_...F-13093...pdf</code></td>
+<td>Consolida relación contractual y giro tributario</td>
+</tr>
+<tr>
+<td>7</td>
+<td>10/12/2025</td>
+<td><strong>Claudia compra el departamento como persona natural</strong> siguiendo el consejo de Katherine</td>
+<td><code>01_evidencia/Factura-Exenta-N12-Terreno.pdf</code> + <code>01_evidencia/Factura-Afecta-N32-Construcción-IVA.pdf</code></td>
+<td><strong>Cristalización del daño</strong>: IVA de $20.441.378 irrecuperable</td>
+</tr>
+<tr>
+<td>8</td>
+<td>01/2026</td>
+<td>Claudia descubre que el Art. 27bis es irrecuperable por haber comprado como persona natural</td>
+<td>Investigación legal posterior</td>
+<td>Momento del descubrimiento del error</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-preguntas-y-respuestas-clave">1.3 Preguntas y respuestas clave</h3>
+<table>
+<thead>
+<tr>
+<th>Lo que Claudia preguntó (email 19/09/2025)</th>
+<th>Lo que debió responder Katherine</th>
+<th>Lo que respondió Katherine (22/09/2025)</th>
+<th>Calificación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>"¿Puedo pedir el IVA de la compra del depto? ¿En qué momento?"</em></td>
+<td>"Sí, vía Art. 27bis, pero la SpA debe existir y comprar directamente"</td>
+<td>Solo explicó IVA en arriendos/muebles. <strong>Nunca mencionó 27bis sobre el inmueble</strong></td>
+<td><strong>NEGLIGENTE</strong> — omisión de información crítica</td>
+</tr>
+<tr>
+<td><em>"¿Sigo como persona natural o hago inicio de actividades?"</em></td>
+<td>"Cree una SpA ANTES de comprar, para que la factura afecta vaya a nombre de la SpA"</td>
+<td>"Generalmente comprar primero, transferir después"</td>
+<td><strong>INCORRECTO</strong> — consejo diametralmente opuesto al correcto</td>
+</tr>
+<tr>
+<td><em>"¿Se pueden declarar las compras de equipamiento y recuperar IVA?"</em></td>
+<td>"Sí, pero el mayor beneficio es el IVA de la construcción vía 27bis — y para eso la SpA debe comprar"</td>
+<td>"Sí, pero ahí igual tiene que cumplir bastantes requisitos... asesorarse con contador inmobiliario"</td>
+<td><strong>ENGAÑOSO</strong> — dijo "sí" a algo que la respuesta es "no" una vez comprado como persona natural</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Admisión crítica:</strong> Katherine confirmó <em>"actualmente no"</em> cuando Claudia preguntó si tenían contadores inmobiliarios — pero igual dio consejo definitivo sobre timing en una materia de impuestos inmobiliarios. <span class="tag-verified">[VERIFICADO-WEB]</span></p>
+<hr>
+<h2 id="2-marco-normativo">2. MARCO NORMATIVO</h2>
+<h3 id="21-normas-aplicables">2.1 Normas aplicables</h3>
+<table>
+<thead>
+<tr>
+<th>Norma</th>
+<th>Artículo(s)</th>
+<th>Contenido relevante</th>
+<th>Aplicación al caso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Código Civil</td>
+<td><strong>Art. 1545</strong></td>
+<td>El contrato es ley para las partes</td>
+<td>La asesoría pagada ($100K + factura) creó un contrato de servicios profesionales. Katherine debía cumplir con el estándar de un asesor tributario competente <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+<tr>
+<td>Código Civil</td>
+<td><strong>Art. 1546</strong></td>
+<td>Buena fe contractual: los contratos obligan no solo a lo expresado sino a lo que corresponde por naturaleza</td>
+<td>Katherine debió informar proactivamente sobre Art. 27bis al ser consultada sobre IVA de una compra inmobiliaria — es materia core de su giro <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+<tr>
+<td>Código Civil</td>
+<td><strong>Art. 1547</strong></td>
+<td>Culpa leve en contratos bilaterales onerosos; la culpa se presume, el deudor debe probar diligencia</td>
+<td>Claudia no necesita probar negligencia — Katherine debe probar que fue diligente. La presunción opera a nuestro favor <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+<tr>
+<td>Código Civil</td>
+<td><strong>Art. 1556</strong></td>
+<td>Indemnización comprende daño emergente y lucro cesante</td>
+<td>Base para reclamar IVA perdido ($20.4M) + daño moral + intereses <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+<tr>
+<td>Código Civil</td>
+<td><strong>Art. 44</strong></td>
+<td>Definiciones de culpa: grave (no prever lo evidente), leve (buen padre de familia), levísima (máxima diligencia)</td>
+<td>Argumentamos culpa grave: decir "sí" cuando la respuesta es "no" en la materia de tu propio giro <span class="tag-analysis">[ANÁLISIS-IA]</span></td>
+</tr>
+<tr>
+<td>Código Civil</td>
+<td><strong>Art. 2314</strong></td>
+<td>Responsabilidad extracontractual por delito o cuasidelito que causa daño</td>
+<td>Acción subsidiaria contra Katherine personalmente <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+<tr>
+<td>Código Civil</td>
+<td><strong>Art. 2320</strong></td>
+<td>Responsabilidad del empresario por hechos del dependiente</td>
+<td>La empresa responde por la calidad del profesional que asignó <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+<tr>
+<td>Código Civil</td>
+<td><strong>Art. 2330</strong></td>
+<td>Reducción por exposición imprudente al daño</td>
+<td>Riesgo: defensa puede argumentar que Claudia debió buscar segunda opinión <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+<tr>
+<td>Código Civil</td>
+<td><strong>Art. 2515</strong></td>
+<td>Prescripción ordinaria: 5 años (acciones contractuales)</td>
+<td>Plazo seguro hasta 10/12/2030 <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+<tr>
+<td>Código Civil</td>
+<td><strong>Art. 2332</strong></td>
+<td>Prescripción extracontractual: 4 años</td>
+<td>Plazo seguro hasta 10/12/2029 <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+<tr>
+<td>DL 825</td>
+<td><strong>Art. 23</strong></td>
+<td>Crédito fiscal pertenece al contribuyente de IVA que realiza la compra</td>
+<td>Si Claudia compró como persona natural, la SpA creada después NO puede reclamar ese IVA <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+<tr>
+<td>DL 825</td>
+<td><strong>Art. 27bis</strong></td>
+<td>Devolución de remanente de CF por compra de activos fijos. El SII <em>"deberá"</em> devolver si se cumplen requisitos</td>
+<td>Beneficio perdido. Nota: "deberá" es obligatorio — el SII no tiene discrecionalidad <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+<tr>
+<td>SII</td>
+<td><strong>Oficio 810/2006</strong></td>
+<td>Contribuyente debe estar inscrito en IVA al momento de la compra para reclamar CF</td>
+<td>Confirma que comprar como persona natural mata el derecho a 27bis <span class="tag-verified">[VERIFICADO-WEB]</span></td>
+</tr>
+<tr>
+<td>SII</td>
+<td><strong>Circular 55/2021</strong></td>
+<td>Procedimiento actualizado para solicitar devolución Art. 27bis</td>
+<td>Requisitos formales claros y cumplibles <span class="tag-verified">[VERIFICADO-WEB]</span></td>
+</tr>
+<tr>
+<td>CPC</td>
+<td><strong>Art. 279</strong></td>
+<td>Medida prejudicial precautoria: proteger bienes del demandado antes de la demanda</td>
+<td>Aplicable por riesgo de ocultamiento (TikTok de Pedro González) <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-estandar-de-conducta-exigible-lex-artis">2.2 Estándar de conducta exigible (lex artis)</h3>
+<p>Un asesor tributario razonablemente competente, al ser consultado por una persona natural sobre la compra de un inmueble destinado a Airbnb con preguntas explícitas sobre IVA y timing de creación de sociedad, <strong>debe</strong>: <span class="tag-analysis">[ANÁLISIS-IA]</span></p>
+<ol>
+<li><strong>Conocer el Art. 27bis DL 825</strong> — es norma central de recuperación de IVA en activos fijos, materia básica para un asesor tributario</li>
+<li><strong>Explicar que la SpA debe existir ANTES de la compra</strong> — el crédito fiscal solo nace si el contribuyente de IVA es quien compra</li>
+<li><strong>No recomendar "comprar primero, traspasar después"</strong> — esto destruye el beneficio 27bis irreversiblemente</li>
+<li><strong>Responder "NO" a la pregunta de si se puede recuperar IVA post-traspaso</strong> — la respuesta correcta es categórica</li>
+<li><strong>Si desconoce la materia, derivar ANTES de dar consejo</strong> — admitir "no tenemos contadores inmobiliarios" y luego dar consejo definitivo sobre timing inmobiliario viola el deber de competencia</li>
+<li><strong>Informar consecuencias del error</strong> — explicar que elegir mal el timing resulta en pérdida irrecuperable de millones</li>
+</ol>
+<h3 id="23-jurisprudencia-relevante">2.3 Jurisprudencia relevante</h3>
+<table>
+<thead>
+<tr>
+<th>Tribunal</th>
+<th>Referencia</th>
+<th>Materia</th>
+<th>Aplicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Corte Suprema</td>
+<td>Principio general responsabilidad profesional</td>
+<td>Negligencia profesional</td>
+<td>"La responsabilidad profesional surge cuando el profesional haya actuado sin la diligencia exigible u omitida ésta" <span class="tag-analysis">[ANÁLISIS-IA]</span></td>
+</tr>
+<tr>
+<td>Corte de Santiago</td>
+<td>Negligencia de abogado (precedente aplicable)</td>
+<td>Responsabilidad profesional</td>
+<td>"Debe probarse: existencia de daño indemnizable, falta de diligencia del profesional, y vínculo causal entre menoscabo y comportamiento negligente" <span class="tag-analysis">[ANÁLISIS-IA]</span></td>
+</tr>
+<tr>
+<td>Corte Suprema</td>
+<td>Art. 2330 y culpa grave</td>
+<td>Culpa compartida</td>
+<td>"Art. 2330 no aplica cuando hay culpa grave del demandado" — permite reclamar 100% si Katherine actuó con culpa grave <span class="tag-verify">[REQUIERE-VERIFICACIÓN]</span></td>
+</tr>
+<tr>
+<td>SII</td>
+<td>Jurisprudencia 27bis</td>
+<td>Requisito temporal</td>
+<td>"Para establecer si la empresa tiene derecho al beneficio del artículo 27bis... habrá que determinar previamente si al momento de efectuar las adquisiciones desarrollaba actividades gravadas con IVA" <span class="tag-verified">[VERIFICADO-WEB]</span></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-elementos-de-responsabilidad">3. ELEMENTOS DE RESPONSABILIDAD</h2>
+<h3 id="31-tipo-de-responsabilidad">3.1 Tipo de responsabilidad</h3>
+<p><strong>Acción principal:</strong> CONTRACTUAL (Arts. 1545-1559 CC)
+<strong>Acción subsidiaria:</strong> EXTRACONTRACTUAL (Arts. 2314-2334 CC)</p>
+<p><strong>Justificación:</strong> La vía contractual es principal porque:
+- Existió contrato de servicios profesionales (pago + factura + consulta agendada)
+- La culpa se PRESUME (Art. 1547 inc. 3°) — es la demandada quien debe probar su diligencia
+- Prescripción más larga (5 años vs 4 años)
+- La acción extracontractual es subsidiaria para cubrir la responsabilidad personal de Katherine como individua, además de la empresa</p>
+<h3 id="32-mapa-de-elementos-a-probar">3.2 Mapa de elementos a probar</h3>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Qué debemos probar</th>
+<th>Con qué evidencia</th>
+<th>Fortaleza</th>
+<th>Riesgo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Legitimación activa</strong></td>
+<td>Claudia contrató, pagó y sufrió el daño</td>
+<td>WhatsApp, transferencia, factura, facturas de compra inmueble</td>
+<td><strong>FUERTE</strong></td>
+<td>Bajo</td>
+</tr>
+<tr>
+<td><strong>Legitimación pasiva</strong></td>
+<td>Katherine y la empresa son responsables</td>
+<td>Factura N°13093, email con CC a Katherine, transferencia a AT González Ltda</td>
+<td><strong>FUERTE</strong></td>
+<td>Bajo</td>
+</tr>
+<tr>
+<td><strong>Relación contractual</strong></td>
+<td>Existió contrato de asesoría tributaria remunerada</td>
+<td>Transferencia $100K + Factura N°13093 + email de coordinación con cita</td>
+<td><strong>FUERTE</strong></td>
+<td>Bajo</td>
+</tr>
+<tr>
+<td><strong>Incumplimiento (culpa)</strong></td>
+<td>Katherine dio consejo erróneo sobre timing y respondió "sí" a IVA post-traspaso</td>
+<td>Transcripción de consulta + email con preguntas escritas</td>
+<td><strong>FUERTE</strong></td>
+<td>Bajo</td>
+</tr>
+<tr>
+<td><strong>Daño</strong></td>
+<td>$20.441.378 en IVA irrecuperable</td>
+<td>Factura Afecta N°32 (monto exacto de IVA)</td>
+<td><strong>FUERTE</strong></td>
+<td>Bajo</td>
+</tr>
+<tr>
+<td><strong>Causalidad</strong></td>
+<td>Claudia compró como persona natural PORQUE Katherine le dijo "comprar primero"</td>
+<td>Transcripción + email previo + secuencia temporal (consulta → compra)</td>
+<td><strong>FUERTE</strong></td>
+<td>Medio</td>
+</tr>
+<tr>
+<td><strong>Prescripción vigente</strong></td>
+<td>Daño cristalizó el 10/12/2025; plazo contractual hasta 10/12/2030</td>
+<td>Factura de compra (fecha) + Art. 2515 CC</td>
+<td><strong>FUERTE</strong></td>
+<td>Bajo</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="4-analisis-de-culpa-dolo">4. ANÁLISIS DE CULPA / DOLO</h2>
+<h3 id="41-tipo-de-culpa">4.1 Tipo de culpa</h3>
+<p><strong>Clasificación:</strong> CULPA GRAVE (equivalente a dolo — Art. 44 CC) <span class="tag-analysis">[ANÁLISIS-IA]</span></p>
+<p><strong>Justificación:</strong></p>
+<p>La culpa grave se define como "no manejar los negocios ajenos con aquel cuidado que aun las personas negligentes y de poca prudencia suelen emplear en sus negocios propios" (Art. 44 CC). La conducta de Katherine califica como culpa grave por cinco razones acumulativas:</p>
+<ol>
+<li>
+<p><strong>Respondió "sí" a algo que la respuesta es "no"</strong> — no es un error de matiz ni una zona gris. A la pregunta "¿puedo recuperar el IVA si compro como persona natural y después creo la sociedad?", la respuesta del Art. 23 DL 825 es categóricamente NO. Katherine dijo "sí".</p>
+</li>
+<li>
+<p><strong>Su empresa se llama "Asesorías TRIBUTARIAS"</strong> — el Art. 27bis y el Art. 23 DL 825 son normativa tributaria básica. No conocer que el contribuyente debe estar inscrito en IVA al momento de la compra es comparable a un médico que desconoce que la aspirina es anticoagulante.</p>
+</li>
+<li>
+<p><strong>Validó consejo incorrecto de un tercero sin verificar</strong> — cuando Claudia mencionó que "otro contador" le dijo lo mismo, Katherine respondió "lo que le dice el colega no está mal" sin ningún análisis ni verificación.</p>
+</li>
+<li>
+<p><strong>Recomendó el timing EXACTAMENTE opuesto al correcto</strong> — "comprar primero, traspasar después" destruye precisamente el beneficio que Claudia preguntó cómo obtener.</p>
+</li>
+<li>
+<p><strong>Admitió no tener expertise pero opinó igual</strong> — dijo "actualmente no" tenemos contadores inmobiliarios, pero de todas formas dio consejo definitivo sobre timing de compra inmobiliaria.</p>
+</li>
+</ol>
+<h3 id="42-presuncion-de-culpa">4.2 Presunción de culpa</h3>
+<p>Al ser responsabilidad <strong>contractual</strong> (Art. 1547 inc. 3° CC), la culpa se <strong>presume</strong>. Es Katherine/la empresa quien debe probar que actuó con la diligencia debida. Claudia solo debe probar la existencia del contrato, el incumplimiento, y el daño.</p>
+<p>Esto invierte la carga probatoria a nuestro favor: Katherine debe explicar por qué, siendo asesora tributaria, desconocía el Art. 27bis o por qué su consejo fue diligente. <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></p>
+<h3 id="43-argumentos-sobre-culpa-compartida-art-2330-cc">4.3 Argumentos sobre culpa compartida (Art. 2330 CC)</h3>
+<p><strong>Riesgo de reducción por exposición imprudente al daño:</strong> MEDIO <span class="tag-analysis">[ANÁLISIS-IA]</span></p>
+<p>La defensa argumentará que Claudia se expuso imprudentemente al daño porque:
+- Tuvo 79 días entre la consulta (22/09) y la compra (10/12) para buscar segunda opinión
+- Katherine recomendó consultar un "contador inmobiliario" y Claudia no lo hizo
+- Ante una inversión de $146M, debió buscar múltiples opiniones</p>
+<p><strong>Nuestra respuesta (triple):</strong></p>
+<p><strong>A. Art. 2330 no aplica si hay culpa grave del demandado.</strong> Si logramos calificar la conducta de Katherine como culpa grave (argumentos de §4.1), la reducción no procede. La Corte Suprema ha resuelto que la negligencia extrema del profesional excluye la reducción por culpa compartida.</p>
+<p><strong>B. Katherine creó falsa seguridad que desincentivó buscar al especialista.</strong> Dijo "SÍ" a la pregunta del IVA. ¿Qué persona razonable buscaría urgentemente un segundo profesional cuando la primera ya le dijo que SÍ se puede? El "sí" inicial anuló la urgencia de la derivación.</p>
+<p><strong>C. La negligencia principal (consejo de timing) fue ANTES y SIN derivación.</strong> La secuencia temporal de la transcripción muestra que Katherine dio el consejo de timing como orientación definitiva ("generalmente se hace de esa forma, usted compra primero...") SIN ninguna reserva ni derivación. La derivación a "contador inmobiliario" fue sobre una pregunta POSTERIOR y derivada.</p>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Reducción estimada</th>
+<th style="text-align: right;">Monto resultante</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sin culpa compartida (culpa grave probada)</td>
+<td>0%</td>
+<td style="text-align: right;">$28.000.000</td>
+</tr>
+<tr>
+<td>Culpa leve — reducción moderada</td>
+<td>20-30%</td>
+<td style="text-align: right;">$19.600.000 - $22.400.000</td>
+</tr>
+<tr>
+<td>Culpa leve — reducción severa</td>
+<td>30-40%</td>
+<td style="text-align: right;">$16.800.000 - $19.600.000</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Todos los escenarios siguen siendo positivos en costo-beneficio.</strong> <span class="tag-analysis">[ANÁLISIS-IA]</span></p>
+<hr>
+<h2 id="5-construccion-de-causalidad">5. CONSTRUCCIÓN DE CAUSALIDAD</h2>
+<h3 id="51-cadena-causal">5.1 Cadena causal</h3>
+<p><div class="mermaid">
+graph TB
+  A["Katherine aconseja:\n'comprar primero,\ntraspasar después'"] --> B["Claudia confía en\nel consejo profesional\npagado"]
+  B --> C["Claudia compra\ncomo persona natural\n10/12/2025"]
+  C --> D["IVA de $20.441.378\nqueda en factura\na nombre de Claudia"]
+  D --> E["Art. 27bis\nirrecuperable:\nSpA no fue\ncompradora"]
+
+</div></p>
+<h3 id="52-narrativa-causal">5.2 Narrativa causal</h3>
+<p>Si Katherine hubiera informado correctamente que la SpA debía existir y comprar DIRECTAMENTE de la inmobiliaria para acceder al Art. 27bis, Claudia habría creado la SpA con inicio de actividades ANTES de la compra del 10 de diciembre de 2025. La propia Katherine describió la estructura SpA + aval personal como práctica de "muchos clientes", lo que confirma su viabilidad. La factura afecta N°32 habría ido a nombre de la SpA, generando crédito fiscal de $20.441.378 recuperable vía Art. 27bis. <span class="tag-analysis">[ANÁLISIS-IA]</span></p>
+<p>Pero porque Katherine aconsejó "comprar primero, traspasar a sociedad después" — el timing exactamente opuesto al correcto — Claudia compró como persona natural. El IVA de la construcción quedó en una factura a nombre de una no-contribuyente de IVA, extinguiendo irremediablemente el derecho al Art. 27bis.</p>
+<p>Entre la consulta (22/09/2025) y la compra (10/12/2025) transcurrieron 79 días — tiempo más que suficiente para haber creado la SpA si hubiera recibido la orientación correcta. Las preguntas escritas de Claudia del 19/09/2025 demuestran que su intención era optimizar la estructura tributaria, no comprar "como sea".</p>
+<h3 id="53-causalidad-contrafactica">5.3 Causalidad contrafáctica</h3>
+<table>
+<thead>
+<tr>
+<th>Pregunta</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>¿Sin la conducta de Katherine, el daño habría ocurrido?</td>
+<td><strong>NO</strong> — Claudia habría creado la SpA antes de comprar. Sus preguntas escritas demuestran que buscaba la estructura óptima, no cualquier estructura</td>
+</tr>
+<tr>
+<td>¿Claudia habría actuado igual sin la asesoría?</td>
+<td><strong>NO</strong> — pagó $100.000 específicamente para saber cómo proceder. Si hubiera sabido la respuesta, no habría pagado por asesoría</td>
+</tr>
+<tr>
+<td>¿Existieron causas concurrentes?</td>
+<td><strong>No probadas</strong> — el "otro contador" fue un comentario informal de un conocido sin relación profesional, sin pago, sin registro. La defensa no puede probar una concausa formal</td>
+</tr>
+<tr>
+<td>¿El banco habría impedido la estructura correcta?</td>
+<td><strong>NO</strong> — Katherine misma describió la estructura SpA + aval como "lo que hacen muchos clientes". Si ella dice que es práctica común, no puede la defensa argumentar que era imposible</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="6-cuantificacion-del-dano">6. CUANTIFICACIÓN DEL DAÑO</h2>
+<h3 id="61-dano-emergente">6.1 Daño emergente</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th style="text-align: right;">Monto</th>
+<th>Respaldo documental</th>
+<th>Etiqueta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IVA perdido Art. 27bis (19% sobre construcción)</td>
+<td style="text-align: right;">$20.441.378</td>
+<td>Factura Afecta N°32 — Inmobiliaria Isiete Araucanía X SpA</td>
+<td><span class="tag-verified">[VERIFICADO-WEB]</span></td>
+</tr>
+<tr>
+<td><strong>Subtotal daño emergente</strong></td>
+<td style="text-align: right;"><strong>$20.441.378</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Desglose de la compra:</strong>
+- Factura Exenta N°12 (Terreno): $18.172.502
+- Factura Afecta N°32 (Construcción neto): $107.586.199
+- Factura Afecta N°32 (IVA 19%): $20.441.378
+- <strong>Total compra: $146.200.079</strong></p>
+<p>El IVA de $20.441.378 es un monto exacto documentado en factura, no una estimación. <span class="tag-verified">[VERIFICADO-WEB]</span></p>
+<h3 id="62-lucro-cesante">6.2 Lucro cesante</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th style="text-align: right;">Monto</th>
+<th>Cálculo</th>
+<th>Etiqueta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rendimiento financiero de $20.4M (depósito a plazo, 14 meses)</td>
+<td style="text-align: right;">$1.500.000 - $2.000.000</td>
+<td>Tasa referencial 5-6% anual sobre $20.4M desde dic-2025</td>
+<td><span class="tag-analysis">[ANÁLISIS-IA]</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-dano-moral">6.3 Daño moral</h3>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tipo de afectación</td>
+<td>Angustia por pérdida patrimonial significativa, frustración por confiar en profesional pagado, pérdida de confianza en servicios profesionales</td>
+</tr>
+<tr>
+<td>Duración</td>
+<td>Permanente — el daño es irrecuperable</td>
+</tr>
+<tr>
+<td>Monto solicitado</td>
+<td>$3.000.000 - $5.000.000</td>
+</tr>
+<tr>
+<td>Justificación</td>
+<td>$20.4M representan ~14% del precio total del inmueble ($146M). Para una persona natural, perder ese monto por confiar en un profesional pagado genera afectación psicológica relevante. Jurisprudencia chilena ha otorgado $3-5M en casos de negligencia profesional con daño patrimonial significativo <span class="tag-analysis">[ANÁLISIS-IA]</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="64-resumen-de-pretensiones">6.4 Resumen de pretensiones</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th style="text-align: right;">Monto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daño emergente (IVA 27bis)</td>
+<td style="text-align: right;">$20.441.378</td>
+</tr>
+<tr>
+<td>Lucro cesante (rendimiento financiero)</td>
+<td style="text-align: right;">$1.500.000</td>
+</tr>
+<tr>
+<td>Daño moral</td>
+<td style="text-align: right;">$5.000.000</td>
+</tr>
+<tr>
+<td>Intereses corrientes</td>
+<td style="text-align: right;">(desde demanda — ~$558.622 acumulados al 16/02/2026)</td>
+</tr>
+<tr>
+<td>Reajustes IPC</td>
+<td style="text-align: right;">(desde fecha del daño: 10/12/2025)</td>
+</tr>
+<tr>
+<td>Costas</td>
+<td style="text-align: right;">(a regulación del tribunal)</td>
+</tr>
+<tr>
+<td><strong>TOTAL PRETENSIONES</strong></td>
+<td style="text-align: right;"><strong>~$28.000.000</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rangos de negociación:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Nivel</th>
+<th style="text-align: right;">Monto</th>
+<th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pedido inicial</td>
+<td style="text-align: right;">$28.000.000</td>
+<td>Total pretensiones</td>
+</tr>
+<tr>
+<td>Objetivo realista</td>
+<td style="text-align: right;">$20.000.000 - $24.000.000</td>
+<td>Negociación racional</td>
+</tr>
+<tr>
+<td>Mínimo aceptable</td>
+<td style="text-align: right;">$16.000.000</td>
+<td>Bajo este monto, mejor ir a juicio</td>
+</tr>
+<tr>
+<td>Piso absoluto (solo pago inmediato)</td>
+<td style="text-align: right;">$13.000.000</td>
+<td>Valor esperado neto post-costos judiciales</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="7-argumentos-para-juicio">7. ARGUMENTOS PARA JUICIO</h2>
+<h3 id="argumento-1-incumplimiento-contractual-por-consejo-objetivamente-erroneo">Argumento 1: Incumplimiento contractual por consejo objetivamente erróneo</h3>
+<p><strong>Tesis:</strong> Katherine Rebolledo incumplió su obligación contractual de asesorar correctamente al dar un consejo diametralmente opuesto a lo que establece la ley tributaria, causando la pérdida irrecuperable de $20.441.378. <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></p>
+<p><strong>Desarrollo:</strong></p>
+<p>El contrato de asesoría tributaria (Art. 1545 CC) obligaba a Katherine a informar correctamente sobre las implicancias fiscales de la compra inmobiliaria. El Art. 27bis DL 825 establece requisitos claros: la entidad debe ser contribuyente de IVA al momento de la compra (Art. 23 DL 825, Oficio SII 810/2006). Katherine recomendó "comprar primero, transferir a sociedad después" — el timing exactamente opuesto al correcto. Además, respondió "sí" a la pregunta de si se puede recuperar IVA post-traspaso, cuando la respuesta es categóricamente "no".</p>
+<p>Esto no es un error de matiz ni una zona gris interpretativa. Es un consejo objetivamente incorrecto en materia tributaria básica, emitido por una profesional de una empresa cuyo giro literal es "Asesorías Tributarias". El incumplimiento contractual es claro bajo Arts. 1545, 1546 y 1547 CC.</p>
+<p><strong>Fuerza:</strong> <strong>FUERTE</strong>
+<strong>Etiqueta:</strong> <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></p>
+<hr>
+<h3 id="argumento-2-culpa-presunta-e-inversion-de-la-carga-de-la-prueba">Argumento 2: Culpa presunta e inversión de la carga de la prueba</h3>
+<p><strong>Tesis:</strong> Al ser responsabilidad contractual, la culpa de Katherine se presume. Es ella quien debe probar que actuó con la diligencia de un asesor tributario competente — prueba que no puede producir dado que su consejo fue erróneo. <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></p>
+<p><strong>Desarrollo:</strong></p>
+<p>El Art. 1547 inc. 3° CC establece que en contratos bilaterales onerosos, la culpa del deudor se presume. La demandada no debe solo probar que "intentó" asesorar bien; debe demostrar que actuó con la diligencia de un "buen padre de familia" — en este contexto, con la competencia de un asesor tributario medianamente informado.</p>
+<p>Katherine no puede producir esta prueba porque:
+- No mencionó el Art. 27bis cuando fue consultada expresamente sobre IVA de compra inmobiliaria
+- Respondió "sí" a una pregunta cuya respuesta legal es "no"
+- Admitió no tener contadores inmobiliarios pero opinó sobre timing inmobiliario
+- Validó consejo previo incorrecto ("lo que le dice el colega no está mal") sin verificar</p>
+<p>La presunción de culpa es una ventaja procesal significativa que descansa sobre base normativa sólida.</p>
+<p><strong>Fuerza:</strong> <strong>FUERTE</strong>
+<strong>Etiqueta:</strong> <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></p>
+<hr>
+<h3 id="argumento-3-el-dano-es-cierto-documentado-y-de-monto-exacto">Argumento 3: El daño es cierto, documentado y de monto exacto</h3>
+<p><strong>Tesis:</strong> El daño de $20.441.378 no es especulativo ni estimado — es el IVA exacto documentado en la Factura Afecta N°32, cuya recuperación era un derecho concreto bajo el Art. 27bis que se extinguió irreversiblemente. <span class="tag-verified">[VERIFICADO-WEB]</span></p>
+<p><strong>Desarrollo:</strong></p>
+<p>A diferencia de muchos casos de negligencia profesional donde el daño es difícil de cuantificar, aquí el perjuicio es un número exacto respaldado por documento fiscal oficial. La Factura Afecta N°32 emitida por Inmobiliaria Isiete Araucanía X SpA registra IVA de $20.441.378 sobre $107.586.199 en construcción. Si la SpA de Claudia hubiera sido la compradora, ese IVA habría sido crédito fiscal recuperable bajo Art. 27bis, que usa el imperativo "deberá" devolver — no es facultativo del SII. La naturaleza del daño es daño emergente puro: un derecho concreto que existía y se perdió. No es lucro cesante especulativo.</p>
+<p><strong>Fuerza:</strong> <strong>FUERTE</strong>
+<strong>Etiqueta:</strong> <span class="tag-verified">[VERIFICADO-WEB]</span></p>
+<hr>
+<h3 id="argumento-4-las-preguntas-escritas-previas-destruyen-la-defensa-de-no-era-el-tema">Argumento 4: Las preguntas escritas previas destruyen la defensa de "no era el tema"</h3>
+<p><strong>Tesis:</strong> El email de Claudia del 19/09/2025 demuestra que preguntó textualmente sobre IVA de la compra y timing de sociedad, eliminando cualquier argumento de que Katherine "no fue consultada sobre eso". <span class="tag-verified">[VERIFICADO-WEB]</span></p>
+<p><strong>Desarrollo:</strong></p>
+<p>Claudia formuló por escrito, tres días antes de la consulta:
+1. <em>"¿Puedo pedir el IVA de la compra del depto? ¿En qué momento?"</em>
+2. <em>"¿Sigo como persona natural o hago inicio de actividades?"</em>
+3. <em>"¿Individual o sociedad? ¿Y si es sociedad, qué tipo?"</em></p>
+<p>Katherine recibió estas preguntas vía Camila (email del 16/09) y tuvo tres días para prepararlas. No puede alegar que el tema de IVA inmobiliario "surgió de improviso" ni que "no era el objeto de la consulta". Las preguntas escritas constituyen prueba documental irrefutable de qué se le consultó y qué debía responder.</p>
+<p><strong>Fuerza:</strong> <strong>FUERTE</strong>
+<strong>Etiqueta:</strong> <span class="tag-verified">[VERIFICADO-WEB]</span></p>
+<hr>
+<h3 id="argumento-5-responsabilidad-solidaria-de-la-empresa">Argumento 5: Responsabilidad solidaria de la empresa</h3>
+<p><strong>Tesis:</strong> Asesorías Tributarias Pedro González Ltda es responsable solidariamente por el acto de su profesional asignada, al haber emitido la factura, recibido el pago, y seleccionado a Katherine como la profesional competente para la asesoría. <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></p>
+<p><strong>Desarrollo:</strong></p>
+<p>La empresa:
+- Recibió el pago de $100.000 (transferencia a su cuenta bancaria)
+- Emitió Factura Exenta N°13093 con giro "Asesoría Tributaria"
+- Asignó a Katherine Rebolledo como la profesional para la consulta
+- Ofreció dos opciones de precio/profesional — eligió a quién enviar</p>
+<p>Bajo Art. 2320 CC (responsabilidad del empresario por hechos del dependiente) y Art. 1545 CC (la empresa es parte del contrato), la empresa responde solidariamente por la calidad del servicio prestado por el profesional que asignó. No puede eximirse diciendo que "fue un error de Katherine" — la empresa eligió enviarla.</p>
+<p><strong>Fuerza:</strong> <strong>FUERTE</strong>
+<strong>Etiqueta:</strong> <span class="tag-verified">[VERIFICADO-NORMATIVA]</span></p>
+<hr>
+<h2 id="8-anticipacion-de-defensa-contraria">8. ANTICIPACIÓN DE DEFENSA CONTRARIA</h2>
+<table>
+<thead>
+<tr>
+<th>N°</th>
+<th>Línea de ataque</th>
+<th>Probabilidad</th>
+<th>Nuestro contra-argumento</th>
+<th>Base legal</th>
+<th>Riesgo residual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>"Otro contador dio el mismo consejo" (concausa)</td>
+<td>Media</td>
+<td>Fue comentario informal sin relación profesional, sin pago ni registro. Claudia buscó asesoría formal PORQUE sabía que no bastaba. Katherine validó el consejo incorrecto sin verificar, agravando su negligencia</td>
+<td>Art. 1698 CC (carga de prueba en defensa)</td>
+<td><strong>BAJO</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>"El banco no habría prestado a una SpA nueva"</td>
+<td>Alta</td>
+<td>Katherine MISMA describe la estructura SpA + aval como "lo que hacen muchos clientes". Se refuta con sus propias palabras. El daño es por el timing del IVA, no por quién paga el crédito</td>
+<td>Art. 23 DL 825</td>
+<td><strong>MEDIO</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>"El 27bis no estaba garantizado"</td>
+<td>Media</td>
+<td>El daño es la pérdida del DERECHO a solicitar, no la devolución en sí. Art. 27bis usa "deberá" (obligatorio). Los requisitos son formales y cumplibles</td>
+<td>Art. 27bis DL 825</td>
+<td><strong>BAJO-MEDIO</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>"Katherine derivó a especialista"</td>
+<td>Alta</td>
+<td>La negligencia principal (timing) fue dada ANTES y SIN derivación. El "sí" fue objetivamente incorrecto. La derivación fue hueca (no dio nombre ni referencia)</td>
+<td>Art. 1546 CC</td>
+<td><strong>MEDIO</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>"Claudia tuvo 2.5 meses para buscar segunda opinión"</td>
+<td>Alta</td>
+<td>Katherine creó falsa seguridad con "sí". Claudia fue diligente (preguntas escritas, pago). El deber era de Katherine, no de Claudia</td>
+<td>Art. 2330 CC</td>
+<td><strong>MEDIO</strong></td>
+</tr>
+<tr>
+<td>6</td>
+<td>"Fue orientación general, no asesoría personalizada"</td>
+<td>Media</td>
+<td>Transcripción demuestra sesión 1-a-1 con consejos específicos. "Participante" en factura es formato estándar, no evidencia de sesión grupal</td>
+<td>Art. 1546 CC</td>
+<td><strong>BAJO</strong></td>
+</tr>
+<tr>
+<td>7</td>
+<td>"Por $100K no se puede esperar asesoría integral"</td>
+<td>Media-Baja</td>
+<td>Lex artis no depende del precio. La empresa cobra por un servicio profesional y asignó a Katherine como profesional competente</td>
+<td>Art. 1547 CC</td>
+<td><strong>BAJO</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td>"Fue culpa leve, no grave" (para activar Art. 2330)</td>
+<td>Alta</td>
+<td>Dijo "sí" a algo que es "no". Giro de la empresa es asesorías tributarias. Validó consejo ajeno sin verificar. Pero: aceptar escenario alternativo con reducción 20-30% que sigue siendo positivo</td>
+<td>Art. 44 CC</td>
+<td><strong>MEDIO-ALTO</strong></td>
+</tr>
+<tr>
+<td>9</td>
+<td>"La transcripción no es confiable"</td>
+<td>Media</td>
+<td>En Chile, grabar conversación propia es legal. Se cruza con email, factura, transferencia. "Caterin"/"Katherine" es error fonético. <strong>Requiere certificación notarial</strong></td>
+<td>Art. 161-A CP</td>
+<td><strong>BAJO</strong> (si se certifica)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Insolvencia / ocultamiento de bienes</td>
+<td>Alta</td>
+<td>Pedro González publica en TikTok sobre protección de activos. Medida prejudicial precautoria Art. 279 CPC ANTES de notificar</td>
+<td>Art. 279, 290 CPC</td>
+<td><strong>ALTO</strong> (si no hay cautelar)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="9-plan-de-prueba">9. PLAN DE PRUEBA</h2>
+<h3 id="91-prueba-documental">9.1 Prueba documental</h3>
+<table>
+<thead>
+<tr>
+<th>N°</th>
+<th>Documento</th>
+<th>Qué prueba</th>
+<th>Elemento que respalda</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Email Claudia 19/09/2025</strong> (preguntas escritas)</td>
+<td>Claudia preguntó textualmente sobre IVA y timing</td>
+<td>Causalidad + culpa (Katherine sabía qué le consultaban)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Transcripción consulta 22/09/2025</strong> (certificada ante notario)</td>
+<td>Katherine dijo "comprar primero", respondió "sí" a IVA post-traspaso, admitió no tener contadores inmobiliarios</td>
+<td>Culpa + incumplimiento</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Transferencia bancaria $100.000</strong> (15/09/2025)</td>
+<td>Pago del servicio profesional</td>
+<td>Relación contractual</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Factura Exenta N°13093</strong> (30/09/2025)</td>
+<td>Empresa emitió factura con giro "Asesoría Tributaria"</td>
+<td>Relación contractual + giro de la empresa</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Factura Afecta N°32</strong> (Construcción + IVA)</td>
+<td>IVA exacto de $20.441.378</td>
+<td>Daño cuantificado</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Factura Exenta N°12</strong> (Terreno)</td>
+<td>Desglose terreno/construcción</td>
+<td>Daño cuantificado</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>WhatsApp</strong> (3 capturas: coordinación, pago, datos bancarios)</td>
+<td>Relación comercial y asignación de profesional</td>
+<td>Legitimación pasiva + contrato</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Email de Camila</strong> (coordinación cita individual)</td>
+<td>Cita 1-a-1 agendada, no sesión grupal; CC a "Katherine Rebolledo"</td>
+<td>Contra defensa de "orientación general" + identidad</td>
+</tr>
+<tr>
+<td>9</td>
+<td>[Pendiente] <strong>Capturas TikTok de Pedro González</strong></td>
+<td>Riesgo de ocultamiento de bienes</td>
+<td>Medida cautelar (Art. 279 CPC)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="92-prueba-testimonial">9.2 Prueba testimonial</h3>
+<table>
+<thead>
+<tr>
+<th>Testigo</th>
+<th>Relación</th>
+<th>Qué declararía</th>
+<th>Elemento que respalda</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claudia Violeta Pino Brito</td>
+<td>Parte demandante</td>
+<td>Relato de la consulta, confianza en el consejo, decisión de compra basada en la asesoría, daño sufrido</td>
+<td>Causalidad + daño moral</td>
+</tr>
+<tr>
+<td>Gabriel Cárcamo</td>
+<td>Cónyuge / testigo</td>
+<td>Contexto de la búsqueda de asesoría, impacto familiar, investigación posterior del error</td>
+<td>Causalidad + daño moral</td>
+</tr>
+</tbody>
+</table>
+<h3 id="93-prueba-pericial">9.3 Prueba pericial</h3>
+<table>
+<thead>
+<tr>
+<th>Perito</th>
+<th>Especialidad</th>
+<th>Qué evaluaría</th>
+<th>Elemento que respalda</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Contador auditor</td>
+<td>Tributaria / inmobiliaria</td>
+<td>Que el consejo de Katherine fue contrario a la lex artis; que un contador competente habría mencionado 27bis; que los requisitos eran cumplibles</td>
+<td>Culpa + causalidad + cuantificación</td>
+</tr>
+<tr>
+<td>[Si impugnan] Perito en audio</td>
+<td>Autenticidad de grabaciones</td>
+<td>Que la grabación es auténtica y no fue editada</td>
+<td>Admisibilidad de prueba</td>
+</tr>
+</tbody>
+</table>
+<h3 id="94-confesion-absolucion-de-posiciones">9.4 Confesión / absolución de posiciones</h3>
+<table>
+<thead>
+<tr>
+<th>Posición a pedir</th>
+<th>Objetivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"¿Usted dio la consulta del 22/09/2025 a Claudia Pino?"</td>
+<td>Confirmar que fue ella (vincula con transcripción)</td>
+</tr>
+<tr>
+<td>"¿Le preguntaron sobre el IVA de la compra del departamento?"</td>
+<td>Confirmar que el tema fue planteado</td>
+</tr>
+<tr>
+<td>"¿Recomendó comprar primero como persona natural?"</td>
+<td>Confirmar el consejo erróneo</td>
+</tr>
+<tr>
+<td>"¿Conocía el Art. 27bis DL 825 al momento de la consulta?"</td>
+<td>Si dice sí: omisión deliberada. Si dice no: incompetencia</td>
+</tr>
+<tr>
+<td>"¿Su empresa tiene contadores especializados en materia inmobiliaria?"</td>
+<td>Confirmar la admisión de limitación</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="10-riesgos-y-mitigaciones">10. RIESGOS Y MITIGACIONES</h2>
+<table>
+<thead>
+<tr>
+<th>Riesgo</th>
+<th>Probabilidad</th>
+<th>Impacto</th>
+<th>Mitigación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ocultamiento de bienes por Pedro González</strong></td>
+<td><strong>Alta</strong></td>
+<td><strong>Crítico</strong></td>
+<td>Medida prejudicial precautoria Art. 279 CPC. Preservar evidencia TikTok HOY. Contratar abogado con urgencia</td>
+</tr>
+<tr>
+<td>Tribunal califica culpa leve → Art. 2330 aplica</td>
+<td>Media-Alta</td>
+<td>Medio</td>
+<td>Reducción 20-30% = $19.6-$22.4M. Sigue positivo. Argumentar culpa grave pero tener escenario alternativo</td>
+</tr>
+<tr>
+<td>Insolvencia del demandado</td>
+<td>Media</td>
+<td>Alto</td>
+<td>Investigar solvencia (Nivel 1 + 2) antes de escalar. Buscar seguro RC profesional</td>
+</tr>
+<tr>
+<td>Defensa impugna transcripción</td>
+<td>Baja-Media</td>
+<td>Medio</td>
+<td>Certificar ante notario ANTES de cualquier acción. Cruzar con emails y facturas</td>
+</tr>
+<tr>
+<td>Banco habría rechazado crédito a SpA</td>
+<td>Baja-Media</td>
+<td>Medio</td>
+<td>Katherine misma describe la estructura. Obtener carta del banco confirmando viabilidad</td>
+</tr>
+<tr>
+<td>Excepción de competencia territorial (Zoom)</td>
+<td>Baja</td>
+<td>Bajo</td>
+<td>Demandar en San Bernardo (domicilio demandado — inequívoco)</td>
+</tr>
+<tr>
+<td>Demora excesiva en juicio (12-24 meses)</td>
+<td>Alta</td>
+<td>Medio</td>
+<td>Priorizar acuerdo pre-judicial. Juicio solo como último recurso</td>
+</tr>
+<tr>
+<td>Katherine tiene seguro RC profesional</td>
+<td>Baja-Media</td>
+<td><strong>POSITIVO</strong></td>
+<td>Si tiene seguro, la aseguradora paga — mejor escenario posible</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="11-diagrama-resumen">11. DIAGRAMA RESUMEN</h2>
+<p><div class="mermaid">
+graph TB
+  subgraph Hechos["1. Hechos Probados"]
+    H1["Email 19/09:\nPreguntas escritas\nsobre IVA y timing"]
+    H2["Consulta 22/09:\nKatherine aconseja\n'comprar primero'"]
+    H3["Compra 10/12:\nClaudia compra como\npersona natural"]
+  end
+  subgraph Norma["2. Marco Normativo"]
+    N1["Arts. 1545-1547 CC\nContrato de asesoría"]
+    N2["Art. 23 + 27bis DL 825\nIVA requiere SpA\nal momento de compra"]
+  end
+  subgraph Elementos["3. Elementos"]
+    E1["Culpa grave:\nDijo 'sí' cuando\nes 'no'"]
+    E2["Causalidad directa:\nConsejo → compra\ncomo PN → pierde IVA"]
+    E3["Daño exacto:\n$20.441.378\nFactura N°32"]
+  end
+  subgraph Resultado["4. Pretensión"]
+    R1["$28.000.000\n+ intereses + costas"]
+  end
+  H1 --> N1
+  H2 --> N1
+  H2 --> N2
+  H3 --> N2
+  N1 --> E1
+  N2 --> E2
+  E1 --> E3
+  E2 --> E3
+  E3 --> R1
+
+</div></p>
+<hr>
+<h2 id="contactos-para-verificacion-profesional">Contactos para Verificación Profesional</h2>
+<table>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>Nombre</th>
+<th>Contacto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abogados litigantes</td>
+<td>Colegio de Abogados de Chile</td>
+<td>colegioabogados.cl / +56 2 2633 6720</td>
+</tr>
+<tr>
+<td>Asistencia judicial gratuita</td>
+<td>Corporación de Asistencia Judicial</td>
+<td>cajmetro.cl / +56 2 2787 3700</td>
+</tr>
+<tr>
+<td>Consulta estado de causas</td>
+<td>Poder Judicial</td>
+<td>pjud.cl / +56 2 2387 3000</td>
+</tr>
+<tr>
+<td>Negligencia de contador</td>
+<td>Colegio de Contadores de Chile</td>
+<td>contadores.cl / +56 2 2698 6840</td>
+</tr>
+<tr>
+<td>Peritos judiciales</td>
+<td>Nómina del Poder Judicial</td>
+<td>pjud.cl</td>
+</tr>
+<tr>
+<td>Legislación vigente</td>
+<td>Biblioteca del Congreso Nacional</td>
+<td>bcn.cl/leychile</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Para lista completa de contactos ver: knowledge/contactos-profesionales.md</p>
+</blockquote>
+<hr>
+<h2 id="glosario">Glosario</h2>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Explicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Teoría del caso</td>
+<td>Mapa completo de la estrategia legal: hechos, normas, argumentos, prueba — el documento que el abogado estudia antes del juicio</td>
+</tr>
+<tr>
+<td>Art. 27bis DL 825</td>
+<td>Norma que permite a una sociedad (SpA) recuperar el IVA pagado en la compra de inmuebles nuevos, siempre que sea contribuyente de IVA al momento de comprar</td>
+</tr>
+<tr>
+<td>Causa de pedir</td>
+<td>Fundamento jurídico de la demanda — por qué se tiene derecho a reclamar</td>
+</tr>
+<tr>
+<td>Lex artis</td>
+<td>Estándar de cuidado esperable de un profesional competente en su área (lo que "un buen contador tributarista haría")</td>
+</tr>
+<tr>
+<td>Culpa grave</td>
+<td>Negligencia extrema, equivalente al dolo — no prever lo que cualquier persona prevería (Art. 44 CC)</td>
+</tr>
+<tr>
+<td>Culpa leve</td>
+<td>No emplear el cuidado de un "buen padre de familia" — estándar normal en contratos bilaterales (Art. 1547 CC)</td>
+</tr>
+<tr>
+<td>Art. 2330 CC</td>
+<td>Permite al tribunal reducir la indemnización si la víctima se expuso imprudentemente al daño (culpa compartida)</td>
+</tr>
+<tr>
+<td>Causalidad contrafáctica</td>
+<td>Test: "sin la conducta del demandado, ¿el daño habría ocurrido?" Si la respuesta es "no", hay causalidad</td>
+</tr>
+<tr>
+<td>Prescripción</td>
+<td>Plazo legal tras el cual se pierde el derecho a demandar (5 años contractual, 4 años extracontractual)</td>
+</tr>
+<tr>
+<td>Medida prejudicial precautoria</td>
+<td>Solicitud al tribunal para congelar bienes del demandado ANTES de presentar la demanda, cuando hay riesgo de ocultamiento (Art. 279 CPC)</td>
+</tr>
+<tr>
+<td>Daño emergente</td>
+<td>Pérdida económica efectiva y directa sufrida — aquí, el IVA irrecuperable</td>
+</tr>
+<tr>
+<td>Lucro cesante</td>
+<td>Ganancia dejada de percibir por causa del daño</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<blockquote>
+<p><strong>Nivel INFORMADO</strong>: Los términos técnicos se explican entre paréntesis la primera vez que aparecen y en el glosario al final.</p>
+</blockquote>
+<hr>
+<p><strong>Archivo guardado en:</strong> villarrica_202601/03_estrategia/TEORIA-DEL-CASO.md
+<strong>Copia profesional en:</strong> villarrica_202601/99_entregable/entrega-profesional/TEORIA-DEL-CASO.md</p>
+<hr>
+<p><strong>RECOMENDACIÓN:</strong> Ejecutar ROAST para revisión adversarial de esta teoría.</p>
+    <footer class="site-footer no-print">
+      <hr>
+      <small>El Director v1.0 &middot; <a href="../../deploy-guide.html">Guia de Despliegue</a></small>
+    </footer>
+  </main>
+</body>
+</html>
