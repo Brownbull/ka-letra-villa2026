@@ -50,6 +50,37 @@ body {
   color: var(--accent);
 }
 
+.sidebar-mode-switcher {
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #1e293b;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-mode-switcher label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.sidebar-mode-switcher select {
+  padding: 8px 10px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  font-size: 13px;
+  background: #334155;
+  color: #fff;
+  cursor: pointer;
+}
+
+.sidebar-mode-switcher select:hover {
+  border-color: #4a9eff;
+}
+
 .sidebar ul {
   list-style: none;
 }

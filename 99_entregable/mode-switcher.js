@@ -33,20 +33,37 @@
   }
 
   function setupModeSwitcher() {
-    // Get the top-actions area
-    const topActions = document.querySelector('.top-actions');
-    if (!topActions) return;
-
     // Store original content for later
     const mainContent = document.querySelector('main.content');
     if (mainContent) {
       originalContent = mainContent.innerHTML;
     }
 
+    // Sync all view mode dropdowns
+    const viewModeSelect = document.getElementById('viewMode');
+    const sidebarViewModeSelect = document.getElementById('sidebarViewMode');
+
     // Check for saved preference
     const savedMode = localStorage.getItem('ka-letra-view-mode');
     if (savedMode && MODES[savedMode]) {
-      setTimeout(() => window.switchViewMode(savedMode), 100);
+      setTimeout(() => {
+        window.switchViewMode(savedMode);
+        // Sync dropdowns
+        if (viewModeSelect) viewModeSelect.value = savedMode;
+        if (sidebarViewModeSelect) sidebarViewModeSelect.value = savedMode;
+      }, 100);
+    }
+
+    // Sync dropdowns when either changes
+    if (viewModeSelect) {
+      viewModeSelect.addEventListener('change', function() {
+        if (sidebarViewModeSelect) sidebarViewModeSelect.value = this.value;
+      });
+    }
+    if (sidebarViewModeSelect) {
+      sidebarViewModeSelect.addEventListener('change', function() {
+        if (viewModeSelect) viewModeSelect.value = this.value;
+      });
     }
   }
 
