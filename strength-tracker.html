@@ -85,8 +85,22 @@
   </nav>
   <main class="content">
     <div class="top-actions no-print">
+      <div class="mode-switcher">
+        <label for="viewMode" class="mode-label">Vista:</label>
+        <select id="viewMode" class="mode-select" onchange="switchViewMode(this.value)">
+          <option value="original" selected>Original</option>
+          <option value="highCapacity">Alta Capacidad</option>
+          <option value="mediumCapacity">Capacidad Media</option>
+          <option value="lowCapacity">Baja Capacidad</option>
+          <option value="attention">Déficit Atención</option>
+          <option value="cognitive">Carga Cognitiva</option>
+          <option value="simplified">Simplificado</option>
+          <option value="timeline">Línea de Tiempo</option>
+        </select>
+      </div>
       <button class="print-btn" onclick="window.print()">Exportar PDF</button>
     </div>
+    <script src="99_entregable/mode-switcher.js"></script>
     <h1 id="tracker-de-fortaleza-villarrica_202601">Tracker de Fortaleza - villarrica_202601</h1>
 <h2 id="puntaje-actual-83100-blindado">Puntaje Actual: 83/100 (BLINDADO)</h2>
 <h2 id="puntajes-por-dimension">Puntajes por Dimensión</h2>
