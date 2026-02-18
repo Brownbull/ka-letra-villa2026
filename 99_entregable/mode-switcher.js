@@ -21,6 +21,9 @@
   let currentMode = 'original';
 
   function init() {
+    // Add styles first
+    addModeStyles();
+
     // Wait for DOM
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', setupModeSwitcher);
@@ -48,8 +51,13 @@
   }
 
   function addModeStyles() {
+    // Only add if not already added
+    if (document.getElementById('mode-switcher-styles')) return;
+
     const style = document.createElement('style');
+    style.id = 'mode-switcher-styles';
     style.textContent = `
+      /* Mode Switcher UI */
       .mode-switcher {
         display: inline-flex;
         align-items: center;
@@ -71,50 +79,98 @@
       .mode-select:hover {
         border-color: #4a9eff;
       }
-      /* Low Capacity Mode */
-      .mode-lowCapacity main.content {
-        font-size: 120%;
+
+      /* Low Capacity Mode - Larger text, simpler */
+      body.mode-lowCapacity main.content {
+        font-size: 120% !important;
+        line-height: 1.8 !important;
       }
-      .mode-lowCapacity .sidebar {
-        max-width: 200px;
+      body.mode-lowCapacity main.content h2 {
+        font-size: 1.5em !important;
+        margin-bottom: 1em !important;
       }
-      .mode-lowCapacity .sidebar li {
-        padding: 4px 8px;
-        font-size: 12px;
+      body.mode-lowCapacity main.content p {
+        max-width: 60ch !important;
       }
-      /* High Capacity Mode */
-      .mode-highCapacity main.content {
-        font-size: 95%;
+      body.mode-lowCapacity .sidebar {
+        max-width: 180px !important;
       }
-      .mode-highCapacity .content table {
-        font-size: 12px;
+      body.mode-lowCapacity .sidebar li {
+        padding: 4px 6px !important;
+        font-size: 11px !important;
       }
-      /* Simplified Mode */
-      .mode-simplified .content > *:not(h1):not(blockquote):not(.status-summary):not(.critical-actions):not(.next-steps) {
-        display: none;
+
+      /* High Capacity Mode - More compact */
+      body.mode-highCapacity main.content {
+        font-size: 90% !important;
       }
-      .mode-simplified .status-summary,
-      .mode-simplified .critical-actions {
+      body.mode-highCapacity main.content table {
+        font-size: 11px !important;
+      }
+      body.mode-highCapacity main.content table td,
+      body.mode-highCapacity main.content table th {
+        padding: 4px 6px !important;
+      }
+
+      /* Simplified Mode - Show only essentials */
+      body.mode-simplified main.content > * {
+        display: none !important;
+      }
+      body.mode-simplified main.content > h1,
+      body.mode-simplified main.content > blockquote,
+      body.mode-simplified .simplified-summary {
         display: block !important;
-        margin-bottom: 24px;
       }
-      .mode-simplified .status-summary {
-        background: #dcfce7;
-        border: 2px solid #22c55e;
-        border-radius: 12px;
-        padding: 20px;
+      body.mode-simplified .simplified-summary {
+        background: #dcfce7 !important;
+        border: 3px solid #22c55e !important;
+        border-radius: 16px !important;
+        padding: 24px !important;
+        margin: 20px 0 !important;
       }
-      .mode-simplified .critical-actions {
-        background: #fef2f2;
-        border: 2px solid #dc2626;
-        border-radius: 12px;
-        padding: 20px;
+      body.mode-simplified .simplified-summary h2 {
+        color: #166534 !important;
+        font-size: 1.4em !important;
+        margin-bottom: 12px !important;
       }
+      body.mode-simplified .simplified-summary p {
+        font-size: 1.1em !important;
+        line-height: 1.6 !important;
+      }
+
+      /* Cognitive Load Mode - Collapsible sections */
+      body.mode-cognitive main.content > h2 {
+        cursor: pointer !important;
+        padding: 8px 12px !important;
+        background: #f3f4f6 !important;
+        border-radius: 8px !important;
+        margin-top: 16px !important;
+      }
+      body.mode-cognitive main.content > h2::before {
+        content: "▶ " !important;
+        font-size: 0.8em !important;
+      }
+      body.mode-cognitive main.content > h2.collapsed + * {
+        display: none !important;
+      }
+      body.mode-cognitive main.content > h2::after {
+        content: " (click to expand)" !important;
+        font-size: 0.7em !important;
+        color: #999 !important;
+        font-weight: normal !important;
+      }
+
+      /* Attention Deficit Mode - Visual anchors */
+      body.mode-attention main.content > h2::before {
+        content: "📌 " !important;
+      }
+      body.mode-attention main.content {
+        border-left: 4px solid #fbbf24 !important;
+        padding-left: 16px !important;
+      }
+
       /* Timeline Mode */
-      .mode-timeline main.content > *:not(h1):not(blockquote):not(#estado-general) {
-        display: none;
-      }
-      .mode-timeline .timeline-view {
+      body.mode-timeline .timeline-view {
         display: block !important;
       }
     `;
@@ -145,251 +201,81 @@
     // Apply mode-specific transformations
     if (mode === 'simplified') {
       applySimplifiedMode(mainContent);
-    } else if (mode === 'timeline') {
-      applyTimelineMode(mainContent);
-    }
-  };
-
-  function applySimplifiedMode(mainContent) {
-    // Create simplified view
-    const simplified = `
-      <div class="status-summary">
-        <h2 style="color:#166534;margin-bottom:12px">Estado del Caso: BLINDADO (83/100)</h2>
-        <p style="font-size:16px">El caso va muy bien. Tienes 3 acciones críticas esta semana.</p>
-      </div>
-
-      <div class="critical-actions">
-        <h3 style="color:#dc2626;margin-bottom:12px">⚡ Acciones para HOY</h3>
-        <ul style="list-style:none;padding:0">
-          <li style="padding:8px 0;border-bottom:1px solid #fecaca">
-            <strong>1.</strong> Preservar evidencia TikTok - <span style="color:#dc2626">HOY</span>
-          </li>
-          <li style="padding:8px 0;border-bottom:1px solid #fecaca">
-            <strong>2.</strong> Certificar grabación - Esta semana
-          </li>
-          <li style="padding:8px 0">
-            <strong>3.</strong> Contratar abogado - Esta semana
-          </li>
-        </ul>
-      </div>
-
-      <div style="background:#fef3c7;border:2px solid #f59e0b;border-radius:8px;padding:16px;margin-top:20px">
-        <strong>📞 Contacto Urgente</strong>
-        <p>Colegio de Abogados: +56 2 2633 6720</p>
-      </div>
-    `;
-
-    if (mainContent) {
-      mainContent.innerHTML = simplified;
-    }
-  }
-
-  function applyTimelineMode(mainContent) {
-    const timeline = `
-      <div class="timeline-view" style="padding:20px">
-        <h2>Línea de Tiempo del Caso</h2>
-
-        <div style="display:flex;flex-direction:column;gap:16px;margin-top:24px">
-          <div style="display:flex;align-items:center;gap:16px">
-            <div style="width:40px;height:40px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold">✓</div>
-            <div>
-              <strong>Investigación</strong>
-              <p style="color:#666;font-size:14px">Feb 2026 - Completado</p>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:16px">
-            <div style="width:40px;height:40px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold">✓</div>
-            <div>
-              <strong>Estrategia</strong>
-              <p style="color:#666;font-size:14px">Feb 2026 - Completado</p>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:16px">
-            <div style="width:40px;height:40px;background:#f59e0b;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold">▶</div>
-            <div>
-              <strong>Acciones Críticas</strong>
-              <p style="color:#f59e0b;font-size:14px">Feb 17 - En progreso</p>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:16px;opacity:0.5">
-            <div style="width:40px;height:40px;background:#e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;font-weight:bold">4</div>
-            <div>
-              <strong>Medida Cautelar</strong>
-              <p style="color:#666;font-size:14px">Mar 2026 - Pendiente</p>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:16px;opacity:0.5">
-            <div style="width:40px;height:40px;background:#e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;font-weight:bold">5</div>
-            <div>
-              <strong>Demanda/Juicio</strong>
-              <p style="color:#666;font-size:14px">May 2026 - Pendiente</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-
-    if (mainContent) {
-      mainContent.innerHTML = timeline;
-    }
-  }
-
-  // Global function for select onchange
-  window.switchViewMode = function(mode) {
-    currentMode = mode;
-    localStorage.setItem('ka-letra-view-mode', mode);
-
-    const mainContent = document.querySelector('main.content');
-    const body = document.body;
-
-    // Remove all mode classes
-    Object.keys(MODES).forEach(m => body.classList.remove('mode-' + m));
-
-    if (mode === 'original') {
-      // Restore original
-      if (mainContent && originalContent) {
-        mainContent.innerHTML = originalContent;
-      }
-      return;
-    }
-
-    // Add mode class
-    body.classList.add('mode-' + mode);
-
-    // Apply mode-specific transformations
-    if (mode === 'simplified') {
-      applySimplifiedMode(mainContent);
-    } else if (mode === 'timeline') {
-      applyTimelineMode(mainContent);
-    } else if (mode === 'lowCapacity') {
-      applyLowCapacityMode(mainContent);
-    } else if (mode === 'highCapacity') {
-      applyHighCapacityMode(mainContent);
     } else if (mode === 'cognitive') {
       applyCognitiveMode(mainContent);
     }
   };
 
   function applySimplifiedMode(mainContent) {
-    const simplified = `
-      <div class="status-summary">
-        <h2 style="color:#166534;margin-bottom:12px">Estado del Caso: BLINDADO (83/100)</h2>
-        <p style="font-size:16px">El caso va muy bien. Tienes 3 acciones críticas esta semana.</p>
-      </div>
+    if (!mainContent) return;
 
-      <div class="critical-actions">
-        <h3 style="color:#dc2626;margin-bottom:12px">⚡ Acciones para HOY</h3>
-        <ul style="list-style:none;padding:0">
-          <li style="padding:8px 0;border-bottom:1px solid #fecaca">
-            <strong>1.</strong> Preservar evidencia TikTok - <span style="color:#dc2626">HOY</span>
-          </li>
-          <li style="padding:8px 0;border-bottom:1px solid #fecaca">
-            <strong>2.</strong> Certificar grabación - Esta semana
-          </li>
-          <li style="padding:8px 0">
-            <strong>3.</strong> Contratar abogado - Esta semana
-          </li>
-        </ul>
-      </div>
+    // Get page title
+    const h1 = mainContent.querySelector('h1');
+    const pageTitle = h1 ? h1.textContent : 'Caso Legal';
 
-      <div style="background:#fef3c7;border:2px solid #f59e0b;border-radius:8px;padding:16px;margin-top:20px">
-        <strong>📞 Contacto Urgente</strong>
-        <p>Colegio de Abogados: +56 2 2633 6720</p>
-      </div>
-    `;
+    // Create simplified summary based on page
+    let summaryContent = '';
 
-    if (mainContent) {
-      mainContent.innerHTML = simplified;
-    }
-  }
-
-  function applyTimelineMode(mainContent) {
-    const timeline = `
-      <div class="timeline-view" style="padding:20px">
-        <h2>Línea de Tiempo del Caso</h2>
-
-        <div style="display:flex;flex-direction:column;gap:16px;margin-top:24px">
-          <div style="display:flex;align-items:center;gap:16px">
-            <div style="width:40px;height:40px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold">✓</div>
-            <div>
-              <strong>Investigación</strong>
-              <p style="color:#666;font-size:14px">Feb 2026 - Completado</p>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:16px">
-            <div style="width:40px;height:40px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold">✓</div>
-            <div>
-              <strong>Estrategia</strong>
-              <p style="color:#666;font-size:14px">Feb 2026 - Completado</p>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:16px">
-            <div style="width:40px;height:40px;background:#f59e0b;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold">▶</div>
-            <div>
-              <strong>Acciones Críticas</strong>
-              <p style="color:#f59e0b;font-size:14px">Feb 17 - En progreso</p>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:16px;opacity:0.5">
-            <div style="width:40px;height:40px;background:#e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;font-weight:bold">4</div>
-            <div>
-              <strong>Medida Cautelar</strong>
-              <p style="color:#666;font-size:14px">Mar 2026 - Pendiente</p>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:16px;opacity:0.5">
-            <div style="width:40px;height:40px;background:#e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;font-weight:bold">5</div>
-            <div>
-              <strong>Demanda/Juicio</strong>
-              <p style="color:#666;font-size:14px">May 2026 - Pendiente</p>
-            </div>
-          </div>
+    if (pageTitle.includes('PANEL') || pageTitle.includes('Control')) {
+      summaryContent = `
+        <div class="simplified-summary">
+          <h2>📊 Estado: BLINDADO (83/100)</h2>
+          <p>El caso va muy bien. Tienes <strong>3 acciones críticas</strong> esta semana.</p>
+          <ul style="margin-top:16px;padding-left:20px">
+            <li>🎯 <strong>HOY:</strong> Preservar evidencia TikTok</li>
+            <li>📅 <strong>Esta semana:</strong> Certificar grabación</li>
+            <li>📅 <strong>Esta semana:</strong> Contratar abogado</li>
+          </ul>
         </div>
-      </div>
-    `;
-
-    if (mainContent) {
-      mainContent.innerHTML = timeline;
+      `;
+    } else if (pageTitle.includes('TEORÍA') || pageTitle.includes('CASO')) {
+      summaryContent = `
+        <div class="simplified-summary">
+          <h2>📋 Resumen de la Demanda</h2>
+          <p>Demanda por negligencia contadora. La parte demandada cometió errores en la declaración de impuestos.</p>
+          <p style="margin-top:12px"><strong>Monto:</strong> $24-27 millones CLP</p>
+        </div>
+      `;
+    } else if (pageTitle.includes('STRENGTH') || pageTitle.includes('FORTALEZA')) {
+      summaryContent = `
+        <div class="simplified-summary">
+          <h2>📈 Fortaleza del Caso: 83/100</h2>
+          <p>El caso está <strong>muy bien fundamentado</strong>.</p>
+          <ul style="margin-top:16px;padding-left:20px">
+            <li>✅ Evidencia sólida</li>
+            <li>✅ Jurisprudencia favorable</li>
+            <li>✅ Documentación completa</li>
+          </ul>
+        </div>
+      `;
+    } else {
+      // Generic simplified view
+      summaryContent = `
+        <div class="simplified-summary">
+          <h2>📄 ${pageTitle}</h2>
+          <p>Página de información del caso legal.</p>
+        </div>
+      `;
     }
-  }
 
-  function applyLowCapacityMode(mainContent) {
-    // Just add larger text - sidebar will be styled via CSS
-    if (mainContent) {
-      mainContent.style.fontSize = '120%';
-    }
-  }
-
-  function applyHighCapacityMode(mainContent) {
-    // Just add smaller text - tables will be styled via CSS
-    if (mainContent) {
-      mainContent.style.fontSize = '95%';
+    // Hide everything except h1, blockquote, and add summary
+    const existingSummary = mainContent.querySelector('.simplified-summary');
+    if (!existingSummary) {
+      mainContent.insertAdjacentHTML('afterbegin', summaryContent);
     }
   }
 
   function applyCognitiveMode(mainContent) {
-    // Add collapsible sections
-    if (mainContent) {
-      const tables = mainContent.querySelectorAll('table');
-      tables.forEach((table, i) => {
-        const h2 = mainContent.querySelectorAll('h2')[i];
-        if (h2) {
-          h2.style.cursor = 'pointer';
-          h2.onclick = function() {
-            const next = this.nextElementSibling;
-            if (next) next.style.display = next.style.display === 'none' ? 'table' : 'none';
-          };
-        }
-      });
-    }
+    if (!mainContent) return;
+
+    // Make h2 sections collapsible
+    const h2s = mainContent.querySelectorAll('h2');
+    h2s.forEach((h2, index) => {
+      h2.classList.add('collapsed');
+      h2.onclick = function() {
+        this.classList.toggle('collapsed');
+      };
+    });
   }
 
   // Initialize
