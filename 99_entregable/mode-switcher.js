@@ -43,26 +43,27 @@
     const viewModeSelect = document.getElementById('viewMode');
     const sidebarViewModeSelect = document.getElementById('sidebarViewMode');
 
-    // Check for saved preference
+    // Check for saved preference and apply immediately
     const savedMode = localStorage.getItem('ka-letra-view-mode');
     if (savedMode && MODES[savedMode]) {
+      // Set dropdown values first
+      if (viewModeSelect) viewModeSelect.value = savedMode;
+      if (sidebarViewModeSelect) sidebarViewModeSelect.value = savedMode;
+      // Then apply the mode
       setTimeout(() => {
         window.switchViewMode(savedMode);
-        // Sync dropdowns
-        if (viewModeSelect) viewModeSelect.value = savedMode;
-        if (sidebarViewModeSelect) sidebarViewModeSelect.value = savedMode;
-      }, 100);
+      }, 50);
     }
 
     // Sync dropdowns when either changes
     if (viewModeSelect) {
       viewModeSelect.addEventListener('change', function() {
-        if (sidebarViewModeSelect) sidebarViewModeSelect.value = this.value;
+        window.switchViewMode(this.value);
       });
     }
     if (sidebarViewModeSelect) {
       sidebarViewModeSelect.addEventListener('change', function() {
-        if (viewModeSelect) viewModeSelect.value = this.value;
+        window.switchViewMode(this.value);
       });
     }
   }
@@ -296,11 +297,16 @@
       if (mainContent && originalContent) {
         mainContent.innerHTML = originalContent;
       }
+      // Update dropdowns
+      syncDropdowns(mode);
       return;
     }
 
     // Add mode class
     body.classList.add('mode-' + mode);
+
+    // Update dropdowns to reflect current mode
+    syncDropdowns(mode);
 
     // Apply mode-specific transformations
     if (mode === 'simplified') {
@@ -309,6 +315,13 @@
       applyCognitiveMode(mainContent);
     }
   };
+
+  function syncDropdowns(mode) {
+    const viewModeSelect = document.getElementById('viewMode');
+    const sidebarViewModeSelect = document.getElementById('sidebarViewMode');
+    if (viewModeSelect) viewModeSelect.value = mode;
+    if (sidebarViewModeSelect) sidebarViewModeSelect.value = mode;
+  }
 
   function applySimplifiedMode(mainContent) {
     if (!mainContent) return;
