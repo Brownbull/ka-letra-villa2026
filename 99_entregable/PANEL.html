@@ -85,8 +85,22 @@
   </nav>
   <main class="content">
     <div class="top-actions no-print">
+      <div class="mode-switcher">
+        <label for="viewMode" class="mode-label">Vista:</label>
+        <select id="viewMode" class="mode-select" onchange="switchViewMode(this.value)">
+          <option value="original" selected>Original</option>
+          <option value="highCapacity">Alta Capacidad</option>
+          <option value="mediumCapacity">Capacidad Media</option>
+          <option value="lowCapacity">Baja Capacidad</option>
+          <option value="attention">Déficit Atención</option>
+          <option value="cognitive">Carga Cognitiva</option>
+          <option value="simplified">Simplificado</option>
+          <option value="timeline">Línea de Tiempo</option>
+        </select>
+      </div>
       <button class="print-btn" onclick="window.print()">Exportar PDF</button>
     </div>
+    <script src="mode-switcher.js"></script>
     <h1 id="panel-de-control-villarrica-negligencia-contadora">Panel de Control — Villarrica: Negligencia Contadora</h1>
 <blockquote>
 <p><strong>IMPORTANTE</strong>: Este documento NO constituye asesoría legal profesional.

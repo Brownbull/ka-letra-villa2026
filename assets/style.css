@@ -178,7 +178,37 @@ li { margin-bottom: 0.25rem; }
 
 .print-btn:hover { opacity: 0.9; }
 
-.top-actions { text-align: right; margin-bottom: 1rem; }
+.top-actions { text-align: right; margin-bottom: 1rem; display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+
+.mode-switcher { display: inline-flex; align-items: center; gap: 8px; }
+.mode-label { font-size: 13px; color: #666; }
+.mode-select { padding: 6px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: #fff; cursor: pointer; }
+.mode-select:hover { border-color: #4a9eff; }
+
+/* Low Capacity Mode */
+body.mode-lowCapacity .content { font-size: 120%; }
+body.mode-lowCapacity .sidebar { max-width: 200px; }
+body.mode-lowCapacity .sidebar li { padding: 4px 8px; font-size: 12px; }
+
+/* High Capacity Mode */
+body.mode-highCapacity .content { font-size: 95%; }
+body.mode-highCapacity .content table { font-size: 12px; }
+
+/* Simplified Mode */
+body.mode-simplified .content > *:not(h1):not(blockquote):not(.status-summary):not(.critical-actions):not(.next-steps) { display: none; }
+body.mode-simplified .status-summary,
+body.mode-simplified .critical-actions { display: block !important; margin-bottom: 24px; }
+body.mode-simplified .status-summary { background: #dcfce7; border: 2px solid #22c55e; border-radius: 12px; padding: 20px; }
+body.mode-simplified .critical-actions { background: #fef2f2; border: 2px solid #dc2626; border-radius: 12px; padding: 20px; }
+
+/* Cognitive Load Mode */
+body.mode-cognitive .content > h2 { cursor: pointer; }
+body.mode-cognitive .content > h2::after { content: ' ▼'; font-size: 12px; }
+body.mode-cognitive .content > table { margin-bottom: 16px; }
+
+/* Attention Deficit Mode */
+body.mode-attention .content h2 { display: flex; align-items: center; gap: 8px; }
+body.mode-attention .content h2::before { content: '📌'; }
 
 /* --- Footer --- */
 .site-footer {
