@@ -14,6 +14,19 @@
   </button>
   <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
   <nav class="sidebar">
+    <div class="sidebar-mode-switcher">
+      <label for="sidebarViewMode">Vista:</label>
+      <select id="sidebarViewMode" onchange="switchViewMode(this.value)">
+        <option value="original" selected>Original</option>
+        <option value="highCapacity">Alta Capacidad</option>
+        <option value="mediumCapacity">Capacidad Media</option>
+        <option value="lowCapacity">Baja Capacidad</option>
+        <option value="attention">Déficit Atención</option>
+        <option value="cognitive">Carga Cognitiva</option>
+        <option value="simplified">Simplificado</option>
+        <option value="timeline">Línea de Tiempo</option>
+      </select>
+    </div>
     <h2>villarrica_202601</h2>
     <ul>
 <li class="section-title">02 Investigacion</li>
@@ -124,5 +137,5 @@ Consulte con un abogado habilitado antes de actuar.</p>
       <small>El Director v1.0 &middot; <a href="../../deploy-guide.html">Guia de Despliegue</a></small>
     </footer>
   </main>
-</body>
+<script src="../mode-switcher.js"></script></body>
 </html>
