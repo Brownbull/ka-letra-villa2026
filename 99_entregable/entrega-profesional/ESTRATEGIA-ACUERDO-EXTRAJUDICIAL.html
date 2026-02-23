@@ -1,34 +1,47 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ESTRATEGIA DE ACUERDO EXTRAJUDICIAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/style.css">
+  <script>
+    // Guardar fuentes Mermaid ANTES de que Mermaid procese los elementos.
+    // window._mermaidSrc se llena en DOMContentLoaded, antes de mermaid.run().
+    window._mermaidSrc = {};
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <script>
+    // Tema inicial: aplicar ANTES del primer render para evitar flash
+    (function() {
+      try {
+        var saved = localStorage.getItem('villarrica-theme') || 'light';
+        if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+        mermaid.initialize({ startOnLoad: false, theme: saved === 'dark' ? 'dark' : 'neutral' });
+      } catch(e) {
+        mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+      }
+    })();
+  </script>
 </head>
 <body>
-  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Menu">
+  <!-- Hamburger mobile (fixed, solo visible en ≤768px) -->
+  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
   <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
+
+  <!-- Sidebar (sin botón de colapso interno) -->
   <nav class="sidebar">
-    <div class="sidebar-mode-switcher">
-      <label for="sidebarViewMode">Vista:</label>
-      <select id="sidebarViewMode" onchange="switchViewMode(this.value)">
-        <option value="original" selected>Original</option>
-        <option value="highCapacity">Alta Capacidad</option>
-        <option value="mediumCapacity">Capacidad Media</option>
-        <option value="lowCapacity">Baja Capacidad</option>
-        <option value="attention">Déficit Atención</option>
-        <option value="cognitive">Carga Cognitiva</option>
-        <option value="simplified">Simplificado</option>
-        <option value="timeline">Línea de Tiempo</option>
-      </select>
+    <div class="sidebar-header">
+      <a href="../../index.html" class="sidebar-home-link">Panel del caso</a>
     </div>
-    <h2>villarrica_202601</h2>
     <ul>
+<li><a href="../../CASE.html">Case</a></li>
+<li><a href="../../strength-tracker.html">Strength Tracker</a></li>
 <li class="section-title">02 Investigacion</li>
 <ul>
 <li><a href="../../02_investigacion/13-27bis-requirements.html">13 27Bis Requirements</a></li>
@@ -41,9 +54,9 @@
 </ul>
 <li class="section-title">03 Estrategia</li>
 <ul>
-<li><a href="../../03_estrategia/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 <li><a href="../../03_estrategia/defensa-anticipada.html">Defensa Anticipada</a></li>
 <li><a href="../../03_estrategia/estrategia-legal.html">Estrategia Legal</a></li>
+<li><a href="../../03_estrategia/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 </ul>
 <li class="section-title">04 Revision</li>
 <ul>
@@ -52,6 +65,7 @@
 </ul>
 <li class="section-title">99 Entregable</li>
 <ul>
+<li><a href="../../99_entregable/PANEL.html">Panel</a></li>
 <li class="section-title">01 Critico</li>
 <ul>
 <li><a href="../../99_entregable/01_critico/certificar-grabacion.html">Certificar Grabacion</a></li>
@@ -81,7 +95,6 @@
 <ul>
 <li><a href="../../99_entregable/05_requiere-profesional/medida-cautelar-abogado.html">Medida Cautelar Abogado</a></li>
 </ul>
-<li><a href="../../99_entregable/PANEL.html">Panel</a></li>
 <li class="section-title">Entrega-Profesional</li>
 <ul>
 <li><a href="../../99_entregable/entrega-profesional/ESTIMACION-COSTOS-LEGALES.html">Estimacion Costos Legales</a></li>
@@ -92,14 +105,49 @@
 <li><a href="../../99_entregable/entrega-profesional/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 </ul>
 </ul>
-<li><a href="../../CASE.html">Case</a></li>
-<li><a href="../../strength-tracker.html">Strength Tracker</a></li>
 </ul>
   </nav>
+
   <main class="content">
+    <!-- Barra de acciones: izquierda = toggle sidebar desktop | derecha = controles -->
     <div class="top-actions no-print">
-      <button class="print-btn" onclick="window.print()">Exportar PDF</button>
+      <div class="top-actions-left">
+        <button class="sidebar-toggle-btn" id="sidebar-toggle-btn"
+                onclick="toggleSidebar()" title="Mostrar/ocultar menú">✕</button>
+      </div>
+      <div class="top-actions-right">
+        <select class="font-size-select" id="font-size-select"
+                onchange="changeFontSize(this.value)" title="Tamaño de letra">
+          <option value="small">Aa pequeño</option>
+          <option value="normal" selected>Aa normal</option>
+          <option value="large">Aa grande</option>
+        </select>
+        <button class="theme-toggle" id="theme-toggle"
+                onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+        <button class="print-btn" onclick="window.print()"
+                title="Usar 'Guardar como PDF' en el diálogo de impresión">⬇ PDF</button>
+        <div class="pii-loader">
+          <button class="pii-load-btn" id="pii-load-btn"
+                  title="Abogado: cargar pii-manifest.json para revelar datos reales">
+            🔒 Revelar datos
+          </button>
+          <span class="pii-status" id="pii-status"></span>
+        </div>
+      </div>
     </div>
+
+    <div class="disclaimer-bar no-print">
+      <span class="disclaimer-short">⚠ Este documento es orientativo y no constituye asesoría legal profesional.</span>
+      <button class="disclaimer-expand-btn" id="disclaimer-expand-btn"
+              onclick="toggleDisclaimerFull()" aria-expanded="false" title="Ver aviso completo">ⓘ más</button>
+      <div class="disclaimer-full" id="disclaimer-full" hidden>
+        Ha sido elaborado con apoyo de inteligencia artificial como guía orientativa.
+        Su contenido es <strong>no vinculante</strong> y tiene carácter exclusivamente informativo.
+        Consulte con un abogado habilitado antes de actuar.
+        Ver sección <strong>Contactos para Verificación Profesional</strong> al final de cada documento.
+      </div>
+    </div>
+
     <h1 id="estrategia-de-acuerdo-extrajudicial">ESTRATEGIA DE ACUERDO EXTRAJUDICIAL</h1>
 <blockquote>
 <p><strong>IMPORTANTE</strong>: Este documento ha sido elaborado con inteligencia artificial.
@@ -112,7 +160,7 @@ Ver sección <strong>Contactos para Verificación Profesional</strong> al final.
 <strong>Objetivo:</strong> Lograr acuerdo sin juicio, usando presión legal estratégica</p>
 <hr>
 <h2 id="1-resumen-ejecutivo">1. RESUMEN EJECUTIVO</h2>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Concepto</th>
@@ -145,11 +193,11 @@ Ver sección <strong>Contactos para Verificación Profesional</strong> al final.
 <td>4-12 semanas</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
 <h2 id="2-logica-de-los-montos">2. LÓGICA DE LOS MONTOS</h2>
 <h3 id="21-por-que-pedir-mas-del-dano-real">2.1 ¿Por qué pedir más del daño real?</h3>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Concepto</th>
@@ -184,7 +232,7 @@ Ver sección <strong>Contactos para Verificación Profesional</strong> al final.
 <td>Punto de partida negociación</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="22-rango-de-negociacion">2.2 Rango de Negociación</h3>
 <pre><code>PEDIDO INICIAL ──────────────────────────── $28.000.000
                     │
@@ -215,7 +263,7 @@ RECHAZAR ───────────────────────�
 <h2 id="3-cronograma-y-momentos-clave">3. CRONOGRAMA Y MOMENTOS CLAVE</h2>
 <h3 id="fase-1-preparacion-semanas-1-2">Fase 1: Preparación (Semanas 1-2)</h3>
 <p><strong>Costo: $300.000 - $800.000</strong></p>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Actividad</th>
@@ -250,10 +298,10 @@ RECHAZAR ───────────────────────�
 <td>$150.000 - $300.000</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="fase-2-primer-contacto-semanas-3-4">Fase 2: Primer Contacto (Semanas 3-4)</h3>
 <p><strong>Costo: $200.000 - $500.000</strong></p>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Actividad</th>
@@ -278,10 +326,10 @@ RECHAZAR ───────────────────────�
 <td>Día 5-7 después del envío</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="fase-3-negociacion-semanas-5-8">Fase 3: Negociación (Semanas 5-8)</h3>
 <p><strong>Costo: $300.000 - $800.000</strong></p>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Escenario</th>
@@ -306,10 +354,10 @@ RECHAZAR ───────────────────────�
 <td>Aceptar, ir preparado con documentos</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="fase-4-cierre-o-escalada-semanas-9-12">Fase 4: Cierre o Escalada (Semanas 9-12)</h3>
 <p><strong>Costo: $0 si hay acuerdo / $500.000+ si escala</strong></p>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Resultado</th>
@@ -334,11 +382,11 @@ RECHAZAR ───────────────────────�
 <td>Presentar demanda + denuncia ética</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
 <h2 id="4-costos-para-llegar-a-acuerdo">4. COSTOS PARA LLEGAR A ACUERDO</h2>
 <h3 id="escenario-optimista-acuerdo-en-fase-2-3">Escenario Optimista (Acuerdo en Fase 2-3)</h3>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Concepto</th>
@@ -367,9 +415,9 @@ RECHAZAR ───────────────────────�
 <td><strong>$750.000 - $1.600.000</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="escenario-moderado-acuerdo-despues-de-amenaza-de-demanda">Escenario Moderado (Acuerdo después de amenaza de demanda)</h3>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Concepto</th>
@@ -394,9 +442,9 @@ RECHAZAR ───────────────────────�
 <td><strong>$1.250.000 - $2.500.000</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="escenario-con-denuncia-etica-paralela">Escenario con Denuncia Ética Paralela</h3>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Concepto</th>
@@ -417,7 +465,7 @@ RECHAZAR ───────────────────────�
 <td><strong>$1.400.000 - $2.800.000</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
 <h2 id="5-herramientas-de-presion">5. HERRAMIENTAS DE PRESIÓN</h2>
 <h3 id="51-carta-de-requerimiento">5.1 Carta de Requerimiento</h3>
@@ -525,7 +573,7 @@ plazo máximo de 30 días."</p>
 <hr>
 <h2 id="8-resumen-ejecutivo-para-decision">8. RESUMEN EJECUTIVO PARA DECISIÓN</h2>
 <h3 id="inversion-vs-retorno-esperado">Inversión vs. Retorno Esperado</h3>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Escenario</th>
@@ -565,7 +613,7 @@ plazo máximo de 30 días."</p>
 <td>-100%</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="recomendacion">Recomendación</h3>
 <p><strong>ESTRATEGIA ÓPTIMA:</strong>
 1. Invertir $1.5-2.5M en fase pre-judicial
@@ -581,31 +629,31 @@ plazo máximo de 30 días."</p>
 <h2 id="9-checklist-para-proceder">9. CHECKLIST PARA PROCEDER</h2>
 <h3 id="antes-de-contactar-abogado">Antes de contactar abogado:</h3>
 <ul>
-<li>[ ] Identificar nombre completo y empresa de Caterin</li>
-<li>[ ] Conseguir dirección de notificación</li>
-<li>[ ] Tener audio/transcripción organizados</li>
-<li>[ ] Tener copia de escritura de compraventa</li>
-<li>[ ] Calcular monto exacto de IVA perdido (de la factura)</li>
+<li class="task-item"><input type="checkbox" disabled>  Identificar nombre completo y empresa de Caterin</li>
+<li class="task-item"><input type="checkbox" disabled>  Conseguir dirección de notificación</li>
+<li class="task-item"><input type="checkbox" disabled>  Tener audio/transcripción organizados</li>
+<li class="task-item"><input type="checkbox" disabled>  Tener copia de escritura de compraventa</li>
+<li class="task-item"><input type="checkbox" disabled>  Calcular monto exacto de IVA perdido (de la factura)</li>
 </ul>
 <h3 id="con-el-abogado">Con el abogado:</h3>
 <ul>
-<li>[ ] Acordar modalidad de pago (idealmente cuota litis o híbrido)</li>
-<li>[ ] Establecer límites de negociación por escrito</li>
-<li>[ ] Definir quién tiene última palabra en aceptar ofertas</li>
-<li>[ ] Acordar comunicación regular (updates semanales)</li>
+<li class="task-item"><input type="checkbox" disabled>  Acordar modalidad de pago (idealmente cuota litis o híbrido)</li>
+<li class="task-item"><input type="checkbox" disabled>  Establecer límites de negociación por escrito</li>
+<li class="task-item"><input type="checkbox" disabled>  Definir quién tiene última palabra en aceptar ofertas</li>
+<li class="task-item"><input type="checkbox" disabled>  Acordar comunicación regular (updates semanales)</li>
 </ul>
 <h3 id="documentos-a-preparar">Documentos a preparar:</h3>
 <ul>
-<li>[ ] Carta de requerimiento</li>
-<li>[ ] Resumen ejecutivo del caso (1 página)</li>
-<li>[ ] Evidencia organizada en carpeta</li>
-<li>[ ] Cálculo de daños con respaldo</li>
+<li class="task-item"><input type="checkbox" disabled>  Carta de requerimiento</li>
+<li class="task-item"><input type="checkbox" disabled>  Resumen ejecutivo del caso (1 página)</li>
+<li class="task-item"><input type="checkbox" disabled>  Evidencia organizada en carpeta</li>
+<li class="task-item"><input type="checkbox" disabled>  Cálculo de daños con respaldo</li>
 </ul>
 <hr>
 <p><em>Este documento es una guía estratégica para negociación. Los montos y tiempos pueden variar según las circunstancias específicas del caso.</em></p>
 <hr>
 <h2 id="contactos-para-verificacion-profesional">Contactos para Verificación Profesional</h2>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Categoría</th>
@@ -630,16 +678,310 @@ plazo máximo de 30 días."</p>
 <td>pjud.cl / +56 2 2387 3000</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
 <blockquote>
 <p><strong>Nivel INFORMADO</strong>: Los términos técnicos se explican entre paréntesis la primera vez que aparecen.
 <strong>Nivel GUIADO</strong>: Este documento es material de referencia para un abogado. No actuar sin asesoría profesional.</p>
 </blockquote>
+
     <footer class="site-footer no-print">
       <hr>
-      <small>El Director v1.0 &middot; <a href="../../deploy-guide.html">Guia de Despliegue</a></small>
+      <small>Contenido generado con apoyo de IA — orientativo, no vinculante. Consulte con un abogado habilitado.</small>
     </footer>
   </main>
-<script src="../mode-switcher.js"></script></body>
+
+  <script>
+    // ── Indicador de página activa en sidebar ──────────────────────────────
+    (function() {
+      var current = window.location.href.split('?')[0].split('#')[0];
+      document.querySelectorAll('.sidebar a').forEach(function(link) {
+        if (link.href.split('?')[0].split('#')[0] === current)
+          link.classList.add('active');
+      });
+    })();
+
+    // ── Cargador PII client-side ───────────────────────────────────────────
+    (function() {
+      var btn = document.getElementById('pii-load-btn');
+      var status = document.getElementById('pii-status');
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json,application/json';
+        input.onchange = function(e) {
+          var file = e.target.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onload = function(ev) {
+            try {
+              var manifest = JSON.parse(ev.target.result);
+              var spans = document.querySelectorAll('.pii-redacted');
+              var count = 0;
+              spans.forEach(function(span) {
+                var token = span.getAttribute('data-token');
+                if (manifest[token]) {
+                  span.textContent = manifest[token];
+                  span.classList.remove('pii-redacted');
+                  span.classList.add('pii-revealed');
+                  count++;
+                }
+              });
+              if (count > 0) {
+                btn.textContent = '✓ Datos revelados (' + count + ')';
+                btn.classList.add('pii-loaded');
+                if (status) status.textContent = '';
+              } else {
+                if (status) status.textContent = 'Sin datos en esta página';
+              }
+            } catch(err) {
+              if (status) status.textContent = 'Error: JSON inválido';
+            }
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+      });
+    })();
+
+    // ── Mermaid: guardar fuentes ANTES de render, luego inicializar ────────
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Guardar innerHTML original antes de que Mermaid lo reemplace
+      document.querySelectorAll('.mermaid').forEach(function(el, i) {
+        var id = 'mermaid-' + i;
+        el.setAttribute('data-mermaid-id', id);
+        window._mermaidSrc[id] = el.innerHTML.trim();
+      });
+      // 2. Renderizar
+      mermaid.run({ querySelector: '.mermaid' });
+    });
+
+    // ── Theme toggle ──────────────────────────────────────────────────────
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      var btn = document.getElementById('theme-toggle');
+      if (btn) btn.textContent = t === 'dark' ? '☀' : '🌙';
+
+      var mermaidTheme = t === 'dark' ? 'dark' : 'neutral';
+      mermaid.initialize({ startOnLoad: false, theme: mermaidTheme });
+
+      // Re-renderizar diagramas desde fuente original guardada
+      document.querySelectorAll('.mermaid').forEach(function(el) {
+        var id = el.getAttribute('data-mermaid-id');
+        var src = id ? window._mermaidSrc[id] : null;
+        if (src) {
+          el.removeAttribute('data-processed');
+          el.innerHTML = src;
+        }
+      });
+      mermaid.run({ querySelector: '.mermaid' });
+    }
+
+    function toggleTheme() {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('villarrica-theme', next); } catch(e) {}
+    }
+
+    // Restaurar ícono del tema al cargar
+    (function() {
+      try {
+        var saved = localStorage.getItem('villarrica-theme') || 'light';
+        var btn = document.getElementById('theme-toggle');
+        if (btn) btn.textContent = saved === 'dark' ? '☀' : '🌙';
+      } catch(e) {}
+    })();
+
+    // ── Sidebar toggle (desktop) ──────────────────────────────────────────
+    function toggleSidebar() {
+      var collapsed = document.body.classList.toggle('sidebar-collapsed');
+      var btn = document.getElementById('sidebar-toggle-btn');
+      if (btn) btn.textContent = collapsed ? '☰' : '✕';
+      try { localStorage.setItem('villarrica-sidebar', collapsed ? '1' : '0'); } catch(e) {}
+    }
+
+    // Restaurar estado sidebar al cargar
+    (function() {
+      try {
+        if (localStorage.getItem('villarrica-sidebar') === '1') {
+          document.body.classList.add('sidebar-collapsed');
+          var btn = document.getElementById('sidebar-toggle-btn');
+          if (btn) btn.textContent = '☰';
+        }
+      } catch(e) {}
+    })();
+
+    // ── Font size selector ────────────────────────────────────────────────
+    var _fontSizes = { small: '0.875rem', normal: '1rem', large: '1.125rem' };
+
+    function changeFontSize(size) {
+      var val = _fontSizes[size] || '1rem';
+      document.documentElement.style.setProperty('--font-size-base', val);
+      try { localStorage.setItem('villarrica-fontsize', size); } catch(e) {}
+    }
+
+    // Restaurar tamaño de letra al cargar
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        var saved = localStorage.getItem('villarrica-fontsize');
+        if (saved && _fontSizes[saved]) {
+          document.documentElement.style.setProperty('--font-size-base', _fontSizes[saved]);
+          var sel = document.getElementById('font-size-select');
+          if (sel) sel.value = saved;
+        }
+      } catch(e) {}
+    });
+
+    // ── Disclaimer expandible ─────────────────────────────────────────────
+    function toggleDisclaimerFull() {
+      var el = document.getElementById('disclaimer-full');
+      var btn = document.getElementById('disclaimer-expand-btn');
+      if (!el || !btn) return;
+      var expanded = !el.hidden;
+      el.hidden = expanded;
+      btn.setAttribute('aria-expanded', String(!expanded));
+      btn.textContent = expanded ? 'ⓘ más' : '✕ cerrar';
+    }
+
+    // ── Sidebar accordion (secciones colapsables) ─────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      var titles = document.querySelectorAll('.sidebar li.section-title');
+      titles.forEach(function(title) {
+        var ul = title.nextElementSibling;
+        if (!ul || ul.tagName !== 'UL') return;
+
+        // Indicador de toggle
+        var icon = document.createElement('span');
+        icon.className = 'section-toggle-icon';
+        icon.textContent = '▸';
+        title.appendChild(icon);
+        title.setAttribute('tabindex', '0');
+
+        // Empezar colapsado
+        ul.style.display = 'none';
+        ul.style.marginTop = '0';
+
+        function toggle() {
+          var open = ul.style.display !== 'none';
+          ul.style.display = open ? 'none' : '';
+          icon.textContent = open ? '▸' : '▾';
+        }
+        title.addEventListener('click', toggle);
+        title.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+      });
+
+      // Expandir la sección que contiene el enlace activo
+      var activeLink = document.querySelector('.sidebar a.active');
+      if (activeLink) {
+        var el = activeLink.parentElement;
+        var sidebar = document.querySelector('.sidebar');
+        while (el && el !== sidebar) {
+          if (el.tagName === 'UL') {
+            el.style.display = '';
+            var prev = el.previousElementSibling;
+            if (prev && prev.classList.contains('section-title')) {
+              var icon = prev.querySelector('.section-toggle-icon');
+              if (icon) icon.textContent = '▾';
+            }
+          }
+          el = el.parentElement;
+        }
+      }
+    });
+
+    // ── Scroll reveal ─────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!window.IntersectionObserver) return;
+      var targets = document.querySelectorAll('h2, .table-wrapper, blockquote');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      targets.forEach(function(el) {
+        el.classList.add('reveal');
+        observer.observe(el);
+      });
+    });
+
+    // ── Score ring: count-up + fill stroke (dynamic radius) ──────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.score-ring').forEach(function(ring) {
+        var numEl = ring.querySelector('.number[data-target]');
+        if (!numEl) return;
+        var target = parseInt(numEl.getAttribute('data-target'), 10);
+        var fillCircle = ring.querySelector('circle.fill');
+
+        if (fillCircle) {
+          var r = parseFloat(fillCircle.getAttribute('r') || '44');
+          var circumference = 2 * Math.PI * r;
+          fillCircle.style.strokeDasharray = String(circumference);
+          fillCircle.style.strokeDashoffset = String(circumference); // start empty
+          setTimeout(function() {
+            fillCircle.style.strokeDashoffset = String(circumference * (1 - target / 100));
+          }, 150);
+        }
+
+        // Count-up number
+        var duration = 1200;
+        var startTime = null;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var progress = Math.min((ts - startTime) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          numEl.textContent = Math.round(target * eased);
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    });
+
+    // ── Strength tracker: dimension toggle + bar animation ────────────────
+    function toggleDimDetail(btn) {
+      var row = btn.closest('.st-dim-row');
+      if (!row) return;
+      var body = row.querySelector('.st-dim-detail-body');
+      if (!body) return;
+      var open = !body.hidden;
+      body.hidden = open;
+      btn.setAttribute('aria-expanded', String(!open));
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate dimension bars on load
+      setTimeout(function() {
+        document.querySelectorAll('.st-dim-bar-fill[data-width]').forEach(function(bar) {
+          bar.style.width = bar.getAttribute('data-width') + '%';
+        });
+      }, 300);
+    });
+
+    // ── Severity row auto-detection ───────────────────────────────────────
+    // Detecta keywords en celdas cortas (<35 chars) y agrega clase al <tr>
+    document.addEventListener('DOMContentLoaded', function() {
+      var reCritical = /urgente|cr[ií]tic[ao]|bloqueado|bloqueante|🔴/i;
+      var reSuccess  = /completo|completado|resuelto|listo|blindado|✓|✅|🟢/i;
+      var reWarning  = /pendiente|revisar|verificar|atenci[oó]n|🟡|⚠/i;
+      document.querySelectorAll('table tr').forEach(function(row) {
+        if (row.closest('thead')) return;
+        var cells = row.querySelectorAll('td');
+        var detected = null;
+        cells.forEach(function(td) {
+          var t = td.textContent.trim();
+          if (t.length > 35) return;
+          if (!detected && reCritical.test(t)) detected = 'critical';
+          else if (!detected && reSuccess.test(t))  detected = 'success';
+          else if (!detected && reWarning.test(t))  detected = 'warning';
+        });
+        if (detected) row.classList.add('row-' + detected);
+      });
+    });
+  </script>
+</body>
 </html>

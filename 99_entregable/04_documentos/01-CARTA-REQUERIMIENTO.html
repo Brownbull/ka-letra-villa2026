@@ -1,34 +1,47 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CARTA DE REQUERIMIENTO EXTRAJUDICIAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/style.css">
+  <script>
+    // Guardar fuentes Mermaid ANTES de que Mermaid procese los elementos.
+    // window._mermaidSrc se llena en DOMContentLoaded, antes de mermaid.run().
+    window._mermaidSrc = {};
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <script>
+    // Tema inicial: aplicar ANTES del primer render para evitar flash
+    (function() {
+      try {
+        var saved = localStorage.getItem('villarrica-theme') || 'light';
+        if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+        mermaid.initialize({ startOnLoad: false, theme: saved === 'dark' ? 'dark' : 'neutral' });
+      } catch(e) {
+        mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+      }
+    })();
+  </script>
 </head>
 <body>
-  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Menu">
+  <!-- Hamburger mobile (fixed, solo visible en ≤768px) -->
+  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
   <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
+
+  <!-- Sidebar (sin botón de colapso interno) -->
   <nav class="sidebar">
-    <div class="sidebar-mode-switcher">
-      <label for="sidebarViewMode">Vista:</label>
-      <select id="sidebarViewMode" onchange="switchViewMode(this.value)">
-        <option value="original" selected>Original</option>
-        <option value="highCapacity">Alta Capacidad</option>
-        <option value="mediumCapacity">Capacidad Media</option>
-        <option value="lowCapacity">Baja Capacidad</option>
-        <option value="attention">Déficit Atención</option>
-        <option value="cognitive">Carga Cognitiva</option>
-        <option value="simplified">Simplificado</option>
-        <option value="timeline">Línea de Tiempo</option>
-      </select>
+    <div class="sidebar-header">
+      <a href="../../index.html" class="sidebar-home-link">Panel del caso</a>
     </div>
-    <h2>villarrica_202601</h2>
     <ul>
+<li><a href="../../CASE.html">Case</a></li>
+<li><a href="../../strength-tracker.html">Strength Tracker</a></li>
 <li class="section-title">02 Investigacion</li>
 <ul>
 <li><a href="../../02_investigacion/13-27bis-requirements.html">13 27Bis Requirements</a></li>
@@ -41,9 +54,9 @@
 </ul>
 <li class="section-title">03 Estrategia</li>
 <ul>
-<li><a href="../../03_estrategia/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 <li><a href="../../03_estrategia/defensa-anticipada.html">Defensa Anticipada</a></li>
 <li><a href="../../03_estrategia/estrategia-legal.html">Estrategia Legal</a></li>
+<li><a href="../../03_estrategia/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 </ul>
 <li class="section-title">04 Revision</li>
 <ul>
@@ -52,6 +65,7 @@
 </ul>
 <li class="section-title">99 Entregable</li>
 <ul>
+<li><a href="../../99_entregable/PANEL.html">Panel</a></li>
 <li class="section-title">01 Critico</li>
 <ul>
 <li><a href="../../99_entregable/01_critico/certificar-grabacion.html">Certificar Grabacion</a></li>
@@ -81,7 +95,6 @@
 <ul>
 <li><a href="../../99_entregable/05_requiere-profesional/medida-cautelar-abogado.html">Medida Cautelar Abogado</a></li>
 </ul>
-<li><a href="../../99_entregable/PANEL.html">Panel</a></li>
 <li class="section-title">Entrega-Profesional</li>
 <ul>
 <li><a href="../../99_entregable/entrega-profesional/ESTIMACION-COSTOS-LEGALES.html">Estimacion Costos Legales</a></li>
@@ -92,14 +105,49 @@
 <li><a href="../../99_entregable/entrega-profesional/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 </ul>
 </ul>
-<li><a href="../../CASE.html">Case</a></li>
-<li><a href="../../strength-tracker.html">Strength Tracker</a></li>
 </ul>
   </nav>
+
   <main class="content">
+    <!-- Barra de acciones: izquierda = toggle sidebar desktop | derecha = controles -->
     <div class="top-actions no-print">
-      <button class="print-btn" onclick="window.print()">Exportar PDF</button>
+      <div class="top-actions-left">
+        <button class="sidebar-toggle-btn" id="sidebar-toggle-btn"
+                onclick="toggleSidebar()" title="Mostrar/ocultar menú">✕</button>
+      </div>
+      <div class="top-actions-right">
+        <select class="font-size-select" id="font-size-select"
+                onchange="changeFontSize(this.value)" title="Tamaño de letra">
+          <option value="small">Aa pequeño</option>
+          <option value="normal" selected>Aa normal</option>
+          <option value="large">Aa grande</option>
+        </select>
+        <button class="theme-toggle" id="theme-toggle"
+                onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+        <button class="print-btn" onclick="window.print()"
+                title="Usar 'Guardar como PDF' en el diálogo de impresión">⬇ PDF</button>
+        <div class="pii-loader">
+          <button class="pii-load-btn" id="pii-load-btn"
+                  title="Abogado: cargar pii-manifest.json para revelar datos reales">
+            🔒 Revelar datos
+          </button>
+          <span class="pii-status" id="pii-status"></span>
+        </div>
+      </div>
     </div>
+
+    <div class="disclaimer-bar no-print">
+      <span class="disclaimer-short">⚠ Este documento es orientativo y no constituye asesoría legal profesional.</span>
+      <button class="disclaimer-expand-btn" id="disclaimer-expand-btn"
+              onclick="toggleDisclaimerFull()" aria-expanded="false" title="Ver aviso completo">ⓘ más</button>
+      <div class="disclaimer-full" id="disclaimer-full" hidden>
+        Ha sido elaborado con apoyo de inteligencia artificial como guía orientativa.
+        Su contenido es <strong>no vinculante</strong> y tiene carácter exclusivamente informativo.
+        Consulte con un abogado habilitado antes de actuar.
+        Ver sección <strong>Contactos para Verificación Profesional</strong> al final de cada documento.
+      </div>
+    </div>
+
     <h1 id="carta-de-requerimiento-extrajudicial">CARTA DE REQUERIMIENTO EXTRAJUDICIAL</h1>
 <blockquote>
 <p><strong>IMPORTANTE</strong>: Este documento ha sido elaborado con inteligencia artificial.
@@ -112,21 +160,21 @@ Ver seccion <strong>Contactos para Verificacion Profesional</strong> al final.</
 <p><strong>CARTA CERTIFICADA CON ACUSE DE RECIBO</strong></p>
 <p>Señora
 <strong>KATHERINE REBOLLEDO</strong>
-Asesorías Tributarias Pedro González Limitada
-RUT: 76.333.878-9
+Asesorías Tributarias <span class="pii-redacted" data-token="NOMBRE_TITULAR">[redactado]</span> Limitada
+RUT: <span class="pii-redacted" data-token="RUT_EMPRESA">[redactado]</span>
 Cam La Laguna 1177, Parque San León
 San Bernardo</p>
-<p><strong>Copia por email:</strong> krebolledo@cyggroup.cl</p>
+<p><strong>Copia por email:</strong> <span class="pii-redacted" data-token="EMAIL_CONTADORA">[redactado]</span></p>
 <p><strong>REF: REQUERIMIENTO FORMAL DE INDEMNIZACIÓN POR NEGLIGENCIA PROFESIONAL EN ASESORÍA CONTABLE-TRIBUTARIA</strong></p>
 <p>De mi consideración:</p>
-<p>Por medio de la presente, doña <strong>CLAUDIA VIOLETA PINO BRITO</strong>, cédula de identidad N° 13.457.909-9, con domicilio en Casilla 422, Correos de Chile, Villarrica, Región de La Araucanía, viene en requerir formalmente a usted y a la empresa <strong>Asesorías Tributarias Pedro González Limitada</strong> (RUT 76.333.878-9), solidariamente, el pago de una indemnización de perjuicios por los daños causados producto de la asesoría contable-tributaria negligente prestada en relación con la adquisición de un bien inmueble.</p>
+<p>Por medio de la presente, doña <strong>CLAUDIA VIOLETA PINO BRITO</strong>, cédula de identidad N° <span class="pii-redacted" data-token="RUT_DEMANDANTE">[redactado]</span>, con domicilio en Casilla 422, Correos de Chile, Villarrica, Región de La Araucanía, viene en requerir formalmente a usted y a la empresa <strong>Asesorías Tributarias <span class="pii-redacted" data-token="NOMBRE_TITULAR">[redactado]</span> Limitada</strong> (RUT <span class="pii-redacted" data-token="RUT_EMPRESA">[redactado]</span>), solidariamente, el pago de una indemnización de perjuicios por los daños causados producto de la asesoría contable-tributaria negligente prestada en relación con la adquisición de un bien inmueble.</p>
 <hr>
 <h2 id="i-relacion-contractual">I. RELACIÓN CONTRACTUAL</h2>
-<p>Con fecha 15 de septiembre de 2025, contacté a la empresa Asesorías Tributarias Pedro González Limitada a través de WhatsApp, solicitando asesoría tributaria para la adquisición de un inmueble destinado a inversión (arriendo amoblado).</p>
+<p>Con fecha 15 de septiembre de 2025, contacté a la empresa Asesorías Tributarias <span class="pii-redacted" data-token="NOMBRE_TITULAR">[redactado]</span> Limitada a través de WhatsApp, solicitando asesoría tributaria para la adquisición de un inmueble destinado a inversión (arriendo amoblado).</p>
 <p>La empresa ofreció dos opciones de asesoría:
-1. Pedro González, profesional senior ($300.000 por 60 minutos)
+1. <span class="pii-redacted" data-token="NOMBRE_TITULAR">[redactado]</span>, profesional senior ($300.000 por 60 minutos)
 2. Otro profesional ($100.000 por 30 minutos)</p>
-<p>Opté por la segunda opción y efectué el pago de <strong>$100.000</strong> mediante transferencia bancaria el mismo 15 de septiembre de 2025. La empresa asignó a <strong>Katherine Rebolledo</strong> como la profesional encargada de la asesoría.</p>
+<p>Opté por la segunda opción y efectué el pago de <strong>$100.000</strong> mediante transferencia bancaria el mismo 15 de septiembre de 2025. La empresa asignó a <strong><span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span></strong> como la profesional encargada de la asesoría.</p>
 <p>La relación contractual quedó documentada con:
 - Comprobante de transferencia bancaria ($100.000, 15/09/2025)
 - Factura Exenta N°13093 emitida por la empresa (30/09/2025)
@@ -204,7 +252,7 @@ San Bernardo</p>
 <p>Como consecuencia directa de seguir su asesoría incorrecta, he perdido irremediablemente la posibilidad de recuperar el IVA de la compra mediante el mecanismo del Artículo 27 bis del DL 825.</p>
 <h3 id="cuantificacion-del-dano">Cuantificación del daño:</h3>
 <p>Según las Facturas N°12 (Exenta) y N°32 (Afecta) emitidas por Inmobiliaria Isiete Araucanía X SpA:</p>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Concepto</th>
@@ -233,7 +281,7 @@ San Bernardo</p>
 <td><strong>$20.441.378</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
 <h2 id="vi-requerimiento-formal">VI. REQUERIMIENTO FORMAL</h2>
 <p>En virtud de lo expuesto, y considerando:</p>
@@ -244,8 +292,8 @@ San Bernardo</p>
 <li>Los costos legales en que he debido incurrir</li>
 <li>Los intereses y reajustes correspondientes desde la fecha de la compra</li>
 </ul>
-<p>Vengo en requerir a usted y a <strong>Asesorías Tributarias Pedro González Limitada</strong> (RUT 76.333.878-9), solidariamente, el pago de una <strong>indemnización total de $28.000.000 (veintiocho millones de pesos)</strong>, desglosada de la siguiente forma:</p>
-<table>
+<p>Vengo en requerir a usted y a <strong>Asesorías Tributarias <span class="pii-redacted" data-token="NOMBRE_TITULAR">[redactado]</span> Limitada</strong> (RUT <span class="pii-redacted" data-token="RUT_EMPRESA">[redactado]</span>), solidariamente, el pago de una <strong>indemnización total de $28.000.000 (veintiocho millones de pesos)</strong>, desglosada de la siguiente forma:</p>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Concepto</th>
@@ -278,7 +326,7 @@ San Bernardo</p>
 <td><strong>$28.000.000</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
 <h2 id="vii-plazo-y-advertencia">VII. PLAZO Y ADVERTENCIA</h2>
 <p>Se le otorga un plazo de <strong>quince (15) días hábiles</strong> contados desde la recepción de la presente carta para:</p>
@@ -302,7 +350,7 @@ San Bernardo</p>
 <li>Grabación de audio de la consulta del 22/09/2025 (certificada ante notario)</li>
 <li>Transcripción íntegra de la conversación</li>
 <li>Email del 19/09/2025 con preguntas escritas previas a la consulta</li>
-<li>Email de coordinación del 16/09/2025 (identifica a Katherine Rebolledo como profesional asignada)</li>
+<li>Email de coordinación del 16/09/2025 (identifica a <span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span> como profesional asignada)</li>
 <li>Comprobante de transferencia bancaria por $100.000 (15/09/2025)</li>
 <li>Factura Exenta N°13093 emitida por la empresa (30/09/2025)</li>
 <li>Conversaciones de WhatsApp de coordinación y pago</li>
@@ -310,47 +358,47 @@ San Bernardo</p>
 <li>Escritura de compraventa del inmueble (10/12/2025)</li>
 <li>Análisis legal de requisitos del Art. 27 bis conforme a jurisprudencia del SII</li>
 </ol>
-<p>La presente carta se envía por correo certificado con acuse de recibo a Cam La Laguna 1177, Parque San León, San Bernardo, y copia por correo electrónico a krebolledo@cyggroup.cl.</p>
+<p>La presente carta se envía por correo certificado con acuse de recibo a Cam La Laguna 1177, Parque San León, San Bernardo, y copia por correo electrónico a <span class="pii-redacted" data-token="EMAIL_CONTADORA">[redactado]</span>.</p>
 <p>Sin otro particular, y a la espera de su pronta respuesta,</p>
 <p>Le saluda atentamente,</p>
 <hr>
 <p><strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_____</strong>
 <strong>CLAUDIA VIOLETA PINO BRITO</strong>
-C.I.: 13.457.909-9
+C.I.: <span class="pii-redacted" data-token="RUT_DEMANDANTE">[redactado]</span>
 Domicilio: Casilla 422, Correos de Chile, Villarrica
-Teléfono: +56 9 9784 0600
-Email: clau.v.pino@gmail.com</p>
+Teléfono: <span class="pii-redacted" data-token="TEL_DEMANDANTE">[redactado]</span>
+Email: <span class="pii-redacted" data-token="EMAIL_DEMANDANTE">[redactado]</span></p>
 <hr>
 <p><strong>Cc:</strong>
 - Archivo personal</p>
 <hr>
 <h3 id="campos-por-completar">CAMPOS POR COMPLETAR:</h3>
 <ul>
-<li>[ ] Fecha de envío</li>
-<li>[x] ~~Nombre de la profesional~~ → Katherine Rebolledo</li>
-<li>[x] ~~Nombre de la empresa~~ → Asesorías Tributarias Pedro González Limitada</li>
-<li>[x] ~~RUT empresa~~ → 76.333.878-9</li>
-<li>[x] ~~Dirección empresa~~ → Cam La Laguna 1177, San Bernardo</li>
-<li>[x] ~~Nombre de Claudia~~ → Claudia Violeta Pino Brito</li>
-<li>[x] ~~RUT de Claudia~~ → 13.457.909-9</li>
-<li>[x] ~~Dirección de Claudia~~ → Casilla 422, Villarrica</li>
-<li>[x] ~~Teléfono de Claudia~~ → +56 9 9784 0600</li>
-<li>[x] ~~Email de Claudia~~ → clau.v.pino@gmail.com</li>
-<li>[x] ~~Fecha de la consulta~~ → 22/09/2025</li>
-<li>[x] ~~Inmueble~~ → Depto 309 + Bodega B26 + Estac. E94, Edificio LINK, Villarrica</li>
-<li>[x] ~~Precio del inmueble~~ → $146.200.079</li>
-<li>[x] ~~IVA perdido~~ → $20.441.378</li>
-<li>[x] ~~Monto a solicitar~~ → $28.000.000</li>
+<li class="task-item"><input type="checkbox" disabled>  Fecha de envío</li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Nombre de la profesional</del> → <span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span></li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Nombre de la empresa</del> → Asesorías Tributarias <span class="pii-redacted" data-token="NOMBRE_TITULAR">[redactado]</span> Limitada</li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>RUT empresa</del> → <span class="pii-redacted" data-token="RUT_EMPRESA">[redactado]</span></li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Dirección empresa</del> → Cam La Laguna 1177, San Bernardo</li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Nombre de Claudia</del> → <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span></li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>RUT de Claudia</del> → <span class="pii-redacted" data-token="RUT_DEMANDANTE">[redactado]</span></li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Dirección de Claudia</del> → Casilla 422, Villarrica</li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Teléfono de Claudia</del> → <span class="pii-redacted" data-token="TEL_DEMANDANTE">[redactado]</span></li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Email de Claudia</del> → <span class="pii-redacted" data-token="EMAIL_DEMANDANTE">[redactado]</span></li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Fecha de la consulta</del> → 22/09/2025</li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Inmueble</del> → Depto 309 + Bodega B26 + Estac. E94, <span class="pii-redacted" data-token="EDIFICIO_REFERENCIA">[redactado]</span></li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Precio del inmueble</del> → $146.200.079</li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>IVA perdido</del> → $20.441.378</li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Monto a solicitar</del> → $28.000.000</li>
 </ul>
 <h3 id="prerequisitos-antes-de-enviar">PREREQUISITOS ANTES DE ENVIAR:</h3>
 <ul>
-<li>[ ] Grabación certificada ante notario (CRÍTICO)</li>
-<li>[ ] Revisión por abogado patrocinante (si corresponde)</li>
-<li>[ ] Confirmar dirección de envío vigente</li>
+<li class="task-item"><input type="checkbox" disabled>  Grabación certificada ante notario (CRÍTICO)</li>
+<li class="task-item"><input type="checkbox" disabled>  Revisión por abogado patrocinante (si corresponde)</li>
+<li class="task-item"><input type="checkbox" disabled>  Confirmar dirección de envío vigente</li>
 </ul>
 <hr>
 <h2 id="contactos-para-verificacion-profesional">Contactos para Verificación Profesional</h2>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Categoría</th>
@@ -375,10 +423,10 @@ Email: clau.v.pino@gmail.com</p>
 <td>pjud.cl / +56 2 2387 3000</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
 <h2 id="glosario">Glosario</h2>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Término</th>
@@ -407,16 +455,310 @@ Email: clau.v.pino@gmail.com</p>
 <td>Norma que permite a una SpA recuperar IVA en compra de inmuebles nuevos</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
 <blockquote>
 <p><strong>Nivel INFORMADO</strong>: Los términos técnicos se explican entre paréntesis la primera vez que aparecen.
 <strong>Nivel GUIADO</strong>: Este documento REQUIERE revisión por abogado. No usar sin asesoría profesional.</p>
 </blockquote>
+
     <footer class="site-footer no-print">
       <hr>
-      <small>El Director v1.0 &middot; <a href="../../deploy-guide.html">Guia de Despliegue</a></small>
+      <small>Contenido generado con apoyo de IA — orientativo, no vinculante. Consulte con un abogado habilitado.</small>
     </footer>
   </main>
-<script src="../mode-switcher.js"></script></body>
+
+  <script>
+    // ── Indicador de página activa en sidebar ──────────────────────────────
+    (function() {
+      var current = window.location.href.split('?')[0].split('#')[0];
+      document.querySelectorAll('.sidebar a').forEach(function(link) {
+        if (link.href.split('?')[0].split('#')[0] === current)
+          link.classList.add('active');
+      });
+    })();
+
+    // ── Cargador PII client-side ───────────────────────────────────────────
+    (function() {
+      var btn = document.getElementById('pii-load-btn');
+      var status = document.getElementById('pii-status');
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json,application/json';
+        input.onchange = function(e) {
+          var file = e.target.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onload = function(ev) {
+            try {
+              var manifest = JSON.parse(ev.target.result);
+              var spans = document.querySelectorAll('.pii-redacted');
+              var count = 0;
+              spans.forEach(function(span) {
+                var token = span.getAttribute('data-token');
+                if (manifest[token]) {
+                  span.textContent = manifest[token];
+                  span.classList.remove('pii-redacted');
+                  span.classList.add('pii-revealed');
+                  count++;
+                }
+              });
+              if (count > 0) {
+                btn.textContent = '✓ Datos revelados (' + count + ')';
+                btn.classList.add('pii-loaded');
+                if (status) status.textContent = '';
+              } else {
+                if (status) status.textContent = 'Sin datos en esta página';
+              }
+            } catch(err) {
+              if (status) status.textContent = 'Error: JSON inválido';
+            }
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+      });
+    })();
+
+    // ── Mermaid: guardar fuentes ANTES de render, luego inicializar ────────
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Guardar innerHTML original antes de que Mermaid lo reemplace
+      document.querySelectorAll('.mermaid').forEach(function(el, i) {
+        var id = 'mermaid-' + i;
+        el.setAttribute('data-mermaid-id', id);
+        window._mermaidSrc[id] = el.innerHTML.trim();
+      });
+      // 2. Renderizar
+      mermaid.run({ querySelector: '.mermaid' });
+    });
+
+    // ── Theme toggle ──────────────────────────────────────────────────────
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      var btn = document.getElementById('theme-toggle');
+      if (btn) btn.textContent = t === 'dark' ? '☀' : '🌙';
+
+      var mermaidTheme = t === 'dark' ? 'dark' : 'neutral';
+      mermaid.initialize({ startOnLoad: false, theme: mermaidTheme });
+
+      // Re-renderizar diagramas desde fuente original guardada
+      document.querySelectorAll('.mermaid').forEach(function(el) {
+        var id = el.getAttribute('data-mermaid-id');
+        var src = id ? window._mermaidSrc[id] : null;
+        if (src) {
+          el.removeAttribute('data-processed');
+          el.innerHTML = src;
+        }
+      });
+      mermaid.run({ querySelector: '.mermaid' });
+    }
+
+    function toggleTheme() {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('villarrica-theme', next); } catch(e) {}
+    }
+
+    // Restaurar ícono del tema al cargar
+    (function() {
+      try {
+        var saved = localStorage.getItem('villarrica-theme') || 'light';
+        var btn = document.getElementById('theme-toggle');
+        if (btn) btn.textContent = saved === 'dark' ? '☀' : '🌙';
+      } catch(e) {}
+    })();
+
+    // ── Sidebar toggle (desktop) ──────────────────────────────────────────
+    function toggleSidebar() {
+      var collapsed = document.body.classList.toggle('sidebar-collapsed');
+      var btn = document.getElementById('sidebar-toggle-btn');
+      if (btn) btn.textContent = collapsed ? '☰' : '✕';
+      try { localStorage.setItem('villarrica-sidebar', collapsed ? '1' : '0'); } catch(e) {}
+    }
+
+    // Restaurar estado sidebar al cargar
+    (function() {
+      try {
+        if (localStorage.getItem('villarrica-sidebar') === '1') {
+          document.body.classList.add('sidebar-collapsed');
+          var btn = document.getElementById('sidebar-toggle-btn');
+          if (btn) btn.textContent = '☰';
+        }
+      } catch(e) {}
+    })();
+
+    // ── Font size selector ────────────────────────────────────────────────
+    var _fontSizes = { small: '0.875rem', normal: '1rem', large: '1.125rem' };
+
+    function changeFontSize(size) {
+      var val = _fontSizes[size] || '1rem';
+      document.documentElement.style.setProperty('--font-size-base', val);
+      try { localStorage.setItem('villarrica-fontsize', size); } catch(e) {}
+    }
+
+    // Restaurar tamaño de letra al cargar
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        var saved = localStorage.getItem('villarrica-fontsize');
+        if (saved && _fontSizes[saved]) {
+          document.documentElement.style.setProperty('--font-size-base', _fontSizes[saved]);
+          var sel = document.getElementById('font-size-select');
+          if (sel) sel.value = saved;
+        }
+      } catch(e) {}
+    });
+
+    // ── Disclaimer expandible ─────────────────────────────────────────────
+    function toggleDisclaimerFull() {
+      var el = document.getElementById('disclaimer-full');
+      var btn = document.getElementById('disclaimer-expand-btn');
+      if (!el || !btn) return;
+      var expanded = !el.hidden;
+      el.hidden = expanded;
+      btn.setAttribute('aria-expanded', String(!expanded));
+      btn.textContent = expanded ? 'ⓘ más' : '✕ cerrar';
+    }
+
+    // ── Sidebar accordion (secciones colapsables) ─────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      var titles = document.querySelectorAll('.sidebar li.section-title');
+      titles.forEach(function(title) {
+        var ul = title.nextElementSibling;
+        if (!ul || ul.tagName !== 'UL') return;
+
+        // Indicador de toggle
+        var icon = document.createElement('span');
+        icon.className = 'section-toggle-icon';
+        icon.textContent = '▸';
+        title.appendChild(icon);
+        title.setAttribute('tabindex', '0');
+
+        // Empezar colapsado
+        ul.style.display = 'none';
+        ul.style.marginTop = '0';
+
+        function toggle() {
+          var open = ul.style.display !== 'none';
+          ul.style.display = open ? 'none' : '';
+          icon.textContent = open ? '▸' : '▾';
+        }
+        title.addEventListener('click', toggle);
+        title.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+      });
+
+      // Expandir la sección que contiene el enlace activo
+      var activeLink = document.querySelector('.sidebar a.active');
+      if (activeLink) {
+        var el = activeLink.parentElement;
+        var sidebar = document.querySelector('.sidebar');
+        while (el && el !== sidebar) {
+          if (el.tagName === 'UL') {
+            el.style.display = '';
+            var prev = el.previousElementSibling;
+            if (prev && prev.classList.contains('section-title')) {
+              var icon = prev.querySelector('.section-toggle-icon');
+              if (icon) icon.textContent = '▾';
+            }
+          }
+          el = el.parentElement;
+        }
+      }
+    });
+
+    // ── Scroll reveal ─────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!window.IntersectionObserver) return;
+      var targets = document.querySelectorAll('h2, .table-wrapper, blockquote');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      targets.forEach(function(el) {
+        el.classList.add('reveal');
+        observer.observe(el);
+      });
+    });
+
+    // ── Score ring: count-up + fill stroke (dynamic radius) ──────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.score-ring').forEach(function(ring) {
+        var numEl = ring.querySelector('.number[data-target]');
+        if (!numEl) return;
+        var target = parseInt(numEl.getAttribute('data-target'), 10);
+        var fillCircle = ring.querySelector('circle.fill');
+
+        if (fillCircle) {
+          var r = parseFloat(fillCircle.getAttribute('r') || '44');
+          var circumference = 2 * Math.PI * r;
+          fillCircle.style.strokeDasharray = String(circumference);
+          fillCircle.style.strokeDashoffset = String(circumference); // start empty
+          setTimeout(function() {
+            fillCircle.style.strokeDashoffset = String(circumference * (1 - target / 100));
+          }, 150);
+        }
+
+        // Count-up number
+        var duration = 1200;
+        var startTime = null;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var progress = Math.min((ts - startTime) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          numEl.textContent = Math.round(target * eased);
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    });
+
+    // ── Strength tracker: dimension toggle + bar animation ────────────────
+    function toggleDimDetail(btn) {
+      var row = btn.closest('.st-dim-row');
+      if (!row) return;
+      var body = row.querySelector('.st-dim-detail-body');
+      if (!body) return;
+      var open = !body.hidden;
+      body.hidden = open;
+      btn.setAttribute('aria-expanded', String(!open));
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate dimension bars on load
+      setTimeout(function() {
+        document.querySelectorAll('.st-dim-bar-fill[data-width]').forEach(function(bar) {
+          bar.style.width = bar.getAttribute('data-width') + '%';
+        });
+      }, 300);
+    });
+
+    // ── Severity row auto-detection ───────────────────────────────────────
+    // Detecta keywords en celdas cortas (<35 chars) y agrega clase al <tr>
+    document.addEventListener('DOMContentLoaded', function() {
+      var reCritical = /urgente|cr[ií]tic[ao]|bloqueado|bloqueante|🔴/i;
+      var reSuccess  = /completo|completado|resuelto|listo|blindado|✓|✅|🟢/i;
+      var reWarning  = /pendiente|revisar|verificar|atenci[oó]n|🟡|⚠/i;
+      document.querySelectorAll('table tr').forEach(function(row) {
+        if (row.closest('thead')) return;
+        var cells = row.querySelectorAll('td');
+        var detected = null;
+        cells.forEach(function(td) {
+          var t = td.textContent.trim();
+          if (t.length > 35) return;
+          if (!detected && reCritical.test(t)) detected = 'critical';
+          else if (!detected && reSuccess.test(t))  detected = 'success';
+          else if (!detected && reWarning.test(t))  detected = 'warning';
+        });
+        if (detected) row.classList.add('row-' + detected);
+      });
+    });
+  </script>
+</body>
 </html>

@@ -1,34 +1,47 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Caso Villarrica - Negligencia Profesional de Contadora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
+  <script>
+    // Guardar fuentes Mermaid ANTES de que Mermaid procese los elementos.
+    // window._mermaidSrc se llena en DOMContentLoaded, antes de mermaid.run().
+    window._mermaidSrc = {};
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <script>
+    // Tema inicial: aplicar ANTES del primer render para evitar flash
+    (function() {
+      try {
+        var saved = localStorage.getItem('villarrica-theme') || 'light';
+        if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+        mermaid.initialize({ startOnLoad: false, theme: saved === 'dark' ? 'dark' : 'neutral' });
+      } catch(e) {
+        mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+      }
+    })();
+  </script>
 </head>
 <body>
-  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Menu">
+  <!-- Hamburger mobile (fixed, solo visible en ≤768px) -->
+  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
   <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
+
+  <!-- Sidebar (sin botón de colapso interno) -->
   <nav class="sidebar">
-    <div class="sidebar-mode-switcher">
-      <label for="sidebarViewMode">Vista:</label>
-      <select id="sidebarViewMode" onchange="switchViewMode(this.value)">
-        <option value="original" selected>Original</option>
-        <option value="highCapacity">Alta Capacidad</option>
-        <option value="mediumCapacity">Capacidad Media</option>
-        <option value="lowCapacity">Baja Capacidad</option>
-        <option value="attention">Déficit Atención</option>
-        <option value="cognitive">Carga Cognitiva</option>
-        <option value="simplified">Simplificado</option>
-        <option value="timeline">Línea de Tiempo</option>
-      </select>
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-home-link">Panel del caso</a>
     </div>
-    <h2>villarrica_202601</h2>
     <ul>
+<li><a href="CASE.html">Case</a></li>
+<li><a href="strength-tracker.html">Strength Tracker</a></li>
 <li class="section-title">02 Investigacion</li>
 <ul>
 <li><a href="02_investigacion/13-27bis-requirements.html">13 27Bis Requirements</a></li>
@@ -41,9 +54,9 @@
 </ul>
 <li class="section-title">03 Estrategia</li>
 <ul>
-<li><a href="03_estrategia/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 <li><a href="03_estrategia/defensa-anticipada.html">Defensa Anticipada</a></li>
 <li><a href="03_estrategia/estrategia-legal.html">Estrategia Legal</a></li>
+<li><a href="03_estrategia/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 </ul>
 <li class="section-title">04 Revision</li>
 <ul>
@@ -52,6 +65,7 @@
 </ul>
 <li class="section-title">99 Entregable</li>
 <ul>
+<li><a href="99_entregable/PANEL.html">Panel</a></li>
 <li class="section-title">01 Critico</li>
 <ul>
 <li><a href="99_entregable/01_critico/certificar-grabacion.html">Certificar Grabacion</a></li>
@@ -81,7 +95,6 @@
 <ul>
 <li><a href="99_entregable/05_requiere-profesional/medida-cautelar-abogado.html">Medida Cautelar Abogado</a></li>
 </ul>
-<li><a href="99_entregable/PANEL.html">Panel</a></li>
 <li class="section-title">Entrega-Profesional</li>
 <ul>
 <li><a href="99_entregable/entrega-profesional/ESTIMACION-COSTOS-LEGALES.html">Estimacion Costos Legales</a></li>
@@ -92,40 +105,61 @@
 <li><a href="99_entregable/entrega-profesional/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 </ul>
 </ul>
-<li><a href="CASE.html">Case</a></li>
-<li><a href="strength-tracker.html">Strength Tracker</a></li>
 </ul>
   </nav>
+
   <main class="content">
+    <!-- Barra de acciones: izquierda = toggle sidebar desktop | derecha = controles -->
     <div class="top-actions no-print">
-      <div class="mode-switcher">
-        <label for="viewMode" class="mode-label">Vista:</label>
-        <select id="viewMode" class="mode-select" onchange="switchViewMode(this.value)">
-          <option value="original" selected>Original</option>
-          <option value="highCapacity">Alta Capacidad</option>
-          <option value="mediumCapacity">Capacidad Media</option>
-          <option value="lowCapacity">Baja Capacidad</option>
-          <option value="attention">Déficit Atención</option>
-          <option value="cognitive">Carga Cognitiva</option>
-          <option value="simplified">Simplificado</option>
-          <option value="timeline">Línea de Tiempo</option>
-        </select>
+      <div class="top-actions-left">
+        <button class="sidebar-toggle-btn" id="sidebar-toggle-btn"
+                onclick="toggleSidebar()" title="Mostrar/ocultar menú">✕</button>
       </div>
-      <button class="print-btn" onclick="window.print()">Exportar PDF</button>
+      <div class="top-actions-right">
+        <select class="font-size-select" id="font-size-select"
+                onchange="changeFontSize(this.value)" title="Tamaño de letra">
+          <option value="small">Aa pequeño</option>
+          <option value="normal" selected>Aa normal</option>
+          <option value="large">Aa grande</option>
+        </select>
+        <button class="theme-toggle" id="theme-toggle"
+                onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+        <button class="print-btn" onclick="window.print()"
+                title="Usar 'Guardar como PDF' en el diálogo de impresión">⬇ PDF</button>
+        <div class="pii-loader">
+          <button class="pii-load-btn" id="pii-load-btn"
+                  title="Abogado: cargar pii-manifest.json para revelar datos reales">
+            🔒 Revelar datos
+          </button>
+          <span class="pii-status" id="pii-status"></span>
+        </div>
+      </div>
     </div>
-    <script src="99_entregable/mode-switcher.js"></script>
+
+    <div class="disclaimer-bar no-print">
+      <span class="disclaimer-short">⚠ Este documento es orientativo y no constituye asesoría legal profesional.</span>
+      <button class="disclaimer-expand-btn" id="disclaimer-expand-btn"
+              onclick="toggleDisclaimerFull()" aria-expanded="false" title="Ver aviso completo">ⓘ más</button>
+      <div class="disclaimer-full" id="disclaimer-full" hidden>
+        Ha sido elaborado con apoyo de inteligencia artificial como guía orientativa.
+        Su contenido es <strong>no vinculante</strong> y tiene carácter exclusivamente informativo.
+        Consulte con un abogado habilitado antes de actuar.
+        Ver sección <strong>Contactos para Verificación Profesional</strong> al final de cada documento.
+      </div>
+    </div>
+
     <h1 id="caso-villarrica-negligencia-profesional-de-contadora">Caso Villarrica - Negligencia Profesional de Contadora</h1>
 <p><strong>Creado:</strong> 2025-01-28
 <strong>Actualizado:</strong> 2026-02-11
 <strong>Estado:</strong> Pre-Judicial (documentación lista, pendiente envío carta)</p>
 <h2 id="resumen-del-caso">Resumen del Caso</h2>
-<p>Claudia Violeta Pino Brito contrató y pagó una asesoría tributaria profesional para orientarse
+<p><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span> contrató y pagó una asesoría tributaria profesional para orientarse
 sobre la compra de un departamento en Villarrica destinado a Airbnb. La contadora asignada,
-Katherine Rebolledo, dio asesoría errónea sobre el timing de creación de sociedad vs. compra,
+<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>, dio asesoría errónea sobre el timing de creación de sociedad vs. compra,
 resultando en la pérdida irrecuperable del beneficio de recuperación de IVA bajo Art. 27bis DL 825.</p>
 <h2 id="partes-involucradas">Partes Involucradas</h2>
 <h3 id="demandante">Demandante</h3>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Dato</th>
@@ -135,40 +169,40 @@ resultando en la pérdida irrecuperable del beneficio de recuperación de IVA ba
 <tbody>
 <tr>
 <td>Nombre</td>
-<td><strong>Claudia Violeta Pino Brito</strong></td>
+<td><strong><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span></strong></td>
 </tr>
 <tr>
 <td>RUT</td>
-<td>13.457.909-9</td>
+<td><span class="pii-redacted" data-token="RUT_DEMANDANTE">[redactado]</span></td>
 </tr>
 <tr>
 <td>Teléfono</td>
-<td>+56 9 9784 0600</td>
+<td><span class="pii-redacted" data-token="TEL_DEMANDANTE">[redactado]</span></td>
 </tr>
 <tr>
 <td>Email</td>
-<td>clau.v.pino@gmail.com</td>
+<td><span class="pii-redacted" data-token="EMAIL_DEMANDANTE">[redactado]</span></td>
 </tr>
 <tr>
 <td>Dirección (factura)</td>
-<td>Marin 80 1514, Santiago</td>
+<td><span class="pii-redacted" data-token="DIR_FACTURA_DEMANDANTE">[redactado]</span></td>
 </tr>
 <tr>
 <td>Dirección (residencia)</td>
-<td>Casilla 422, Correos de Chile, Villarrica, Araucania</td>
+<td><span class="pii-redacted" data-token="DIR_RESIDENCIA_DEMANDANTE">[redactado]</span></td>
 </tr>
 <tr>
 <td>Giro</td>
-<td>Servicios Personales de Traducción e Interpretación</td>
+<td><span class="pii-redacted" data-token="GIRO_DEMANDANTE">[redactado]</span></td>
 </tr>
 <tr>
 <td>Estado civil</td>
-<td>Casada con separación de bienes</td>
+<td><span class="pii-redacted" data-token="ESTADO_CIVIL_DEMANDANTE">[redactado]</span></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="demandado">Demandado</h3>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Dato</th>
@@ -178,19 +212,19 @@ resultando en la pérdida irrecuperable del beneficio de recuperación de IVA ba
 <tbody>
 <tr>
 <td>Profesional</td>
-<td><strong>Katherine Rebolledo</strong></td>
+<td><strong><span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span></strong></td>
 </tr>
 <tr>
 <td>Email profesional</td>
-<td>krebolledo@cyggroup.cl</td>
+<td><span class="pii-redacted" data-token="EMAIL_CONTADORA">[redactado]</span></td>
 </tr>
 <tr>
 <td>Empresa</td>
-<td><strong>Asesorías Tributarias Pedro Gonzalez Limitada</strong></td>
+<td><strong><span class="pii-redacted" data-token="EMPRESA_DEMANDADA_LARGA">[redactado]</span></strong></td>
 </tr>
 <tr>
 <td>RUT empresa</td>
-<td><strong>76.333.878-9</strong></td>
+<td><strong><span class="pii-redacted" data-token="RUT_EMPRESA">[redactado]</span></strong></td>
 </tr>
 <tr>
 <td>Giro empresa</td>
@@ -198,42 +232,42 @@ resultando en la pérdida irrecuperable del beneficio de recuperación de IVA ba
 </tr>
 <tr>
 <td>Dirección empresa</td>
-<td>Cam La Laguna 1177, Parque San Leon, San Bernardo</td>
+<td><span class="pii-redacted" data-token="DIR_EMPRESA">[redactado]</span></td>
 </tr>
 <tr>
 <td>Email empresa</td>
-<td>pgonzalezf@postgradouchile.cl</td>
+<td><span class="pii-redacted" data-token="EMAIL_EMPRESA_TITULAR">[redactado]</span></td>
 </tr>
 <tr>
 <td>Logo/marca</td>
-<td>C&amp;G Abogados Auditores</td>
+<td><span class="pii-redacted" data-token="MARCA_EMPRESA_1">[redactado]</span></td>
 </tr>
 <tr>
 <td>WhatsApp empresa</td>
-<td>+56 9 5822 2843</td>
+<td><span class="pii-redacted" data-token="WHATSAPP_EMPRESA">[redactado]</span></td>
 </tr>
 <tr>
 <td>Emails pagos</td>
-<td>pedro@atgonzalez.cl / pagos@cyggroup.cl</td>
+<td><span class="pii-redacted" data-token="EMAIL_PAGOS_PEDRO">[redactado]</span> / <span class="pii-redacted" data-token="EMAIL_PAGOS_CYG">[redactado]</span></td>
 </tr>
 <tr>
 <td>Cuenta bancaria</td>
-<td>Banco Chile N°00-005-09918-08, AT Gonzalez Limitada</td>
+<td><span class="pii-redacted" data-token="CUENTA_BANCO_EMPRESA">[redactado]</span>, <span class="pii-redacted" data-token="EMPRESA_DEMANDADA_ALT">[redactado]</span></td>
 </tr>
 <tr>
 <td>TikTok (Pedro)</td>
 <td>Contenido publico sobre oficios, estructuras para evadir responsabilidad y proteger activos</td>
 </tr>
 </tbody>
-</table>
-<p><strong>ALERTA -- RIESGO DE OCULTAMIENTO DE BIENES:</strong> Pedro Gonzalez (titular de la empresa) publica
+</table></div>
+<p><strong>ALERTA -- RIESGO DE OCULTAMIENTO DE BIENES:</strong> <span class="pii-redacted" data-token="NOMBRE_TITULAR_ALT">[redactado]</span> (titular de la empresa) publica
 contenido en TikTok sobre estructuras para evadir responsabilidad civil y proteger activos.
 Tiene el conocimiento, herramientas e inclinación para ocultar bienes si se entera de la
-reclamación. La empresa opera bajo múltiples marcas (C&amp;G, CYG Group, AT Gonzalez), lo que
+reclamación. La empresa opera bajo múltiples marcas (C&amp;G, <span class="pii-redacted" data-token="MARCA_EMPRESA_2">[redactado]</span>, AT Gonzalez), lo que
 sugiere dispersión de estructuras societarias. Evaluar medida prejudicial precautoria
 (Art. 279 CPC) ANTES de notificar.</p>
 <h3 id="terceros">Terceros</h3>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Nombre</th>
@@ -242,11 +276,11 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 </thead>
 <tbody>
 <tr>
-<td>Camila (camila@emprendemos.cl)</td>
+<td>Camila (<span class="pii-redacted" data-token="EMAIL_INTERMEDIARIA">[redactado]</span>)</td>
 <td>Intermediaria/coordinadora de asesorías</td>
 </tr>
 <tr>
-<td>Pedro Gonzalez</td>
+<td><span class="pii-redacted" data-token="NOMBRE_TITULAR_ALT">[redactado]</span></td>
 <td>Titular de la empresa, profesional senior ($300K/60min)</td>
 </tr>
 <tr>
@@ -254,7 +288,7 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 <td>Mencionado como contacto legal para creación de SpA</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="el-problema-central-iva-27bis-perdido">El Problema Central: IVA 27bis PERDIDO</h2>
 <p><strong>Art. 27bis DL 825</strong> permite a una SpA recuperar el IVA en compras de inmuebles -- pero SOLO si la SpA compra DIRECTAMENTE de la inmobiliaria en primera transferencia.</p>
 <p><strong>Lo que Claudia preguntó (POR ESCRITO, email del 19/09/2025):</strong>
@@ -262,13 +296,13 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 2. "sigo como persona natural o hago inicio de actividades?"
 3. "Individual o sociedad (con mi marido)? y si es sociedad, que tipo?"
 4. "se pueden declarar las compras de equipamiento y recuperar IVA?"</p>
-<p><strong>Lo que Katherine Rebolledo respondió (consulta del 22/09/2025):</strong>
+<p><strong>Lo que <span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span> respondió (consulta del 22/09/2025):</strong>
 1. Solo explicó IVA en arriendos/muebles -- <strong>NUNCA mencionó 27bis sobre el inmueble</strong>
 2. "Generalmente comprar primero, transferir después" -- <strong>INCORRECTO para 27bis</strong>
 3. "Si, pero ahí igual tiene que cumplir bastantes requisitos" -- <strong>ENGAÑOSO</strong> (la respuesta real es NO)</p>
 <p><strong>Admisión critica:</strong> Katherine confirmó "no tenemos contadores inmobiliarios" pero igual dio consejo definitivo sobre timing en una pregunta de impuestos inmobiliarios.</p>
 <h2 id="cronologia">Cronología</h2>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Fecha</th>
@@ -289,12 +323,12 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 </tr>
 <tr>
 <td>15/09/2025 21:06</td>
-<td>Claudia paga $100.000 por transferencia a AT Gonzalez Limitada</td>
+<td>Claudia paga $100.000 por transferencia a <span class="pii-redacted" data-token="EMPRESA_DEMANDADA_ALT">[redactado]</span></td>
 <td>whatsapp/ imagen 2 (comprobante)</td>
 </tr>
 <tr>
 <td>16/09/2025</td>
-<td>Camila envia antecedentes a Katherine Rebolledo por email</td>
+<td>Camila envia antecedentes a <span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span> por email</td>
 <td>Email coordinación</td>
 </tr>
 <tr>
@@ -323,14 +357,14 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 <td>Investigación legal</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="impacto-financiero">Impacto Financiero</h2>
-<p><strong>Inmueble:</strong> Departamento en torre (Edificio LINK, Villarrica)
-<strong>Items:</strong> Departamento 309 + Bodega B26 + Estacionamiento E94
+<p><strong>Inmueble:</strong> Departamento en torre (<span class="pii-redacted" data-token="EDIFICIO_REFERENCIA">[redactado]</span>)
+<strong>Items:</strong> <span class="pii-redacted" data-token="DEPTO_REFERENCIA">[redactado]</span>
 <strong>Vendedor:</strong> Inmobiliaria Isiete Araucania X SpA (RUT 77.128.328-4)
 <strong>Fecha compra:</strong> 10 de diciembre de 2025</p>
 <h3 id="facturas-de-compra-exactas">Facturas de Compra (EXACTAS)</h3>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Factura</th>
@@ -360,9 +394,9 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 <td><strong>$146.200.079</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="dano-cuantificado">Daño Cuantificado</h3>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Concepto</th>
@@ -391,10 +425,10 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 <td><strong>$24.000.000 - $27.500.000</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>Monto a solicitar (negociación):</strong> $28.000.000 - $30.000.000</p>
 <h2 id="evidencia-recopilada">Evidencia Recopilada</h2>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Fecha</th>
@@ -413,7 +447,7 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 <tr>
 <td>15/09/2025</td>
 <td>Comprobante</td>
-<td>Transferencia $100.000 a AT Gonzalez Limitada</td>
+<td>Transferencia $100.000 a <span class="pii-redacted" data-token="EMPRESA_DEMANDADA_ALT">[redactado]</span></td>
 <td><code>01_evidencia/whatsapp/WhatsApp Image...13.13.33.jpeg</code></td>
 </tr>
 <tr>
@@ -431,7 +465,7 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 <tr>
 <td>22/09/2025</td>
 <td>Transcripción</td>
-<td>Consulta grabada con Katherine Rebolledo</td>
+<td>Consulta grabada con <span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span></td>
 <td><code>01_evidencia/2025-01-XX-caterin-consultation-transcript.txt</code></td>
 </tr>
 <tr>
@@ -453,9 +487,9 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 <td><code>02_investigacion/parallel-ai-analysis.md</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="cuadro-de-negligencia">Cuadro de Negligencia</h2>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Lo que Claudia preguntó</th>
@@ -484,7 +518,7 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 <td>"Si" engañoso</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>Agravantes:</strong>
 1. Katherine admitió "no tenemos contadores inmobiliarios" pero igual dio consejo definitivo
 2. La empresa se llama literalmente "Asesorías <strong>Tributarias</strong>" -- es su giro
@@ -493,47 +527,341 @@ sugiere dispersión de estructuras societarias. Evaluar medida prejudicial preca
 <h2 id="checklist-de-preparacion">Checklist de Preparación</h2>
 <h3 id="datos-del-caso">Datos del Caso</h3>
 <ul>
-<li>[x] Identificación completa de la contadora (Katherine Rebolledo, CYG Group)</li>
-<li>[x] Identificación de la empresa (Asesorías Tributarias Pedro Gonzalez Ltda, RUT 76.333.878-9)</li>
-<li>[x] Confirmar compra del inmueble siguiendo el consejo erróneo</li>
-<li>[x] Documentar consejo exacto dado (transcripción grabada)</li>
-<li>[x] Calcular IVA perdido exacto ($20.441.378)</li>
-<li>[x] Relación contractual demostrada (pago + factura)</li>
-<li>[x] Preguntas escritas previas a la consulta (email 19/09/2025)</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Identificación completa de la contadora (<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>, <span class="pii-redacted" data-token="MARCA_EMPRESA_2">[redactado]</span>)</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Identificación de la empresa (Asesorías Tributarias <span class="pii-redacted" data-token="NOMBRE_TITULAR_ALT">[redactado]</span> Ltda, RUT <span class="pii-redacted" data-token="RUT_EMPRESA">[redactado]</span>)</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Confirmar compra del inmueble siguiendo el consejo erróneo</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Documentar consejo exacto dado (transcripción grabada)</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Calcular IVA perdido exacto ($20.441.378)</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Relación contractual demostrada (pago + factura)</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Preguntas escritas previas a la consulta (email 19/09/2025)</li>
 </ul>
 <h3 id="investigacion-legal">Investigación Legal</h3>
 <ul>
-<li>[x] Investigar responsabilidad profesional contadores en Chile -&gt; <code>02_investigacion/14-professional-liability.md</code></li>
-<li>[x] Investigar proceso denuncia Colegio de Contadores -&gt; <code>02_investigacion/14-professional-liability.md</code></li>
-<li>[x] Investigar requisitos Art. 27bis -&gt; <code>02_investigacion/13-27bis-requirements.md</code></li>
-<li>[x] Buscar precedentes negligencia profesional -&gt; Casos de abogados aplicables</li>
-<li>[x] Determinar si daños son recuperables -&gt; Si, via demanda civil</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Investigar responsabilidad profesional contadores en Chile -&gt; <code>02_investigacion/14-professional-liability.md</code></li>
+<li class="task-item"><input type="checkbox" checked disabled>  Investigar proceso denuncia Colegio de Contadores -&gt; <code>02_investigacion/14-professional-liability.md</code></li>
+<li class="task-item"><input type="checkbox" checked disabled>  Investigar requisitos Art. 27bis -&gt; <code>02_investigacion/13-27bis-requirements.md</code></li>
+<li class="task-item"><input type="checkbox" checked disabled>  Buscar precedentes negligencia profesional -&gt; Casos de abogados aplicables</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Determinar si daños son recuperables -&gt; Si, via demanda civil</li>
 </ul>
 <h3 id="acciones-legales-pendientes">Acciones Legales Pendientes</h3>
 <ul>
-<li>[ ] <strong>URGENTE:</strong> Preservar evidencia TikTok de Pedro (capturas, descargas, certificación)</li>
-<li>[ ] <strong>URGENTE:</strong> Contratar abogado (prioridad elevada por riesgo de ocultamiento)</li>
-<li>[ ] Evaluar medida prejudicial precautoria con abogado (Art. 279 CPC)</li>
-<li>[ ] Investigar solvencia Katherine/empresa/Pedro</li>
-<li>[x] ~~Evaluación formal del caso~~</li>
-<li>[x] ~~Revisión adversarial de la estrategia~~</li>
-<li>[x] ~~Corregir hallazgos criticos~~</li>
-<li>[ ] Enviar carta de requerimiento (timing depende de estrategia cautelar)</li>
-<li>[ ] Evaluar denuncia ética ante Colegio de Contadores</li>
+<li class="task-item"><input type="checkbox" disabled>  <strong>URGENTE:</strong> Preservar evidencia TikTok de Pedro (capturas, descargas, certificación)</li>
+<li class="task-item"><input type="checkbox" disabled>  <strong>URGENTE:</strong> Contratar abogado (prioridad elevada por riesgo de ocultamiento)</li>
+<li class="task-item"><input type="checkbox" disabled>  Evaluar medida prejudicial precautoria con abogado (Art. 279 CPC)</li>
+<li class="task-item"><input type="checkbox" disabled>  Investigar solvencia Katherine/empresa/Pedro</li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Evaluación formal del caso</del></li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Revisión adversarial de la estrategia</del></li>
+<li class="task-item"><input type="checkbox" checked disabled>  <del>Corregir hallazgos criticos</del></li>
+<li class="task-item"><input type="checkbox" disabled>  Enviar carta de requerimiento (timing depende de estrategia cautelar)</li>
+<li class="task-item"><input type="checkbox" disabled>  Evaluar denuncia ética ante Colegio de Contadores</li>
 </ul>
 <h2 id="notas">Notas</h2>
 <ul>
-<li>"Caterin" en la transcripción original = Katherine Rebolledo (nombre mal escuchado/recordado)</li>
-<li>La empresa opera bajo múltiples marcas: C&amp;G Abogados Auditores, CYG Group, AT Gonzalez</li>
+<li>"Caterin" en la transcripción original = <span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span> (nombre mal escuchado/recordado)</li>
+<li>La empresa opera bajo múltiples marcas: <span class="pii-redacted" data-token="MARCA_EMPRESA_1">[redactado]</span>, <span class="pii-redacted" data-token="MARCA_EMPRESA_2">[redactado]</span>, AT Gonzalez</li>
 <li>Claudia eligio la opción de $100K/30min (otro profesional) en vez de $300K/60min (Pedro). La empresa asignó a Katherine. La empresa es responsable de la calidad del profesional asignado.</li>
 <li>Considerar responsabilidad solidaria de la empresa Y de Katherine personalmente</li>
 <li>En la transcripción, Claudia menciona que "otro contador" le había dado el mismo consejo. ACLARACIÓN: fue un comentario informal por teléfono/WhatsApp de un conocido que es contador. No fue asesoría formal, no hubo pago, no hay registro. La ÚNICA asesoría profesional pagada fue con Katherine. Esto es relevante porque la defensa podría intentar usar esta frase para argumentar concausa.</li>
-<li><strong>NUEVO (2026-02-11):</strong> Pedro Gonzalez (titular empresa) publica contenido en TikTok sobre oficios y estructuras para evadir responsabilidad y proteger activos. Esto: (1) evidencia riesgo concreto de ocultamiento de bienes, (2) justifica medida prejudicial precautoria Art. 279 CPC, (3) cambia la secuencia estrategica -- NO notificar carta sin antes evaluar medida cautelar con abogado.</li>
+<li><strong>NUEVO (2026-02-11):</strong> <span class="pii-redacted" data-token="NOMBRE_TITULAR_ALT">[redactado]</span> (titular empresa) publica contenido en TikTok sobre oficios y estructuras para evadir responsabilidad y proteger activos. Esto: (1) evidencia riesgo concreto de ocultamiento de bienes, (2) justifica medida prejudicial precautoria Art. 279 CPC, (3) cambia la secuencia estrategica -- NO notificar carta sin antes evaluar medida cautelar con abogado.</li>
 </ul>
+
     <footer class="site-footer no-print">
       <hr>
-      <small>El Director v1.0 &middot; <a href="deploy-guide.html">Guia de Despliegue</a></small>
+      <small>Contenido generado con apoyo de IA — orientativo, no vinculante. Consulte con un abogado habilitado.</small>
     </footer>
   </main>
+
+  <script>
+    // ── Indicador de página activa en sidebar ──────────────────────────────
+    (function() {
+      var current = window.location.href.split('?')[0].split('#')[0];
+      document.querySelectorAll('.sidebar a').forEach(function(link) {
+        if (link.href.split('?')[0].split('#')[0] === current)
+          link.classList.add('active');
+      });
+    })();
+
+    // ── Cargador PII client-side ───────────────────────────────────────────
+    (function() {
+      var btn = document.getElementById('pii-load-btn');
+      var status = document.getElementById('pii-status');
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json,application/json';
+        input.onchange = function(e) {
+          var file = e.target.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onload = function(ev) {
+            try {
+              var manifest = JSON.parse(ev.target.result);
+              var spans = document.querySelectorAll('.pii-redacted');
+              var count = 0;
+              spans.forEach(function(span) {
+                var token = span.getAttribute('data-token');
+                if (manifest[token]) {
+                  span.textContent = manifest[token];
+                  span.classList.remove('pii-redacted');
+                  span.classList.add('pii-revealed');
+                  count++;
+                }
+              });
+              if (count > 0) {
+                btn.textContent = '✓ Datos revelados (' + count + ')';
+                btn.classList.add('pii-loaded');
+                if (status) status.textContent = '';
+              } else {
+                if (status) status.textContent = 'Sin datos en esta página';
+              }
+            } catch(err) {
+              if (status) status.textContent = 'Error: JSON inválido';
+            }
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+      });
+    })();
+
+    // ── Mermaid: guardar fuentes ANTES de render, luego inicializar ────────
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Guardar innerHTML original antes de que Mermaid lo reemplace
+      document.querySelectorAll('.mermaid').forEach(function(el, i) {
+        var id = 'mermaid-' + i;
+        el.setAttribute('data-mermaid-id', id);
+        window._mermaidSrc[id] = el.innerHTML.trim();
+      });
+      // 2. Renderizar
+      mermaid.run({ querySelector: '.mermaid' });
+    });
+
+    // ── Theme toggle ──────────────────────────────────────────────────────
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      var btn = document.getElementById('theme-toggle');
+      if (btn) btn.textContent = t === 'dark' ? '☀' : '🌙';
+
+      var mermaidTheme = t === 'dark' ? 'dark' : 'neutral';
+      mermaid.initialize({ startOnLoad: false, theme: mermaidTheme });
+
+      // Re-renderizar diagramas desde fuente original guardada
+      document.querySelectorAll('.mermaid').forEach(function(el) {
+        var id = el.getAttribute('data-mermaid-id');
+        var src = id ? window._mermaidSrc[id] : null;
+        if (src) {
+          el.removeAttribute('data-processed');
+          el.innerHTML = src;
+        }
+      });
+      mermaid.run({ querySelector: '.mermaid' });
+    }
+
+    function toggleTheme() {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('villarrica-theme', next); } catch(e) {}
+    }
+
+    // Restaurar ícono del tema al cargar
+    (function() {
+      try {
+        var saved = localStorage.getItem('villarrica-theme') || 'light';
+        var btn = document.getElementById('theme-toggle');
+        if (btn) btn.textContent = saved === 'dark' ? '☀' : '🌙';
+      } catch(e) {}
+    })();
+
+    // ── Sidebar toggle (desktop) ──────────────────────────────────────────
+    function toggleSidebar() {
+      var collapsed = document.body.classList.toggle('sidebar-collapsed');
+      var btn = document.getElementById('sidebar-toggle-btn');
+      if (btn) btn.textContent = collapsed ? '☰' : '✕';
+      try { localStorage.setItem('villarrica-sidebar', collapsed ? '1' : '0'); } catch(e) {}
+    }
+
+    // Restaurar estado sidebar al cargar
+    (function() {
+      try {
+        if (localStorage.getItem('villarrica-sidebar') === '1') {
+          document.body.classList.add('sidebar-collapsed');
+          var btn = document.getElementById('sidebar-toggle-btn');
+          if (btn) btn.textContent = '☰';
+        }
+      } catch(e) {}
+    })();
+
+    // ── Font size selector ────────────────────────────────────────────────
+    var _fontSizes = { small: '0.875rem', normal: '1rem', large: '1.125rem' };
+
+    function changeFontSize(size) {
+      var val = _fontSizes[size] || '1rem';
+      document.documentElement.style.setProperty('--font-size-base', val);
+      try { localStorage.setItem('villarrica-fontsize', size); } catch(e) {}
+    }
+
+    // Restaurar tamaño de letra al cargar
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        var saved = localStorage.getItem('villarrica-fontsize');
+        if (saved && _fontSizes[saved]) {
+          document.documentElement.style.setProperty('--font-size-base', _fontSizes[saved]);
+          var sel = document.getElementById('font-size-select');
+          if (sel) sel.value = saved;
+        }
+      } catch(e) {}
+    });
+
+    // ── Disclaimer expandible ─────────────────────────────────────────────
+    function toggleDisclaimerFull() {
+      var el = document.getElementById('disclaimer-full');
+      var btn = document.getElementById('disclaimer-expand-btn');
+      if (!el || !btn) return;
+      var expanded = !el.hidden;
+      el.hidden = expanded;
+      btn.setAttribute('aria-expanded', String(!expanded));
+      btn.textContent = expanded ? 'ⓘ más' : '✕ cerrar';
+    }
+
+    // ── Sidebar accordion (secciones colapsables) ─────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      var titles = document.querySelectorAll('.sidebar li.section-title');
+      titles.forEach(function(title) {
+        var ul = title.nextElementSibling;
+        if (!ul || ul.tagName !== 'UL') return;
+
+        // Indicador de toggle
+        var icon = document.createElement('span');
+        icon.className = 'section-toggle-icon';
+        icon.textContent = '▸';
+        title.appendChild(icon);
+        title.setAttribute('tabindex', '0');
+
+        // Empezar colapsado
+        ul.style.display = 'none';
+        ul.style.marginTop = '0';
+
+        function toggle() {
+          var open = ul.style.display !== 'none';
+          ul.style.display = open ? 'none' : '';
+          icon.textContent = open ? '▸' : '▾';
+        }
+        title.addEventListener('click', toggle);
+        title.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+      });
+
+      // Expandir la sección que contiene el enlace activo
+      var activeLink = document.querySelector('.sidebar a.active');
+      if (activeLink) {
+        var el = activeLink.parentElement;
+        var sidebar = document.querySelector('.sidebar');
+        while (el && el !== sidebar) {
+          if (el.tagName === 'UL') {
+            el.style.display = '';
+            var prev = el.previousElementSibling;
+            if (prev && prev.classList.contains('section-title')) {
+              var icon = prev.querySelector('.section-toggle-icon');
+              if (icon) icon.textContent = '▾';
+            }
+          }
+          el = el.parentElement;
+        }
+      }
+    });
+
+    // ── Scroll reveal ─────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!window.IntersectionObserver) return;
+      var targets = document.querySelectorAll('h2, .table-wrapper, blockquote');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      targets.forEach(function(el) {
+        el.classList.add('reveal');
+        observer.observe(el);
+      });
+    });
+
+    // ── Score ring: count-up + fill stroke (dynamic radius) ──────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.score-ring').forEach(function(ring) {
+        var numEl = ring.querySelector('.number[data-target]');
+        if (!numEl) return;
+        var target = parseInt(numEl.getAttribute('data-target'), 10);
+        var fillCircle = ring.querySelector('circle.fill');
+
+        if (fillCircle) {
+          var r = parseFloat(fillCircle.getAttribute('r') || '44');
+          var circumference = 2 * Math.PI * r;
+          fillCircle.style.strokeDasharray = String(circumference);
+          fillCircle.style.strokeDashoffset = String(circumference); // start empty
+          setTimeout(function() {
+            fillCircle.style.strokeDashoffset = String(circumference * (1 - target / 100));
+          }, 150);
+        }
+
+        // Count-up number
+        var duration = 1200;
+        var startTime = null;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var progress = Math.min((ts - startTime) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          numEl.textContent = Math.round(target * eased);
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    });
+
+    // ── Strength tracker: dimension toggle + bar animation ────────────────
+    function toggleDimDetail(btn) {
+      var row = btn.closest('.st-dim-row');
+      if (!row) return;
+      var body = row.querySelector('.st-dim-detail-body');
+      if (!body) return;
+      var open = !body.hidden;
+      body.hidden = open;
+      btn.setAttribute('aria-expanded', String(!open));
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate dimension bars on load
+      setTimeout(function() {
+        document.querySelectorAll('.st-dim-bar-fill[data-width]').forEach(function(bar) {
+          bar.style.width = bar.getAttribute('data-width') + '%';
+        });
+      }, 300);
+    });
+
+    // ── Severity row auto-detection ───────────────────────────────────────
+    // Detecta keywords en celdas cortas (<35 chars) y agrega clase al <tr>
+    document.addEventListener('DOMContentLoaded', function() {
+      var reCritical = /urgente|cr[ií]tic[ao]|bloqueado|bloqueante|🔴/i;
+      var reSuccess  = /completo|completado|resuelto|listo|blindado|✓|✅|🟢/i;
+      var reWarning  = /pendiente|revisar|verificar|atenci[oó]n|🟡|⚠/i;
+      document.querySelectorAll('table tr').forEach(function(row) {
+        if (row.closest('thead')) return;
+        var cells = row.querySelectorAll('td');
+        var detected = null;
+        cells.forEach(function(td) {
+          var t = td.textContent.trim();
+          if (t.length > 35) return;
+          if (!detected && reCritical.test(t)) detected = 'critical';
+          else if (!detected && reSuccess.test(t))  detected = 'success';
+          else if (!detected && reWarning.test(t))  detected = 'warning';
+        });
+        if (detected) row.classList.add('row-' + detected);
+      });
+    });
+  </script>
 </body>
 </html>

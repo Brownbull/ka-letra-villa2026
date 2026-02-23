@@ -1,34 +1,47 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tracker de Fortaleza - villarrica_202601</title>
+  <title>Tracker de Fortaleza — Villarrica: Negligencia Contadora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
+  <script>
+    // Guardar fuentes Mermaid ANTES de que Mermaid procese los elementos.
+    // window._mermaidSrc se llena en DOMContentLoaded, antes de mermaid.run().
+    window._mermaidSrc = {};
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+  <script>
+    // Tema inicial: aplicar ANTES del primer render para evitar flash
+    (function() {
+      try {
+        var saved = localStorage.getItem('villarrica-theme') || 'light';
+        if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+        mermaid.initialize({ startOnLoad: false, theme: saved === 'dark' ? 'dark' : 'neutral' });
+      } catch(e) {
+        mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+      }
+    })();
+  </script>
 </head>
 <body>
-  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Menu">
+  <!-- Hamburger mobile (fixed, solo visible en ≤768px) -->
+  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
   <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
+
+  <!-- Sidebar (sin botón de colapso interno) -->
   <nav class="sidebar">
-    <div class="sidebar-mode-switcher">
-      <label for="sidebarViewMode">Vista:</label>
-      <select id="sidebarViewMode" onchange="switchViewMode(this.value)">
-        <option value="original" selected>Original</option>
-        <option value="highCapacity">Alta Capacidad</option>
-        <option value="mediumCapacity">Capacidad Media</option>
-        <option value="lowCapacity">Baja Capacidad</option>
-        <option value="attention">Déficit Atención</option>
-        <option value="cognitive">Carga Cognitiva</option>
-        <option value="simplified">Simplificado</option>
-        <option value="timeline">Línea de Tiempo</option>
-      </select>
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-home-link">Panel del caso</a>
     </div>
-    <h2>villarrica_202601</h2>
     <ul>
+<li><a href="CASE.html">Case</a></li>
+<li><a href="strength-tracker.html">Strength Tracker</a></li>
 <li class="section-title">02 Investigacion</li>
 <ul>
 <li><a href="02_investigacion/13-27bis-requirements.html">13 27Bis Requirements</a></li>
@@ -41,9 +54,9 @@
 </ul>
 <li class="section-title">03 Estrategia</li>
 <ul>
-<li><a href="03_estrategia/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 <li><a href="03_estrategia/defensa-anticipada.html">Defensa Anticipada</a></li>
 <li><a href="03_estrategia/estrategia-legal.html">Estrategia Legal</a></li>
+<li><a href="03_estrategia/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 </ul>
 <li class="section-title">04 Revision</li>
 <ul>
@@ -52,6 +65,7 @@
 </ul>
 <li class="section-title">99 Entregable</li>
 <ul>
+<li><a href="99_entregable/PANEL.html">Panel</a></li>
 <li class="section-title">01 Critico</li>
 <ul>
 <li><a href="99_entregable/01_critico/certificar-grabacion.html">Certificar Grabacion</a></li>
@@ -81,7 +95,6 @@
 <ul>
 <li><a href="99_entregable/05_requiere-profesional/medida-cautelar-abogado.html">Medida Cautelar Abogado</a></li>
 </ul>
-<li><a href="99_entregable/PANEL.html">Panel</a></li>
 <li class="section-title">Entrega-Profesional</li>
 <ul>
 <li><a href="99_entregable/entrega-profesional/ESTIMACION-COSTOS-LEGALES.html">Estimacion Costos Legales</a></li>
@@ -92,88 +105,222 @@
 <li><a href="99_entregable/entrega-profesional/TEORIA-DEL-CASO.html">Teoria Del Caso</a></li>
 </ul>
 </ul>
-<li><a href="CASE.html">Case</a></li>
-<li><a href="strength-tracker.html">Strength Tracker</a></li>
 </ul>
   </nav>
+
   <main class="content">
+    <!-- Barra de acciones: izquierda = toggle sidebar desktop | derecha = controles -->
     <div class="top-actions no-print">
-      <div class="mode-switcher">
-        <label for="viewMode" class="mode-label">Vista:</label>
-        <select id="viewMode" class="mode-select" onchange="switchViewMode(this.value)">
-          <option value="original" selected>Original</option>
-          <option value="highCapacity">Alta Capacidad</option>
-          <option value="mediumCapacity">Capacidad Media</option>
-          <option value="lowCapacity">Baja Capacidad</option>
-          <option value="attention">Déficit Atención</option>
-          <option value="cognitive">Carga Cognitiva</option>
-          <option value="simplified">Simplificado</option>
-          <option value="timeline">Línea de Tiempo</option>
-        </select>
+      <div class="top-actions-left">
+        <button class="sidebar-toggle-btn" id="sidebar-toggle-btn"
+                onclick="toggleSidebar()" title="Mostrar/ocultar menú">✕</button>
       </div>
-      <button class="print-btn" onclick="window.print()">Exportar PDF</button>
+      <div class="top-actions-right">
+        <select class="font-size-select" id="font-size-select"
+                onchange="changeFontSize(this.value)" title="Tamaño de letra">
+          <option value="small">Aa pequeño</option>
+          <option value="normal" selected>Aa normal</option>
+          <option value="large">Aa grande</option>
+        </select>
+        <button class="theme-toggle" id="theme-toggle"
+                onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+        <button class="print-btn" onclick="window.print()"
+                title="Usar 'Guardar como PDF' en el diálogo de impresión">⬇ PDF</button>
+        <div class="pii-loader">
+          <button class="pii-load-btn" id="pii-load-btn"
+                  title="Abogado: cargar pii-manifest.json para revelar datos reales">
+            🔒 Revelar datos
+          </button>
+          <span class="pii-status" id="pii-status"></span>
+        </div>
+      </div>
     </div>
-    <script src="99_entregable/mode-switcher.js"></script>
-    <h1 id="tracker-de-fortaleza-villarrica_202601">Tracker de Fortaleza - villarrica_202601</h1>
-<h2 id="puntaje-actual-83100-blindado">Puntaje Actual: 83/100 (BLINDADO)</h2>
-<h2 id="puntajes-por-dimension">Puntajes por Dimensión</h2>
-<table>
-<thead>
-<tr>
-<th>Dimensión</th>
-<th>Puntaje</th>
-<th>Tendencia</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Evidencia</td>
-<td>7/10</td>
-<td>--</td>
-</tr>
-<tr>
-<td>Argumentación</td>
-<td>9/10</td>
-<td>+1 (INVESTIGAR: 7 sentencias verificadas con ROL, 2 fuentes doctrinales, cadena Art.44→Barros→CS)</td>
-</tr>
-<tr>
-<td>Cuantificación</td>
-<td>8/10</td>
-<td>+1 (INVESTIGAR: posición unificada daño cierto + subsidiaria pérdida de chance con CS ROL 12169-2017)</td>
-</tr>
-<tr>
-<td>Defensa</td>
-<td>8/10</td>
-<td>--</td>
-</tr>
-<tr>
-<td>Procedimiento</td>
-<td>8/10</td>
-<td>--</td>
-</tr>
-<tr>
-<td>Documentación</td>
-<td>9/10</td>
-<td>TECHO</td>
-</tr>
-<tr>
-<td>Estrategia</td>
-<td>9/10</td>
-<td>TECHO</td>
-</tr>
-</tbody>
-</table>
+
+    <div class="disclaimer-bar no-print">
+      <span class="disclaimer-short">⚠ Este documento es orientativo y no constituye asesoría legal profesional.</span>
+      <button class="disclaimer-expand-btn" id="disclaimer-expand-btn"
+              onclick="toggleDisclaimerFull()" aria-expanded="false" title="Ver aviso completo">ⓘ más</button>
+      <div class="disclaimer-full" id="disclaimer-full" hidden>
+        Ha sido elaborado con apoyo de inteligencia artificial como guía orientativa.
+        Su contenido es <strong>no vinculante</strong> y tiene carácter exclusivamente informativo.
+        Consulte con un abogado habilitado antes de actuar.
+        Ver sección <strong>Contactos para Verificación Profesional</strong> al final de cada documento.
+      </div>
+    </div>
+
+    <h1 id="tracker-de-fortaleza-villarrica-negligencia-contadora">Tracker de Fortaleza — Villarrica: Negligencia Contadora</h1>
+<div class="st-hero">
+  <div class="score-ring score-ring-lg" aria-label="Fortaleza del caso: 83 de 100, BLINDADO">
+    <svg viewBox="0 0 150 150">
+      <circle class="bg" cx="75" cy="75" r="65" fill="none" stroke-width="8"/>
+      <circle class="fill" cx="75" cy="75" r="65" fill="none" stroke-width="8" stroke-linecap="round"/>
+    </svg>
+    <div class="label">
+      <span class="number" data-target="83">83</span>
+      <span class="grade">BLINDADO</span>
+    </div>
+  </div>
+  <div class="st-context">
+    <div class="st-context-title">Caso sólido — acción urgente requerida</div>
+    <p class="st-context-desc">La base legal está construida y los puntos débiles corregidos. El riesgo activo es el ocultamiento de bienes — requiere acción inmediata. Ganancia acumulada: +23 puntos (60→83).</p>
+    <div class="meta-pills">
+      <div class="pill"><span class="dot dot-blue"></span>Pre-Judicial</div>
+      <div class="pill"><span class="dot dot-green"></span>$24M – $27,5M CLP</div>
+      <div class="pill"><span class="dot dot-amber"></span>Prescribe ~09/2030</div>
+      <div class="pill"><span class="dot dot-red"></span>Riesgo: Ocultamiento</div>
+    </div>
+  </div>
+</div>
+
+<h2 id="desglose-por-dimension">Desglose por Dimensión</h2>
+<div class="st-dim-grid">
+
+  <div class="st-dim-row">
+    <div class="st-dim-header">
+      <div class="st-dim-name">Evidencia</div>
+      <div class="st-dim-bar-track"><div class="st-dim-bar-fill amber" data-width="70"></div></div>
+      <div class="st-dim-score">70</div>
+      <button class="st-dim-toggle" onclick="toggleDimDetail(this)" aria-expanded="false" title="Ver detalle">▾</button>
+    </div>
+    <div class="st-dim-detail-body" hidden>
+      <p>⚠ <strong>Dimensión con mayor potencial de mejora (+1–2 puntos).</strong> Requiere acción humana.</p>
+      <p><strong>Acciones pendientes (URGENTES):</strong></p>
+      <ul>
+        <li>🔴 <a href="99_entregable/01_critico/preservar-tiktok.html">Preservar TikTok de <span class="pii-redacted" data-token="NOMBRE_TITULAR">[redactado]</span></a> — puede borrar el contenido hoy</li>
+        <li>🟡 <a href="99_entregable/01_critico/certificar-grabacion.html">Certificar grabación + TikTok ante notario</a> — +1 Evidencia</li>
+        <li>🟡 Carta del banco (SpA + aval) — <a href="99_entregable/03_siguientes-pasos/paso-3-consulta-banco.html">+1 Evidencia</a></li>
+      </ul>
+      <p><strong>Evidencia existente:</strong> grabación reunión, documentos SII, correos del proceso.</p>
+    </div>
+  </div>
+
+  <div class="st-dim-row">
+    <div class="st-dim-header">
+      <div class="st-dim-name">Argumentación</div>
+      <div class="st-dim-bar-track"><div class="st-dim-bar-fill green" data-width="90"></div></div>
+      <div class="st-dim-score">90</div>
+      <button class="st-dim-toggle" onclick="toggleDimDetail(this)" aria-expanded="false" title="Ver detalle">▾</button>
+    </div>
+    <div class="st-dim-detail-body" hidden>
+      <p>✅ <strong>TECHO PRÁCTICO sin peritaje externo.</strong></p>
+      <p><strong>Jurisprudencia verificada (7 sentencias con ROL):</strong></p>
+      <ul>
+        <li>ROL 5.079-2021 — directamente aplicable (negligencia contadora SpA)</li>
+        <li>CS 3.543-2025 — negligencia profesional Art.44 CC</li>
+        <li>CS Primera Sala 2025 — Art.2330 CC + culpa grave</li>
+        <li>CA 8609-2017 | CS 12169-2017 | CS 14.262-2022</li>
+      </ul>
+      <p><strong>Doctrina:</strong> Barros Bourie, Pizarro Wilson. Tesis: "derecho que se extinguió".</p>
+      <p>⚠ Pendiente: verificar ROL exacto CS Primera Sala 2025 en pjud.cl</p>
+      <p><a href="99_entregable/entrega-profesional/TEORIA-DEL-CASO.html">Ver Teoría del Caso v2.0 →</a></p>
+    </div>
+  </div>
+
+  <div class="st-dim-row">
+    <div class="st-dim-header">
+      <div class="st-dim-name">Cuantificación</div>
+      <div class="st-dim-bar-track"><div class="st-dim-bar-fill green" data-width="80"></div></div>
+      <div class="st-dim-score">80</div>
+      <button class="st-dim-toggle" onclick="toggleDimDetail(this)" aria-expanded="false" title="Ver detalle">▾</button>
+    </div>
+    <div class="st-dim-detail-body" hidden>
+      <p>✅ Posición dual documentada con jurisprudencia.</p>
+      <ul>
+        <li><strong>Principal:</strong> daño cierto directo — $24M–$27,5M CLP (IVA + daño moral + costos)</li>
+        <li><strong>Subsidiaria:</strong> pérdida de chance — CS ROL 12169-2017</li>
+      </ul>
+      <p>⚠ Pendiente: informe pericial contable (requiere abogado/perito) → +1 punto.</p>
+      <p><a href="99_entregable/04_documentos/04-CALCULO-DANOS.html">Ver Cálculo de Daños →</a></p>
+    </div>
+  </div>
+
+  <div class="st-dim-row">
+    <div class="st-dim-header">
+      <div class="st-dim-name">Defensa</div>
+      <div class="st-dim-bar-track"><div class="st-dim-bar-fill green" data-width="80"></div></div>
+      <div class="st-dim-score">80</div>
+      <button class="st-dim-toggle" onclick="toggleDimDetail(this)" aria-expanded="false" title="Ver detalle">▾</button>
+    </div>
+    <div class="st-dim-detail-body" hidden>
+      <p>✅ 10 contra-argumentos preparados. Críticos ROAST #2 corregidos.</p>
+      <ul>
+        <li><del>Jurisprudencia vacía</del> → 7 sentencias con ROL verificadas</li>
+        <li><del>Inconsistencia tesis/defensa</del> → Tesis central unificada</li>
+        <li><del>Falsa seguridad reversible</del> → Argumento fortalecido</li>
+      </ul>
+      <p>⚠ Hallazgos importantes pendientes: timeline SpA 79 días, mandato vs servicio.</p>
+      <p><a href="99_entregable/entrega-profesional/ESTRATEGIA-LEGAL-PROCEDIMIENTO.html">Ver Estrategia Legal →</a> | <a href="04_revision/07-REVISION-ADVERSARIAL.html">ROAST #1 →</a> | <a href="04_revision/08-ROAST-POST-TEORIA.html">ROAST #2 →</a></p>
+    </div>
+  </div>
+
+  <div class="st-dim-row">
+    <div class="st-dim-header">
+      <div class="st-dim-name">Procedimiento</div>
+      <div class="st-dim-bar-track"><div class="st-dim-bar-fill green" data-width="80"></div></div>
+      <div class="st-dim-score">80</div>
+      <button class="st-dim-toggle" onclick="toggleDimDetail(this)" aria-expanded="false" title="Ver detalle">▾</button>
+    </div>
+    <div class="st-dim-detail-body" hidden>
+      <p>✅ Plan 5 fases documentado. Siguiente: decisión sobre medida cautelar.</p>
+      <ul>
+        <li>Medida prejudicial precautoria evaluada (Art. 279 CPC)</li>
+        <li>⚠ Decisión requiere abogado + resultado investigación solvencia</li>
+        <li>Investigar solvencia Nivel 1: <a href="99_entregable/03_siguientes-pasos/paso-1-solvencia-nivel1.html">Guía →</a></li>
+      </ul>
+      <p><a href="99_entregable/02_bloqueantes/decision-cautelar.html">Ver Decisión Cautelar →</a> | <a href="99_entregable/03_siguientes-pasos/paso-2-medida-cautelar.html">Guía Medida Cautelar →</a></p>
+    </div>
+  </div>
+
+  <div class="st-dim-row">
+    <div class="st-dim-header">
+      <div class="st-dim-name">Documentación</div>
+      <div class="st-dim-bar-track"><div class="st-dim-bar-fill green" data-width="90"></div></div>
+      <div class="st-dim-score">90</div>
+      <button class="st-dim-toggle" onclick="toggleDimDetail(this)" aria-expanded="false" title="Ver detalle">▾</button>
+    </div>
+    <div class="st-dim-detail-body" hidden>
+      <p>✅ <strong>TECHO</strong> — todos los documentos principales listos.</p>
+      <ul>
+        <li><a href="99_entregable/04_documentos/01-CARTA-REQUERIMIENTO.html">Carta de Requerimiento</a> — lista para enviar (pendiente decisión cautelar)</li>
+        <li><a href="99_entregable/04_documentos/02-DENUNCIA-ETICA.html">Denuncia Ética</a> — lista (usar si no hay acuerdo)</li>
+        <li><a href="99_entregable/04_documentos/03-ACUERDO-TRANSACCIONAL.html">Acuerdo Transaccional</a> — modelo listo</li>
+        <li><a href="99_entregable/entrega-profesional/RESUMEN-CASO-ABOGADO.html">Resumen para Abogado</a> — completo y entregable</li>
+        <li><a href="99_entregable/04_documentos/04-CALCULO-DANOS.html">Cálculo de Daños</a> — detallado con IVA + daño moral</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="st-dim-row">
+    <div class="st-dim-header">
+      <div class="st-dim-name">Estrategia</div>
+      <div class="st-dim-bar-track"><div class="st-dim-bar-fill green" data-width="90"></div></div>
+      <div class="st-dim-score">90</div>
+      <button class="st-dim-toggle" onclick="toggleDimDetail(this)" aria-expanded="false" title="Ver detalle">▾</button>
+    </div>
+    <div class="st-dim-detail-body" hidden>
+      <p>✅ <strong>TECHO</strong> — estrategia completa y actualizada post-INVESTIGAR.</p>
+      <ul>
+        <li><a href="99_entregable/entrega-profesional/TEORIA-DEL-CASO.html">Teoría del Caso v2.0</a> — presentable a abogado</li>
+        <li><a href="99_entregable/entrega-profesional/ESTRATEGIA-LEGAL-PROCEDIMIENTO.html">Estrategia Legal + Procedimiento</a></li>
+        <li><a href="99_entregable/entrega-profesional/ESTRATEGIA-ACUERDO-EXTRAJUDICIAL.html">Estrategia Acuerdo Extrajudicial</a></li>
+        <li><a href="99_entregable/04_documentos/05-GUION-NEGOCIACION.html">Guión de Negociación</a></li>
+        <li><a href="99_entregable/entrega-profesional/EVALUACION-VIABILIDAD.html">Evaluación de Viabilidad</a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
 <h2 id="historial-de-iteraciones">Historial de Iteraciones</h2>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>#</th>
 <th>Fecha</th>
 <th>Comando</th>
-<th>Antes</th>
-<th>Después</th>
-<th>Delta</th>
-<th>Dims Impactadas</th>
+<th style="text-align: center;">Antes</th>
+<th style="text-align: center;">Después</th>
+<th style="text-align: center;">Delta</th>
 <th>Notas</th>
 </tr>
 </thead>
@@ -182,160 +329,376 @@
 <td>1</td>
 <td>2026-02-11</td>
 <td>EVAL</td>
-<td>60</td>
-<td>63</td>
-<td>+3</td>
-<td>Proc, Est</td>
-<td>Evaluación formal.</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">63</td>
+<td style="text-align: center;">+3</td>
+<td>Evaluación formal</td>
 </tr>
 <tr>
 <td>2</td>
 <td>2026-02-11</td>
 <td>DEFENSA</td>
-<td>63</td>
-<td>69</td>
-<td>+6</td>
-<td>Def, Arg</td>
-<td>10 contra-argumentos. Defensa 3→7. Cruce a FUERTE.</td>
+<td style="text-align: center;">63</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">+6</td>
+<td>10 contra-argumentos. Cruce a FUERTE</td>
 </tr>
 <tr>
 <td>3</td>
 <td>2026-02-11</td>
 <td>ESTRATEGIA</td>
-<td>69</td>
-<td>70</td>
-<td>+1</td>
-<td>Est</td>
-<td>Plan consolidado 5 fases. Alerta RENDIMIENTO BAJO.</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">70</td>
+<td style="text-align: center;">+1</td>
+<td>Plan consolidado 5 fases</td>
 </tr>
 <tr>
 <td>4</td>
 <td>2026-02-11</td>
 <td>DOC</td>
-<td>70</td>
-<td>72</td>
-<td>+2</td>
-<td>Doc</td>
-<td>Carta y denuncia actualizadas con datos correctos.</td>
+<td style="text-align: center;">70</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">+2</td>
+<td>Carta y denuncia actualizadas</td>
 </tr>
 <tr>
 <td>5</td>
 <td>2026-02-16</td>
 <td><strong>TEORIA</strong></td>
-<td>72</td>
-<td><strong>80</strong></td>
-<td><strong>+8</strong></td>
-<td>Arg, Def, Proc, Doc, Est</td>
-<td><strong>Documento maestro.</strong> 5 argumentos para juicio, causalidad contrafáctica, plan de prueba con absolución de posiciones, tesis central. Cruce a BLINDADO.</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;"><strong>80</strong></td>
+<td style="text-align: center;"><strong>+8</strong></td>
+<td>Documento maestro. Cruce a BLINDADO</td>
 </tr>
 <tr>
 <td>6</td>
 <td>2026-02-16</td>
 <td><strong>ROAST #2</strong></td>
-<td>80</td>
-<td>80</td>
-<td>0</td>
-<td>--</td>
-<td>Revisión adversarial post-TEORIA. 12 hallazgos (3 críticos, 5 importantes, 4 menores). ROAST no cambia puntaje — el delta viene al CORREGIR.</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">0</td>
+<td>Revisión adversarial (delta viene al corregir)</td>
 </tr>
 <tr>
 <td>7</td>
 <td>2026-02-16</td>
 <td><strong>INVESTIGAR</strong></td>
-<td>80</td>
-<td><strong>83</strong></td>
-<td><strong>+3</strong></td>
-<td><strong>Arg, Cuant</strong></td>
-<td><strong>Corrección ROAST #2 críticos #1, #2, #3.</strong> 7 sentencias verificadas (ROL 5.079-2021 directamente aplicable, CS 3.543-2025, CS Primera Sala 2025 Art.2330+culpa grave, CA 8609-2017, CS 12169-2017, CS 14.262-2022). 2 fuentes doctrinales (Barros Bourie, Pizarro Wilson). Tesis central unificada. Posición daño cierto + subsidiaria pérdida de chance. Falsa seguridad fortalecida.</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;"><strong>83</strong></td>
+<td style="text-align: center;"><strong>+3</strong></td>
+<td>7 sentencias verificadas. 3 críticos corregidos</td>
 </tr>
 </tbody>
-</table>
-<h2 id="analisis-de-rendimiento">Análisis de Rendimiento</h2>
-<ul>
-<li>Iteraciones totales: 7</li>
-<li>Ganancia acumulada: +23 puntos (60→83)</li>
-<li>Delta promedio (últimas 3): <strong>1.0</strong> (TEORIA +8, ROAST 0, INVESTIGAR +3 = 11/3 = 3.7)</li>
-<li>Estado: <strong>PRODUCTIVO</strong> (delta promedio últimas 3 = 3.7 &gt; 3)</li>
-<li>Nota: ROAST es delta 0 por diseño. Excluyendo ROAST, las últimas 2 productivas promedian 5.5</li>
-</ul>
-<h2 id="dimensiones-prioritarias-post-investigar">Dimensiones Prioritarias (Post-INVESTIGAR)</h2>
-<table>
-<thead>
-<tr>
-<th>Dimensión</th>
-<th>Puntaje</th>
-<th>Potencial Mejora</th>
-<th>Acción Sugerida</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Evidencia</strong></td>
-<td><strong>7/10</strong></td>
-<td><strong>+1-2</strong></td>
-<td><strong>Certificar grabación ante notario + preservar TikTok. REQUIERE ACCIÓN HUMANA.</strong></td>
-</tr>
-<tr>
-<td>Cuantificación</td>
-<td>8/10</td>
-<td>+1</td>
-<td>Informe pericial contable (requiere abogado/perito)</td>
-</tr>
-<tr>
-<td>Defensa</td>
-<td>8/10</td>
-<td>+0-1</td>
-<td>Los 3 críticos del ROAST están corregidos. Mejoras menores restantes (hallazgos importantes)</td>
-</tr>
-<tr>
-<td>Argumentación</td>
-<td>9/10</td>
-<td>+0-1</td>
-<td><strong>TECHO PRÁCTICO sin peritaje externo.</strong> Pendiente: verificar ROL exacto CS Primera Sala 2025 en pjud.cl</td>
-</tr>
-</tbody>
-</table>
+</table></div>
+<p><strong>Ganancia acumulada: +23 puntos (60→83) | Estado: PRODUCTIVO</strong></p>
 <h2 id="hitos">Hitos</h2>
 <ul>
-<li>[x] COMPETENTE (46-65): alcanzado en EVAL (63)</li>
-<li>[x] FUERTE (66-80): alcanzado en DEFENSA (69)</li>
-<li>[x] <strong>BLINDADO (81-90): consolidado en INVESTIGAR (83)</strong> ← CONFIRMADO</li>
-<li>[x] UMBRAL CARTA (65+): <strong>SUPERADO (70)</strong></li>
-<li>[x] DOCUMENTOS ACTUALIZADOS: carta y denuncia con datos correctos (72)</li>
-<li>[x] TEORIA DEL CASO: documento maestro completo (80)</li>
-<li>[x] <strong>JURISPRUDENCIA VERIFICADA: 7 sentencias reales + 2 doctrinales (83)</strong></li>
+<li class="task-item"><input type="checkbox" checked disabled>  COMPETENTE (46–65): alcanzado en EVAL (63)</li>
+<li class="task-item"><input type="checkbox" checked disabled>  FUERTE (66–80): alcanzado en DEFENSA (69)</li>
+<li class="task-item"><input type="checkbox" checked disabled>  <strong>BLINDADO (81–90): consolidado en INVESTIGAR (83)</strong> ← ACTUAL</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Umbral carta (65+): superado (70)</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Teoría del Caso: documento maestro v2.0 completo (80)</li>
+<li class="task-item"><input type="checkbox" checked disabled>  Jurisprudencia verificada: 7 sentencias + 2 doctrinales (83)</li>
+<li class="task-item"><input type="checkbox" disabled>  ELITE (91+): requiere peritaje externo + todas las acciones humanas</li>
 </ul>
-<h2 id="estado-actual-post-investigar">Estado Actual (Post-INVESTIGAR)</h2>
-<p>Los 3 hallazgos críticos del ROAST #2 han sido corregidos:
-1. ~~Jurisprudencia vacía~~ → 7 sentencias verificadas con ROL, integradas en TEORIA v2.0
-2. ~~Inconsistencia tesis/defensa~~ → Tesis central unificada ("derecho que se extinguió")
-3. ~~Falsa seguridad reversible~~ → Argumento fortalecido con análisis de cita completa</p>
-<p><strong>La TEORIA DEL CASO v2.0 es presentable a un abogado.</strong></p>
-<h3 id="proximas-ganancias-trabajo-interno-hallazgos-importantes-del-roast-pendientes">Próximas ganancias — Trabajo INTERNO (hallazgos importantes del ROAST pendientes):</h3>
-<ol>
-<li>Verificar ROL exacto CS Primera Sala 2025 en pjud.cl (+0 Argumentación, consolida cita)</li>
-<li>Timeline SpA — demostrar 79 días suficientes (hallazgo importante #4)</li>
-<li>Análisis mandato vs servicio + obligación medios/resultado (hallazgo importante #5)</li>
-</ol>
-<h3 id="proximas-ganancias-acciones-externas-persisten">Próximas ganancias — Acciones EXTERNAS (persisten):</h3>
-<ol>
-<li><strong>Certificar grabación ante notario</strong> (+1 Evidencia) — REQUIERE ACCIÓN HUMANA</li>
-<li><strong>Preservar TikTok de Pedro</strong> (+1 Evidencia) — URGENTE</li>
-<li><strong>Contratar abogado</strong> (habilita medida cautelar + peritaje)</li>
-<li>Carta del banco SpA + aval (+1 Evidencia)</li>
-</ol>
-<h3 id="alerta-de-rendimiento">Alerta de Rendimiento</h3>
-<ul>
-<li>Argumentación en 9/10 → <strong>TECHO PRÁCTICO</strong> sin peritaje externo</li>
-<li>Documentación y Estrategia en 9/10 → <strong>TECHO</strong></li>
-<li>Las próximas ganancias internas son <strong>marginales</strong> (+0-1 por mejora)</li>
-<li><strong>Las mayores ganancias ahora vienen de ACCIONES EXTERNAS</strong> (evidencia: notario, TikTok, banco)</li>
-<li><strong>Recomendación: AVANZAR A FASE 0 (pre-judicial) con abogado. El trabajo interno está en su máximo práctico.</strong></li>
-</ul>
+
     <footer class="site-footer no-print">
       <hr>
-      <small>El Director v1.0 &middot; <a href="deploy-guide.html">Guia de Despliegue</a></small>
+      <small>Contenido generado con apoyo de IA — orientativo, no vinculante. Consulte con un abogado habilitado.</small>
     </footer>
   </main>
+
+  <script>
+    // ── Indicador de página activa en sidebar ──────────────────────────────
+    (function() {
+      var current = window.location.href.split('?')[0].split('#')[0];
+      document.querySelectorAll('.sidebar a').forEach(function(link) {
+        if (link.href.split('?')[0].split('#')[0] === current)
+          link.classList.add('active');
+      });
+    })();
+
+    // ── Cargador PII client-side ───────────────────────────────────────────
+    (function() {
+      var btn = document.getElementById('pii-load-btn');
+      var status = document.getElementById('pii-status');
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json,application/json';
+        input.onchange = function(e) {
+          var file = e.target.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onload = function(ev) {
+            try {
+              var manifest = JSON.parse(ev.target.result);
+              var spans = document.querySelectorAll('.pii-redacted');
+              var count = 0;
+              spans.forEach(function(span) {
+                var token = span.getAttribute('data-token');
+                if (manifest[token]) {
+                  span.textContent = manifest[token];
+                  span.classList.remove('pii-redacted');
+                  span.classList.add('pii-revealed');
+                  count++;
+                }
+              });
+              if (count > 0) {
+                btn.textContent = '✓ Datos revelados (' + count + ')';
+                btn.classList.add('pii-loaded');
+                if (status) status.textContent = '';
+              } else {
+                if (status) status.textContent = 'Sin datos en esta página';
+              }
+            } catch(err) {
+              if (status) status.textContent = 'Error: JSON inválido';
+            }
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+      });
+    })();
+
+    // ── Mermaid: guardar fuentes ANTES de render, luego inicializar ────────
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Guardar innerHTML original antes de que Mermaid lo reemplace
+      document.querySelectorAll('.mermaid').forEach(function(el, i) {
+        var id = 'mermaid-' + i;
+        el.setAttribute('data-mermaid-id', id);
+        window._mermaidSrc[id] = el.innerHTML.trim();
+      });
+      // 2. Renderizar
+      mermaid.run({ querySelector: '.mermaid' });
+    });
+
+    // ── Theme toggle ──────────────────────────────────────────────────────
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      var btn = document.getElementById('theme-toggle');
+      if (btn) btn.textContent = t === 'dark' ? '☀' : '🌙';
+
+      var mermaidTheme = t === 'dark' ? 'dark' : 'neutral';
+      mermaid.initialize({ startOnLoad: false, theme: mermaidTheme });
+
+      // Re-renderizar diagramas desde fuente original guardada
+      document.querySelectorAll('.mermaid').forEach(function(el) {
+        var id = el.getAttribute('data-mermaid-id');
+        var src = id ? window._mermaidSrc[id] : null;
+        if (src) {
+          el.removeAttribute('data-processed');
+          el.innerHTML = src;
+        }
+      });
+      mermaid.run({ querySelector: '.mermaid' });
+    }
+
+    function toggleTheme() {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('villarrica-theme', next); } catch(e) {}
+    }
+
+    // Restaurar ícono del tema al cargar
+    (function() {
+      try {
+        var saved = localStorage.getItem('villarrica-theme') || 'light';
+        var btn = document.getElementById('theme-toggle');
+        if (btn) btn.textContent = saved === 'dark' ? '☀' : '🌙';
+      } catch(e) {}
+    })();
+
+    // ── Sidebar toggle (desktop) ──────────────────────────────────────────
+    function toggleSidebar() {
+      var collapsed = document.body.classList.toggle('sidebar-collapsed');
+      var btn = document.getElementById('sidebar-toggle-btn');
+      if (btn) btn.textContent = collapsed ? '☰' : '✕';
+      try { localStorage.setItem('villarrica-sidebar', collapsed ? '1' : '0'); } catch(e) {}
+    }
+
+    // Restaurar estado sidebar al cargar
+    (function() {
+      try {
+        if (localStorage.getItem('villarrica-sidebar') === '1') {
+          document.body.classList.add('sidebar-collapsed');
+          var btn = document.getElementById('sidebar-toggle-btn');
+          if (btn) btn.textContent = '☰';
+        }
+      } catch(e) {}
+    })();
+
+    // ── Font size selector ────────────────────────────────────────────────
+    var _fontSizes = { small: '0.875rem', normal: '1rem', large: '1.125rem' };
+
+    function changeFontSize(size) {
+      var val = _fontSizes[size] || '1rem';
+      document.documentElement.style.setProperty('--font-size-base', val);
+      try { localStorage.setItem('villarrica-fontsize', size); } catch(e) {}
+    }
+
+    // Restaurar tamaño de letra al cargar
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        var saved = localStorage.getItem('villarrica-fontsize');
+        if (saved && _fontSizes[saved]) {
+          document.documentElement.style.setProperty('--font-size-base', _fontSizes[saved]);
+          var sel = document.getElementById('font-size-select');
+          if (sel) sel.value = saved;
+        }
+      } catch(e) {}
+    });
+
+    // ── Disclaimer expandible ─────────────────────────────────────────────
+    function toggleDisclaimerFull() {
+      var el = document.getElementById('disclaimer-full');
+      var btn = document.getElementById('disclaimer-expand-btn');
+      if (!el || !btn) return;
+      var expanded = !el.hidden;
+      el.hidden = expanded;
+      btn.setAttribute('aria-expanded', String(!expanded));
+      btn.textContent = expanded ? 'ⓘ más' : '✕ cerrar';
+    }
+
+    // ── Sidebar accordion (secciones colapsables) ─────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      var titles = document.querySelectorAll('.sidebar li.section-title');
+      titles.forEach(function(title) {
+        var ul = title.nextElementSibling;
+        if (!ul || ul.tagName !== 'UL') return;
+
+        // Indicador de toggle
+        var icon = document.createElement('span');
+        icon.className = 'section-toggle-icon';
+        icon.textContent = '▸';
+        title.appendChild(icon);
+        title.setAttribute('tabindex', '0');
+
+        // Empezar colapsado
+        ul.style.display = 'none';
+        ul.style.marginTop = '0';
+
+        function toggle() {
+          var open = ul.style.display !== 'none';
+          ul.style.display = open ? 'none' : '';
+          icon.textContent = open ? '▸' : '▾';
+        }
+        title.addEventListener('click', toggle);
+        title.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+      });
+
+      // Expandir la sección que contiene el enlace activo
+      var activeLink = document.querySelector('.sidebar a.active');
+      if (activeLink) {
+        var el = activeLink.parentElement;
+        var sidebar = document.querySelector('.sidebar');
+        while (el && el !== sidebar) {
+          if (el.tagName === 'UL') {
+            el.style.display = '';
+            var prev = el.previousElementSibling;
+            if (prev && prev.classList.contains('section-title')) {
+              var icon = prev.querySelector('.section-toggle-icon');
+              if (icon) icon.textContent = '▾';
+            }
+          }
+          el = el.parentElement;
+        }
+      }
+    });
+
+    // ── Scroll reveal ─────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!window.IntersectionObserver) return;
+      var targets = document.querySelectorAll('h2, .table-wrapper, blockquote');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      targets.forEach(function(el) {
+        el.classList.add('reveal');
+        observer.observe(el);
+      });
+    });
+
+    // ── Score ring: count-up + fill stroke (dynamic radius) ──────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.score-ring').forEach(function(ring) {
+        var numEl = ring.querySelector('.number[data-target]');
+        if (!numEl) return;
+        var target = parseInt(numEl.getAttribute('data-target'), 10);
+        var fillCircle = ring.querySelector('circle.fill');
+
+        if (fillCircle) {
+          var r = parseFloat(fillCircle.getAttribute('r') || '44');
+          var circumference = 2 * Math.PI * r;
+          fillCircle.style.strokeDasharray = String(circumference);
+          fillCircle.style.strokeDashoffset = String(circumference); // start empty
+          setTimeout(function() {
+            fillCircle.style.strokeDashoffset = String(circumference * (1 - target / 100));
+          }, 150);
+        }
+
+        // Count-up number
+        var duration = 1200;
+        var startTime = null;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var progress = Math.min((ts - startTime) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          numEl.textContent = Math.round(target * eased);
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    });
+
+    // ── Strength tracker: dimension toggle + bar animation ────────────────
+    function toggleDimDetail(btn) {
+      var row = btn.closest('.st-dim-row');
+      if (!row) return;
+      var body = row.querySelector('.st-dim-detail-body');
+      if (!body) return;
+      var open = !body.hidden;
+      body.hidden = open;
+      btn.setAttribute('aria-expanded', String(!open));
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate dimension bars on load
+      setTimeout(function() {
+        document.querySelectorAll('.st-dim-bar-fill[data-width]').forEach(function(bar) {
+          bar.style.width = bar.getAttribute('data-width') + '%';
+        });
+      }, 300);
+    });
+
+    // ── Severity row auto-detection ───────────────────────────────────────
+    // Detecta keywords en celdas cortas (<35 chars) y agrega clase al <tr>
+    document.addEventListener('DOMContentLoaded', function() {
+      var reCritical = /urgente|cr[ií]tic[ao]|bloqueado|bloqueante|🔴/i;
+      var reSuccess  = /completo|completado|resuelto|listo|blindado|✓|✅|🟢/i;
+      var reWarning  = /pendiente|revisar|verificar|atenci[oó]n|🟡|⚠/i;
+      document.querySelectorAll('table tr').forEach(function(row) {
+        if (row.closest('thead')) return;
+        var cells = row.querySelectorAll('td');
+        var detected = null;
+        cells.forEach(function(td) {
+          var t = td.textContent.trim();
+          if (t.length > 35) return;
+          if (!detected && reCritical.test(t)) detected = 'critical';
+          else if (!detected && reSuccess.test(t))  detected = 'success';
+          else if (!detected && reWarning.test(t))  detected = 'warning';
+        });
+        if (detected) row.classList.add('row-' + detected);
+      });
+    });
+  </script>
 </body>
 </html>
