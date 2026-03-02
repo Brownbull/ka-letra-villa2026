@@ -1,45 +1,32 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="light">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TEORÍA DEL CASO</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/style.css">
-  <script>
-    // Guardar fuentes Mermaid ANTES de que Mermaid procese los elementos.
-    // window._mermaidSrc se llena en DOMContentLoaded, antes de mermaid.run().
-    window._mermaidSrc = {};
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script>
-    // Tema inicial: aplicar ANTES del primer render para evitar flash
-    (function() {
-      try {
-        var saved = localStorage.getItem('villarrica-theme') || 'light';
-        if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-        mermaid.initialize({ startOnLoad: false, theme: saved === 'dark' ? 'dark' : 'neutral' });
-      } catch(e) {
-        mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
-      }
-    })();
-  </script>
+  <script>mermaid.initialize({ startOnLoad: false, theme: 'neutral' });</script>
 </head>
 <body>
-  <!-- Hamburger mobile (fixed, solo visible en ≤768px) -->
-  <button class="menu-toggle no-print" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Abrir menú">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="sidebar-overlay no-print" onclick="document.body.classList.remove('sidebar-open')"></div>
 
-  <!-- Sidebar (sin botón de colapso interno) -->
-  <nav class="sidebar">
-    <div class="sidebar-header">
-      <a href="../../index.html" class="sidebar-home-link">Panel del caso</a>
+  <header class="document-header">
+    <div class="doc-meta">
+      <a href="../../index.html" class="doc-title">Caso Villa 2026</a>
+      <span class="doc-badge">CONFIDENCIAL</span>
     </div>
-    <ul>
+    <div class="doc-actions">
+      <button class="print-btn no-print" onclick="window.print()" title="PDF">PDF</button>
+      <button class="pii-load-btn no-print" id="pii-load-btn" title="Cargar pii-manifest.json">Revelar datos</button>
+      <span class="pii-status no-print" id="pii-status"></span>
+    </div>
+  </header>
+
+  <div class="document-layout">
+
+    <nav class="section-nav no-print">
+      <h3>Secciones</h3>
+      <ul>
 <li><a href="../../CASE.html">Caso Villarrica</a></li>
 <li><a href="../../strength-tracker.html">Fortaleza del Caso</a></li>
 <li class="section-title">Investigación</li>
@@ -100,49 +87,13 @@
 </ul>
 </ul>
 </ul>
-  </nav>
+    </nav>
 
-  <main class="content">
-    <!-- Barra de acciones: izquierda = toggle sidebar desktop | derecha = controles -->
-    <div class="top-actions no-print">
-      <div class="top-actions-left">
-        <button class="sidebar-toggle-btn" id="sidebar-toggle-btn"
-                onclick="toggleSidebar()" title="Mostrar/ocultar menú">✕</button>
+    <main class="document-content">
+      <div class="disclaimer-bar no-print">
+        Documento orientativo, no vinculante. Elaborado con apoyo de IA. Consulte abogado habilitado.
       </div>
-      <div class="top-actions-right">
-        <select class="font-size-select" id="font-size-select"
-                onchange="changeFontSize(this.value)" title="Tamaño de letra">
-          <option value="small">Aa pequeño</option>
-          <option value="normal" selected>Aa normal</option>
-          <option value="large">Aa grande</option>
-        </select>
-        <button class="theme-toggle" id="theme-toggle"
-                onclick="toggleTheme()" title="Cambiar tema">🌙</button>
-        <button class="print-btn" onclick="window.print()"
-                title="Usar 'Guardar como PDF' en el diálogo de impresión">⬇ PDF</button>
-        <div class="pii-loader">
-          <button class="pii-load-btn" id="pii-load-btn"
-                  title="Abogado: cargar pii-manifest.json para revelar datos reales">
-            🔒 Revelar datos
-          </button>
-          <span class="pii-status" id="pii-status"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="disclaimer-bar no-print">
-      <span class="disclaimer-short">⚠ Este documento es orientativo y no constituye asesoría legal profesional.</span>
-      <button class="disclaimer-expand-btn" id="disclaimer-expand-btn"
-              onclick="toggleDisclaimerFull()" aria-expanded="false" title="Ver aviso completo">ⓘ más</button>
-      <div class="disclaimer-full" id="disclaimer-full" hidden>
-        Ha sido elaborado con apoyo de inteligencia artificial como guía orientativa.
-        Su contenido es <strong>no vinculante</strong> y tiene carácter exclusivamente informativo.
-        Consulte con un abogado habilitado antes de actuar.
-        Ver sección <strong>Contactos para Verificación Profesional</strong> al final de cada documento.
-      </div>
-    </div>
-
-    <h1 id="teoria-del-caso">TEORÍA DEL CASO</h1>
+      <h1 id="teoria-del-caso">TEORÍA DEL CASO</h1>
 <blockquote>
 <p><strong>IMPORTANTE</strong>: Este documento NO constituye asesoría legal profesional.
 Ha sido elaborado como guía orientativa utilizando inteligencia artificial.
@@ -183,7 +134,7 @@ graph TB
 <h2 id="1-hechos-relevantes">1. HECHOS RELEVANTES</h2>
 <p>→ Ver <a href="../../CASE.html">CASE.md §Cronología</a> para la línea temporal completa (8 eventos, Sep-Dic 2025)
 → Ver <a href="../../CASE.html">CASE.md §Partes Involucradas</a> para identificación de demandante y demandados</p>
-<p><strong>Resumen:</strong> Claudia Pino contrató asesoría tributaria ($100K + Factura N°13093) a Asesorías Tributarias Pedro González Ltda (RUT 76.333.878-9). La empresa asignó a Katherine Rebolledo. Consulta Zoom 22/09/2025 (30 min). Katherine dio consejo erróneo sobre timing. Claudia compró como persona natural el 10/12/2025. IVA de $20.441.378 irrecuperable. <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="../../CASE.html">evidencia completa en CASE.md</a>)</p>
+<p><strong>Resumen:</strong> Claudia Pino contrató asesoría tributaria ($100K + Factura N°13093) a Asesorías Tributarias Pedro González Ltda (RUT 76.333.878-9). La empresa asignó a Katherine Rebolledo. Consulta Zoom 22/09/2025 (30 min). Katherine dio consejo erróneo sobre timing. Claudia compró como persona natural el 10/12/2025. IVA de $20.441.378 irrecuperable. <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="../../CASE.html">evidencia completa en CASE.md</a>)</p>
 <h3 id="11-preguntas-y-respuestas-clave-pieza-central-de-evidencia">1.1 Preguntas y respuestas clave — PIEZA CENTRAL DE EVIDENCIA</h3>
 <div class="table-wrapper"><table>
 <thead>
@@ -215,7 +166,7 @@ graph TB
 </tr>
 </tbody>
 </table></div>
-<p><strong>Admisión crítica:</strong> Katherine confirmó <em>"actualmente no"</em> cuando Claudia preguntó si tenían contadores inmobiliarios — pero igual dio consejo definitivo sobre timing en una materia de impuestos inmobiliarios. <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="01_evidencia/2025-01-XX-caterin-consultation-transcript.txt">transcripción 22/09/2025</a>)</p>
+<p><strong>Admisión crítica:</strong> Katherine confirmó <em>"actualmente no"</em> cuando Claudia preguntó si tenían contadores inmobiliarios — pero igual dio consejo definitivo sobre timing en una materia de impuestos inmobiliarios. <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="01_evidencia/2025-01-XX-caterin-consultation-transcript.txt">transcripción 22/09/2025</a>)</p>
 <hr>
 <h2 id="2-marco-normativo">2. MARCO NORMATIVO</h2>
 <h3 id="21-normas-aplicables">2.1 Normas aplicables</h3>
@@ -233,25 +184,25 @@ graph TB
 <td>Código Civil</td>
 <td><strong>Art. 1545</strong></td>
 <td>El contrato es ley para las partes</td>
-<td>La asesoría pagada ($100K + factura) creó un contrato de servicios profesionales. Katherine debía cumplir con el estándar de un asesor tributario competente <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1545 CC</a>)</td>
+<td>La asesoría pagada ($100K + factura) creó un contrato de servicios profesionales. Katherine debía cumplir con el estándar de un asesor tributario competente <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1545 CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
 <td><strong>Art. 1546</strong></td>
 <td>Buena fe contractual: los contratos obligan no solo a lo expresado sino a lo que corresponde por naturaleza</td>
-<td>Katherine debió informar proactivamente sobre Art. 27bis al ser consultada sobre IVA de una compra inmobiliaria — es materia core de su giro <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1546 CC</a>)</td>
+<td>Katherine debió informar proactivamente sobre Art. 27bis al ser consultada sobre IVA de una compra inmobiliaria — es materia core de su giro <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1546 CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
 <td><strong>Art. 1547</strong></td>
 <td>Culpa leve en contratos bilaterales onerosos; la culpa se presume, el deudor debe probar diligencia</td>
-<td>Claudia no necesita probar negligencia — Katherine debe probar que fue diligente. La presunción opera a nuestro favor <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>)</td>
+<td>Claudia no necesita probar negligencia — Katherine debe probar que fue diligente. La presunción opera a nuestro favor <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
 <td><strong>Art. 1556</strong></td>
 <td>Indemnización comprende daño emergente y lucro cesante</td>
-<td>Base para reclamar IVA perdido ($20.4M) + daño moral + intereses <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1556 CC</a>)</td>
+<td>Base para reclamar IVA perdido ($20.4M) + daño moral + intereses <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1556 CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
@@ -263,61 +214,61 @@ graph TB
 <td>Código Civil</td>
 <td><strong>Art. 2314</strong></td>
 <td>Responsabilidad extracontractual por delito o cuasidelito que causa daño</td>
-<td>Acción subsidiaria contra Katherine personalmente <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2314 CC</a>)</td>
+<td>Acción subsidiaria contra Katherine personalmente <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2314 CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
 <td><strong>Art. 2320</strong></td>
 <td>Responsabilidad del empresario por hechos del dependiente</td>
-<td>La empresa responde por la calidad del profesional que asignó <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2320 CC</a>)</td>
+<td>La empresa responde por la calidad del profesional que asignó <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2320 CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
 <td><strong>Art. 2330</strong></td>
 <td>Reducción por exposición imprudente al daño</td>
-<td>Riesgo: defensa puede argumentar que Claudia debió buscar segunda opinión <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2330 CC</a>)</td>
+<td>Riesgo: defensa puede argumentar que Claudia debió buscar segunda opinión <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2330 CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
 <td><strong>Art. 2515</strong></td>
 <td>Prescripción ordinaria: 5 años (acciones contractuales)</td>
-<td>Plazo seguro hasta 10/12/2030 <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2515 CC</a>)</td>
+<td>Plazo seguro hasta 10/12/2030 <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2515 CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
 <td><strong>Art. 2332</strong></td>
 <td>Prescripción extracontractual: 4 años</td>
-<td>Plazo seguro hasta 10/12/2029 <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2332 CC</a>)</td>
+<td>Plazo seguro hasta 10/12/2029 <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2332 CC</a>)</td>
 </tr>
 <tr>
 <td>DL 825</td>
 <td><strong>Art. 23</strong></td>
 <td>Crédito fiscal pertenece al contribuyente de IVA que realiza la compra</td>
-<td>Si Claudia compró como persona natural, la SpA creada después NO puede reclamar ese IVA <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 23 DL 825</a>)</td>
+<td>Si Claudia compró como persona natural, la SpA creada después NO puede reclamar ese IVA <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 23 DL 825</a>)</td>
 </tr>
 <tr>
 <td>DL 825</td>
 <td><strong>Art. 27bis</strong></td>
 <td>Devolución de remanente de CF por compra de activos fijos. El SII <em>"deberá"</em> devolver si se cumplen requisitos</td>
-<td>Beneficio perdido. Nota: "deberá" es obligatorio — el SII no tiene discrecionalidad <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis DL 825</a>)</td>
+<td>Beneficio perdido. Nota: "deberá" es obligatorio — el SII no tiene discrecionalidad <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis DL 825</a>)</td>
 </tr>
 <tr>
 <td>SII</td>
 <td><strong>Oficio 810/2006</strong></td>
 <td>Contribuyente debe estar inscrito en IVA al momento de la compra para reclamar CF</td>
-<td>Confirma que comprar como persona natural mata el derecho a 27bis <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://www.sii.cl">Oficio SII 810/2006</a>)</td>
+<td>Confirma que comprar como persona natural mata el derecho a 27bis <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.sii.cl">Oficio SII 810/2006</a>)</td>
 </tr>
 <tr>
 <td>SII</td>
 <td><strong>Circular 55/2021</strong></td>
 <td>Procedimiento actualizado para solicitar devolución Art. 27bis</td>
-<td>Requisitos formales claros y cumplibles <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://www.sii.cl">Circular SII 55/2021</a>)</td>
+<td>Requisitos formales claros y cumplibles <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.sii.cl">Circular SII 55/2021</a>)</td>
 </tr>
 <tr>
 <td>CPC</td>
 <td><strong>Art. 279</strong></td>
 <td>Medida prejudicial precautoria: proteger bienes del demandado antes de la demanda</td>
-<td>Aplicable por riesgo de ocultamiento (TikTok de Pedro González) <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=22740">Art. 279 CPC</a>)</td>
+<td>Aplicable por riesgo de ocultamiento (TikTok de Pedro González) <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=22740">Art. 279 CPC</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -348,49 +299,49 @@ graph TB
 <td><strong>ROL 5.079-2021</strong></td>
 <td>07/06/2023</td>
 <td><strong>Empresa contable condenada por negligencia tributaria</strong> ($5.8M)</td>
-<td><strong>DIRECTAMENTE APLICABLE</strong>: <em>"al enmarcarse el conflicto en estatuto de responsabilidad contractual, rige presunción de culpa, recayendo sobre demandada carga de acreditar diligencia"</em> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3°</a>). Empresa contable condenada por declaraciones negligentes — idéntico a nuestro caso <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial/93642">pjud.cl</a>)</td>
+<td><strong>DIRECTAMENTE APLICABLE</strong>: <em>"al enmarcarse el conflicto en estatuto de responsabilidad contractual, rige presunción de culpa, recayendo sobre demandada carga de acreditar diligencia"</em> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3°</a>). Empresa contable condenada por declaraciones negligentes — idéntico a nuestro caso <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial/93642">pjud.cl</a>)</td>
 </tr>
 <tr>
 <td><strong>CS Primera Sala</strong></td>
 <td>Pendiente ROL exacto</td>
 <td>~2024-2025</td>
 <td><strong>Art. 2330 + culpa grave excluye reducción</strong></td>
-<td><em>"Aun cuando haya quedado asentada la culpa del demandante, deberá desestimarse la defensa de la exposición imprudente de la víctima al daño del artículo 2330"</em>. Cita a Barros Bourie: dolo excluye responsabilidad compartida. Art. 44 CC: culpa grave = dolo → Art. 2330 no aplica <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://www.portal.ijuridica.cl/2025/02/primera-sala-aclara-que-aun-cuando-exista-culpa-de-la-victima-no-procede-reduccion-indemnizatoria-conforme-art-2330-del-codigo-civil-si-demandado-incurrio-el-culpa-grave/">Inteligencia Jurídica</a>) [REQUIERE-VERIFICACIÓN — verificar ROL exacto en: pjud.cl]</td>
+<td><em>"Aun cuando haya quedado asentada la culpa del demandante, deberá desestimarse la defensa de la exposición imprudente de la víctima al daño del artículo 2330"</em>. Cita a Barros Bourie: dolo excluye responsabilidad compartida. Art. 44 CC: culpa grave = dolo → Art. 2330 no aplica <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.portal.ijuridica.cl/2025/02/primera-sala-aclara-que-aun-cuando-exista-culpa-de-la-victima-no-procede-reduccion-indemnizatoria-conforme-art-2330-del-codigo-civil-si-demandado-incurrio-el-culpa-grave/">Inteligencia Jurídica</a>) [REQUIERE-VERIFICACIÓN — verificar ROL exacto en: pjud.cl]</td>
 </tr>
 <tr>
 <td><strong>CS</strong></td>
 <td><strong>ROL 3.543-2025</strong></td>
 <td>08/04/2025</td>
 <td><strong>Contadores condenados por resp. extracontractual</strong></td>
-<td>Casación rechazada por <em>"manifiesta falta de fundamento"</em>. Confirma responsabilidad de contadores bajo Arts. 2314 y 2329 CC <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial/124063">pjud.cl</a>)</td>
+<td>Casación rechazada por <em>"manifiesta falta de fundamento"</em>. Confirma responsabilidad de contadores bajo Arts. 2314 y 2329 CC <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial/124063">pjud.cl</a>)</td>
 </tr>
 <tr>
 <td>CA Santiago</td>
 <td>ROL Civil 8609-2017</td>
 <td>09/04/2018</td>
 <td>Abogado negligente condenado ($1.265.000)</td>
-<td><em>"Falta de proactividad del profesional"</em> constituye negligencia contractual. Análogo: profesional que incumple responde bajo Arts. 1545-1547 CC <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://derecho-chile.cl/corte-de-santiago-condena-a-abogado-pagar-indemnizacion-de-1-265-000-a-clienta-que-represento-de-forma-negligente/">Derecho Chile</a>)</td>
+<td><em>"Falta de proactividad del profesional"</em> constituye negligencia contractual. Análogo: profesional que incumple responde bajo Arts. 1545-1547 CC <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://derecho-chile.cl/corte-de-santiago-condena-a-abogado-pagar-indemnizacion-de-1-265-000-a-clienta-que-represento-de-forma-negligente/">Derecho Chile</a>)</td>
 </tr>
 <tr>
 <td><strong>CS</strong></td>
 <td><strong>ROL 12169-2017</strong></td>
 <td>--</td>
 <td><strong>Pérdida de chance reconocida</strong> (Alpes Chemie c/ CENABAST)</td>
-<td>Reconoce pérdida de chance como daño autónomo. Cuantifica: 1/3 del beneficio máximo. Argumento subsidiario si tribunal no acepta daño cierto <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://www.prieto.cl/en/fallo-de-la-corte-suprema-el-reconocimiento-de-la-perdida-de-una-chance-2/">Prieto Abogados</a>)</td>
+<td>Reconoce pérdida de chance como daño autónomo. Cuantifica: 1/3 del beneficio máximo. Argumento subsidiario si tribunal no acepta daño cierto <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.prieto.cl/en/fallo-de-la-corte-suprema-el-reconocimiento-de-la-perdida-de-una-chance-2/">Prieto Abogados</a>)</td>
 </tr>
 <tr>
 <td>CS</td>
 <td>ROL 14.262-2022</td>
 <td>17/03/2023</td>
 <td>Pérdida de chance en negligencia médica</td>
-<td>Estándar material exigible + pérdida de oportunidad como daño indemnizable <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://www.diarioconstitucional.cl/articulos/breve-comentario-a-sentencia-de-reemplazo-de-la-excma-corte-suprema-de-17-de-marzo-de-2023-rol-de-ingreso-n14-262-2022-estandar-material-exigible-y-perdida-de-chance-en-la-falta-de-s/">Diario Constitucional</a>)</td>
+<td>Estándar material exigible + pérdida de oportunidad como daño indemnizable <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.diarioconstitucional.cl/articulos/breve-comentario-a-sentencia-de-reemplazo-de-la-excma-corte-suprema-de-17-de-marzo-de-2023-rol-de-ingreso-n14-262-2022-estandar-material-exigible-y-perdida-de-chance-en-la-falta-de-s/">Diario Constitucional</a>)</td>
 </tr>
 <tr>
 <td>SII</td>
 <td>Jurisprudencia 27bis</td>
 <td>--</td>
 <td>Requisito temporal Art. 27bis</td>
-<td><em>"Para establecer si la empresa tiene derecho al beneficio del artículo 27bis... habrá que determinar previamente si al momento de efectuar las adquisiciones desarrollaba actividades gravadas con IVA"</em> <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://www.sii.cl">sii.cl</a>)</td>
+<td><em>"Para establecer si la empresa tiene derecho al beneficio del artículo 27bis... habrá que determinar previamente si al momento de efectuar las adquisiciones desarrollaba actividades gravadas con IVA"</em> <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.sii.cl">sii.cl</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -409,13 +360,13 @@ graph TB
 <td>Barros Bourie, Enrique</td>
 <td><em>Tratado de Responsabilidad Extracontractual</em> (2a ed., 2020)</td>
 <td><em>"Si alguna de las partes ha actuado con dolo se entiende normalmente excluida la responsabilidad compartida de la otra, aunque su negligencia tenga una incidencia causal relevante"</em> — base para excluir Art. 2330 ante culpa grave</td>
-<td><span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://www.portal.ijuridica.cl/2025/02/primera-sala-aclara-que-aun-cuando-exista-culpa-de-la-victima-no-procede-reduccion-indemnizatoria-conforme-art-2330-del-codigo-civil-si-demandado-incurrio-el-culpa-grave/">Inteligencia Jurídica — cita en fallo CS</a>)</td>
+<td><span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.portal.ijuridica.cl/2025/02/primera-sala-aclara-que-aun-cuando-exista-culpa-de-la-victima-no-procede-reduccion-indemnizatoria-conforme-art-2330-del-codigo-civil-si-demandado-incurrio-el-culpa-grave/">Inteligencia Jurídica — cita en fallo CS</a>)</td>
 </tr>
 <tr>
 <td>Pizarro Wilson, Carlos</td>
 <td><em>La responsabilidad contractual en derecho chileno</em></td>
 <td><em>"A partir del artículo 1547 inciso 3° la doctrina y jurisprudencia ha entendido que existe una presunción de culpa en contra del deudor, de modo que el acreedor sólo debe probar la existencia de la obligación y afirmar el incumplimiento"</em></td>
-<td><span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://biblioteca.cejamericas.org/bitstream/handle/2015/2597/Laresponsabilidadcontractualenderechochileno.pdf">Biblioteca CEJA</a>)</td>
+<td><span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://biblioteca.cejamericas.org/bitstream/handle/2015/2597/Laresponsabilidadcontractualenderechochileno.pdf">Biblioteca CEJA</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -517,7 +468,7 @@ graph TB
 </ol>
 <h3 id="42-presuncion-de-culpa">4.2 Presunción de culpa</h3>
 <p>Al ser responsabilidad <strong>contractual</strong> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>), la culpa se <strong>presume</strong>. Es Katherine/la empresa quien debe probar que actuó con la diligencia debida. Claudia solo debe probar la existencia del contrato, el incumplimiento, y el daño.</p>
-<p>Esto invierte la carga probatoria a nuestro favor: Katherine debe explicar por qué, siendo asesora tributaria, desconocía el <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis</a> o por qué su consejo fue diligente. <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>) — confirmado en <a href="https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial/93642">ROL 5.079-2021</a></p>
+<p>Esto invierte la carga probatoria a nuestro favor: Katherine debe explicar por qué, siendo asesora tributaria, desconocía el <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis</a> o por qué su consejo fue diligente. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>) — confirmado en <a href="https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial/93642">ROL 5.079-2021</a></p>
 <h3 id="43-argumentos-sobre-culpa-compartida-art-2330-cc">4.3 Argumentos sobre culpa compartida (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2330 CC</a>)</h3>
 <p><strong>Riesgo de reducción por exposición imprudente al daño:</strong> MEDIO [ANÁLISIS-IA — inferencia: Art. 2330 CC (reducción por imprudencia víctima) + 79 días sin segunda opinión + inversión $146M → riesgo medio de que tribunal aplique reducción]</p>
 <p>La defensa argumentará que Claudia se expuso imprudentemente al daño porque:
@@ -525,9 +476,9 @@ graph TB
 - Katherine recomendó consultar un "contador inmobiliario" y Claudia no lo hizo
 - Ante una inversión de $146M, debió buscar múltiples opiniones</p>
 <p><strong>Nuestra respuesta (triple):</strong></p>
-<p><strong>A. Art. 2330 no aplica si hay culpa grave del demandado.</strong> Si logramos calificar la conducta de Katherine como culpa grave (argumentos de §4.1), la reducción no procede. La cadena argumentativa verificada es: (1) Art. 44 CC: culpa grave equivale al dolo; (2) Barros Bourie (<em>Tratado de Responsabilidad Extracontractual</em>, 2a ed.): <em>"si alguna de las partes ha actuado con dolo se entiende normalmente excluida la responsabilidad compartida de la otra"</em>; (3) CS Primera Sala (~2025): <em>"deberá desestimarse la defensa de la exposición imprudente de la víctima al daño del artículo 2330"</em> cuando el demandado actuó con culpa grave. Esta jurisprudencia confirma que la reducción no procede ante culpa grave. <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://www.portal.ijuridica.cl/2025/02/primera-sala-aclara-que-aun-cuando-exista-culpa-de-la-victima-no-procede-reduccion-indemnizatoria-conforme-art-2330-del-codigo-civil-si-demandado-incurrio-el-culpa-grave/">CS Primera Sala — Inteligencia Jurídica</a>)</p>
-<p><strong>B. Katherine creó falsa seguridad que desincentivó buscar al especialista.</strong> La cita completa de Katherine incluye <em>"sí, pero ahí igual tiene que cumplir bastantes requisitos"</em> y derivó a "contador inmobiliario". Sin embargo, esto no la exculpa porque: (i) el "sí" es objetivamente incorrecto — una vez comprado como persona natural, la respuesta es "no" sin matices; (ii) los "bastantes requisitos" no identificaron el requisito IMPOSIBLE de cumplir (que la SpA haya comprado directamente); (iii) la negligencia principal sobre el timing fue ANTES de esta frase y SIN derivación alguna. La falsa seguridad operó sobre la pregunta central: ¿se puede recuperar IVA? Katherine dijo "sí". <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="01_evidencia/2025-01-XX-caterin-consultation-transcript.txt">transcripción 22/09/2025</a>)</p>
-<p><strong>C. La negligencia principal (consejo de timing) fue ANTES y SIN derivación.</strong> La secuencia temporal de la transcripción muestra que Katherine dio el consejo de timing como orientación definitiva ("generalmente se hace de esa forma, usted compra primero...") SIN ninguna reserva ni derivación. La derivación a "contador inmobiliario" fue sobre una pregunta POSTERIOR y derivada. La Corte ha condenado a profesionales por "falta de proactividad" aun en contextos donde hubo derivación parcial (CA Santiago, ROL 8609-2017). <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="01_evidencia/2025-01-XX-caterin-consultation-transcript.txt">transcripción</a>, <a href="https://derecho-chile.cl/corte-de-santiago-condena-a-abogado-pagar-indemnizacion-de-1-265-000-a-clienta-que-represento-de-forma-negligente/">CA 8609-2017</a>)</p>
+<p><strong>A. Art. 2330 no aplica si hay culpa grave del demandado.</strong> Si logramos calificar la conducta de Katherine como culpa grave (argumentos de §4.1), la reducción no procede. La cadena argumentativa verificada es: (1) Art. 44 CC: culpa grave equivale al dolo; (2) Barros Bourie (<em>Tratado de Responsabilidad Extracontractual</em>, 2a ed.): <em>"si alguna de las partes ha actuado con dolo se entiende normalmente excluida la responsabilidad compartida de la otra"</em>; (3) CS Primera Sala (~2025): <em>"deberá desestimarse la defensa de la exposición imprudente de la víctima al daño del artículo 2330"</em> cuando el demandado actuó con culpa grave. Esta jurisprudencia confirma que la reducción no procede ante culpa grave. <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.portal.ijuridica.cl/2025/02/primera-sala-aclara-que-aun-cuando-exista-culpa-de-la-victima-no-procede-reduccion-indemnizatoria-conforme-art-2330-del-codigo-civil-si-demandado-incurrio-el-culpa-grave/">CS Primera Sala — Inteligencia Jurídica</a>)</p>
+<p><strong>B. Katherine creó falsa seguridad que desincentivó buscar al especialista.</strong> La cita completa de Katherine incluye <em>"sí, pero ahí igual tiene que cumplir bastantes requisitos"</em> y derivó a "contador inmobiliario". Sin embargo, esto no la exculpa porque: (i) el "sí" es objetivamente incorrecto — una vez comprado como persona natural, la respuesta es "no" sin matices; (ii) los "bastantes requisitos" no identificaron el requisito IMPOSIBLE de cumplir (que la SpA haya comprado directamente); (iii) la negligencia principal sobre el timing fue ANTES de esta frase y SIN derivación alguna. La falsa seguridad operó sobre la pregunta central: ¿se puede recuperar IVA? Katherine dijo "sí". <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="01_evidencia/2025-01-XX-caterin-consultation-transcript.txt">transcripción 22/09/2025</a>)</p>
+<p><strong>C. La negligencia principal (consejo de timing) fue ANTES y SIN derivación.</strong> La secuencia temporal de la transcripción muestra que Katherine dio el consejo de timing como orientación definitiva ("generalmente se hace de esa forma, usted compra primero...") SIN ninguna reserva ni derivación. La derivación a "contador inmobiliario" fue sobre una pregunta POSTERIOR y derivada. La Corte ha condenado a profesionales por "falta de proactividad" aun en contextos donde hubo derivación parcial (CA Santiago, ROL 8609-2017). <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="01_evidencia/2025-01-XX-caterin-consultation-transcript.txt">transcripción</a>, <a href="https://derecho-chile.cl/corte-de-santiago-condena-a-abogado-pagar-indemnizacion-de-1-265-000-a-clienta-que-represento-de-forma-negligente/">CA 8609-2017</a>)</p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -613,7 +564,7 @@ graph TB
 <tr>
 <td><strong>Daño emergente</strong> (IVA 27bis)</td>
 <td style="text-align: right;"><strong>$20.441.378</strong></td>
-<td>Monto exacto en Factura Afecta N°32 — no es estimación <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="01_evidencia/Factura-Afecta-N32-Construcción-IVA.pdf">Factura N°32</a>)</td>
+<td>Monto exacto en Factura Afecta N°32 — no es estimación <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="01_evidencia/Factura-Afecta-N32-Construcción-IVA.pdf">Factura N°32</a>)</td>
 </tr>
 <tr>
 <td>Lucro cesante</td>
@@ -678,15 +629,15 @@ graph TB
 <hr>
 <h2 id="7-argumentos-para-juicio">7. ARGUMENTOS PARA JUICIO</h2>
 <h3 id="argumento-1-incumplimiento-contractual-por-consejo-objetivamente-erroneo">Argumento 1: Incumplimiento contractual por consejo objetivamente erróneo</h3>
-<p><strong>Tesis:</strong> Katherine Rebolledo incumplió su obligación contractual de asesorar correctamente al dar un consejo diametralmente opuesto a lo que establece la ley tributaria, causando la pérdida irrecuperable de $20.441.378. <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 1545-1547 CC</a>; <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis DL 825</a>)</p>
+<p><strong>Tesis:</strong> Katherine Rebolledo incumplió su obligación contractual de asesorar correctamente al dar un consejo diametralmente opuesto a lo que establece la ley tributaria, causando la pérdida irrecuperable de $20.441.378. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 1545-1547 CC</a>; <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis DL 825</a>)</p>
 <p><strong>Desarrollo:</strong></p>
 <p>El contrato de asesoría tributaria (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1545 CC</a>) obligaba a Katherine a informar correctamente sobre las implicancias fiscales de la compra inmobiliaria. El <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis DL 825</a> establece requisitos claros: la entidad debe ser contribuyente de IVA al momento de la compra (<a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 23 DL 825</a>, Oficio SII 810/2006). Katherine recomendó "comprar primero, transferir a sociedad después" — el timing exactamente opuesto al correcto. Además, respondió "sí" a la pregunta de si se puede recuperar IVA post-traspaso, cuando la respuesta es categóricamente "no".</p>
 <p>Esto no es un error de matiz ni una zona gris interpretativa. Es un consejo objetivamente incorrecto en materia tributaria básica, emitido por una profesional de una empresa cuyo giro literal es "Asesorías Tributarias". El incumplimiento contractual es claro bajo Arts. 1545, 1546 y 1547 CC.</p>
 <p><strong>Fuerza:</strong> <strong>FUERTE</strong>
-<strong>Etiqueta:</strong> <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 1545, 1546, 1547 CC</a>; <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Arts. 23, 27bis DL 825</a>)</p>
+<strong>Etiqueta:</strong> <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 1545, 1546, 1547 CC</a>; <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Arts. 23, 27bis DL 825</a>)</p>
 <hr>
 <h3 id="argumento-2-culpa-presunta-e-inversion-de-la-carga-de-la-prueba">Argumento 2: Culpa presunta e inversión de la carga de la prueba</h3>
-<p><strong>Tesis:</strong> Al ser responsabilidad contractual, la culpa de Katherine se presume. Es ella quien debe probar que actuó con la diligencia de un asesor tributario competente — prueba que no puede producir dado que su consejo fue erróneo. <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>)</p>
+<p><strong>Tesis:</strong> Al ser responsabilidad contractual, la culpa de Katherine se presume. Es ella quien debe probar que actuó con la diligencia de un asesor tributario competente — prueba que no puede producir dado que su consejo fue erróneo. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>)</p>
 <p><strong>Desarrollo:</strong></p>
 <p>El <a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a> establece que en contratos bilaterales onerosos, la culpa del deudor se presume. La demandada no debe solo probar que "intentó" asesorar bien; debe demostrar que actuó con la diligencia de un "buen padre de familia" — en este contexto, con la competencia de un asesor tributario medianamente informado.</p>
 <p>Katherine no puede producir esta prueba porque:
@@ -696,18 +647,18 @@ graph TB
 - Validó consejo previo incorrecto ("lo que le dice el colega no está mal") sin verificar</p>
 <p>La presunción de culpa es una ventaja procesal significativa que descansa sobre base normativa y jurisprudencial sólida. El 30° Juzgado Civil de Santiago confirmó esta presunción contra una empresa contable en ROL 5.079-2021 (07/06/2023): <em>"al enmarcarse el conflicto en estatuto de responsabilidad contractual, rige presunción de culpa, recayendo sobre demandada carga de acreditar diligencia"</em>. La empresa Estudio Contable Herrera y Asociados SpA fue condenada a $5.831.886 por negligencia en declaraciones tributarias — un caso directamente análogo al nuestro.</p>
 <p><strong>Fuerza:</strong> <strong>FUERTE</strong>
-<strong>Etiqueta:</strong> <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial/93642">30° Juzg. Civil Stgo, ROL 5.079-2021</a>)</p>
+<strong>Etiqueta:</strong> <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial/93642">30° Juzg. Civil Stgo, ROL 5.079-2021</a>)</p>
 <hr>
 <h3 id="argumento-3-el-dano-es-cierto-documentado-y-de-monto-exacto">Argumento 3: El daño es cierto, documentado y de monto exacto</h3>
-<p><strong>Tesis:</strong> El daño de $20.441.378 no es especulativo ni estimado — es el IVA exacto documentado en la Factura Afecta N°32, cuya recuperación era un derecho concreto bajo el Art. 27bis que se extinguió irreversiblemente. <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="01_evidencia/Factura-Afecta-N32-Construcción-IVA.pdf">Factura N°32</a>)</p>
+<p><strong>Tesis:</strong> El daño de $20.441.378 no es especulativo ni estimado — es el IVA exacto documentado en la Factura Afecta N°32, cuya recuperación era un derecho concreto bajo el Art. 27bis que se extinguió irreversiblemente. <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="01_evidencia/Factura-Afecta-N32-Construcción-IVA.pdf">Factura N°32</a>)</p>
 <p><strong>Desarrollo:</strong></p>
 <p>A diferencia de muchos casos de negligencia profesional donde el daño es difícil de cuantificar, aquí el perjuicio es un número exacto respaldado por documento fiscal oficial. La Factura Afecta N°32 emitida por Inmobiliaria Isiete Araucanía X SpA registra IVA de $20.441.378 sobre $107.586.199 en construcción. Si la SpA de Claudia hubiera sido la compradora, ese IVA habría sido crédito fiscal recuperable bajo Art. 27bis, que usa el imperativo "deberá" devolver — no es facultativo del SII. La naturaleza del daño es daño emergente puro: un derecho concreto que existía y se perdió. No es lucro cesante especulativo.</p>
 <p><strong>Posición subsidiaria (pérdida de chance):</strong> Si el tribunal no acepta el daño como cierto, la pérdida de chance está reconocida como daño autónomo e indemnizable por la CS (ROL 12169-2017, Alpes Chemie c/ CENABAST; ROL 14.262-2022, negligencia médica). La probabilidad de obtener la devolución Art. 27bis era de 85-90% (requisitos formales cumplibles + "deberá" imperativo), lo que arroja un piso de $17.375.171 — aún ampliamente positivo.</p>
 <p><strong>Fuerza:</strong> <strong>FUERTE</strong>
-<strong>Etiqueta:</strong> <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="01_evidencia/Factura-Afecta-N32-Construcción-IVA.pdf">Factura N°32</a>; ver §2.1 Art. 27bis DL 825)</p>
+<strong>Etiqueta:</strong> <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="01_evidencia/Factura-Afecta-N32-Construcción-IVA.pdf">Factura N°32</a>; ver §2.1 Art. 27bis DL 825)</p>
 <hr>
 <h3 id="argumento-4-las-preguntas-escritas-previas-destruyen-la-defensa-de-no-era-el-tema">Argumento 4: Las preguntas escritas previas destruyen la defensa de "no era el tema"</h3>
-<p><strong>Tesis:</strong> El email de Claudia del 19/09/2025 demuestra que preguntó textualmente sobre IVA de la compra y timing de sociedad, eliminando cualquier argumento de que Katherine "no fue consultada sobre eso". <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="01_evidencia/Gmail - Fwd_ Asesoría Claudia Pino-20260130.pdf">email 19/09/2025</a>)</p>
+<p><strong>Tesis:</strong> El email de Claudia del 19/09/2025 demuestra que preguntó textualmente sobre IVA de la compra y timing de sociedad, eliminando cualquier argumento de que Katherine "no fue consultada sobre eso". <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="01_evidencia/Gmail - Fwd_ Asesoría Claudia Pino-20260130.pdf">email 19/09/2025</a>)</p>
 <p><strong>Desarrollo:</strong></p>
 <p>Claudia formuló por escrito, tres días antes de la consulta:
 1. <em>"¿Puedo pedir el IVA de la compra del depto? ¿En qué momento?"</em>
@@ -715,10 +666,10 @@ graph TB
 3. <em>"¿Individual o sociedad? ¿Y si es sociedad, qué tipo?"</em></p>
 <p>Katherine recibió estas preguntas vía Camila (email del 16/09) y tuvo tres días para prepararlas. No puede alegar que el tema de IVA inmobiliario "surgió de improviso" ni que "no era el objeto de la consulta". Las preguntas escritas constituyen prueba documental irrefutable de qué se le consultó y qué debía responder.</p>
 <p><strong>Fuerza:</strong> <strong>FUERTE</strong>
-<strong>Etiqueta:</strong> <span class="tag-verified">[VERIFICADO-WEB]</span> (<a href="01_evidencia/Gmail - Fwd_ Asesoría Claudia Pino-20260130.pdf">email 19/09/2025</a>)</p>
+<strong>Etiqueta:</strong> <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="01_evidencia/Gmail - Fwd_ Asesoría Claudia Pino-20260130.pdf">email 19/09/2025</a>)</p>
 <hr>
 <h3 id="argumento-5-responsabilidad-solidaria-de-la-empresa">Argumento 5: Responsabilidad solidaria de la empresa</h3>
-<p><strong>Tesis:</strong> Asesorías Tributarias Pedro González Ltda es responsable solidariamente por el acto de su profesional asignada, al haber emitido la factura, recibido el pago, y seleccionado a Katherine como la profesional competente para la asesoría. <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 2320, 1545 CC</a>)</p>
+<p><strong>Tesis:</strong> Asesorías Tributarias Pedro González Ltda es responsable solidariamente por el acto de su profesional asignada, al haber emitido la factura, recibido el pago, y seleccionado a Katherine como la profesional competente para la asesoría. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 2320, 1545 CC</a>)</p>
 <p><strong>Desarrollo:</strong></p>
 <p>La empresa:
 - Recibió el pago de $100.000 (transferencia a su cuenta bancaria)
@@ -727,7 +678,7 @@ graph TB
 - Ofreció dos opciones de precio/profesional — eligió a quién enviar</p>
 <p>Bajo <a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2320 CC</a> (responsabilidad del empresario por hechos del dependiente) y <a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1545 CC</a> (la empresa es parte del contrato), la empresa responde solidariamente por la calidad del servicio prestado por el profesional que asignó. No puede eximirse diciendo que "fue un error de Katherine" — la empresa eligió enviarla.</p>
 <p><strong>Fuerza:</strong> <strong>FUERTE</strong>
-<strong>Etiqueta:</strong> <span class="tag-verified">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 2320, 1545 CC</a>)</p>
+<strong>Etiqueta:</strong> <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 2320, 1545 CC</a>)</p>
 <hr>
 <h2 id="8-anticipacion-de-defensa-contraria">8. ANTICIPACIÓN DE DEFENSA CONTRARIA</h2>
 <div class="table-wrapper"><table>
@@ -1180,24 +1131,46 @@ graph TB
 </blockquote>
 <hr>
 <p><strong>Versión 2.1</strong> — Formato SSOT (02/03/2026). Jurisprudencia verificada. Pendiente: verificar ROL exacto del fallo CS Primera Sala 2025 en pjud.cl.</p>
+    </main>
 
-    <footer class="site-footer no-print">
-      <hr>
-      <small>Contenido generado con apoyo de IA — orientativo, no vinculante. Consulte con un abogado habilitado.</small>
-    </footer>
-  </main>
+    <aside class="jump-bar no-print">
+      <h4>En esta pagina</h4>
+      <ul class="jump-list">
+<li><a href="#indice-de-documentos-del-caso">Índice de Documentos del Caso</a></li>
+<li><a href="#tesis-central">TESIS CENTRAL</a></li>
+<li><a href="#1-hechos-relevantes">1. HECHOS RELEVANTES</a></li>
+<li><a href="#2-marco-normativo">2. MARCO NORMATIVO</a></li>
+<li><a href="#3-elementos-de-responsabilidad">3. ELEMENTOS DE RESPONSABILIDAD</a></li>
+<li><a href="#4-analisis-de-culpa-dolo">4. ANÁLISIS DE CULPA / DOLO</a></li>
+<li><a href="#5-construccion-de-causalidad">5. CONSTRUCCIÓN DE CAUSALIDAD</a></li>
+<li><a href="#6-cuantificacion-del-dano">6. CUANTIFICACIÓN DEL DAÑO</a></li>
+<li><a href="#7-argumentos-para-juicio">7. ARGUMENTOS PARA JUICIO</a></li>
+<li><a href="#8-anticipacion-de-defensa-contraria">8. ANTICIPACIÓN DE DEFENSA CONTRARIA</a></li>
+<li><a href="#9-plan-de-prueba">9. PLAN DE PRUEBA</a></li>
+<li><a href="#10-riesgos-y-mitigaciones">10. RIESGOS Y MITIGACIONES</a></li>
+<li><a href="#11-diagrama-resumen">11. DIAGRAMA RESUMEN</a></li>
+<li><a href="#contactos-para-verificacion-profesional">Contactos para Verificación Profesional</a></li>
+<li><a href="#glosario">Glosario</a></li>
+</ul>
+    </aside>
+
+  </div>
+
+  <footer class="document-footer no-print">
+    Contenido generado con apoyo de IA — orientativo, no vinculante.
+  </footer>
 
   <script>
-    // ── Indicador de página activa en sidebar ──────────────────────────────
+    /* ── Active link in section-nav ──────────────────────────────────────── */
     (function() {
       var current = window.location.href.split('?')[0].split('#')[0];
-      document.querySelectorAll('.sidebar a').forEach(function(link) {
+      document.querySelectorAll('.section-nav a').forEach(function(link) {
         if (link.href.split('?')[0].split('#')[0] === current)
           link.classList.add('active');
       });
     })();
 
-    // ── Cargador PII client-side ───────────────────────────────────────────
+    /* ── PII manifest.json loader ────────────────────────────────────────── */
     (function() {
       var btn = document.getElementById('pii-load-btn');
       var status = document.getElementById('pii-status');
@@ -1225,14 +1198,14 @@ graph TB
                 }
               });
               if (count > 0) {
-                btn.textContent = '✓ Datos revelados (' + count + ')';
+                btn.textContent = 'Datos revelados (' + count + ')';
                 btn.classList.add('pii-loaded');
                 if (status) status.textContent = '';
               } else {
-                if (status) status.textContent = 'Sin datos en esta página';
+                if (status) status.textContent = 'Sin datos en esta pagina';
               }
             } catch(err) {
-              if (status) status.textContent = 'Error: JSON inválido';
+              if (status) status.textContent = 'Error: JSON invalido';
             }
           };
           reader.readAsText(file);
@@ -1241,172 +1214,44 @@ graph TB
       });
     })();
 
-    // ── Mermaid: guardar fuentes ANTES de render, luego inicializar ────────
+    /* ── Mermaid render ──────────────────────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', function() {
-      // 1. Guardar innerHTML original antes de que Mermaid lo reemplace
-      document.querySelectorAll('.mermaid').forEach(function(el, i) {
-        var id = 'mermaid-' + i;
-        el.setAttribute('data-mermaid-id', id);
-        window._mermaidSrc[id] = el.innerHTML.trim();
-      });
-      // 2. Renderizar
-      mermaid.run({ querySelector: '.mermaid' });
-    });
-
-    // ── Theme toggle ──────────────────────────────────────────────────────
-    function applyTheme(t) {
-      document.documentElement.setAttribute('data-theme', t);
-      var btn = document.getElementById('theme-toggle');
-      if (btn) btn.textContent = t === 'dark' ? '☀' : '🌙';
-
-      var mermaidTheme = t === 'dark' ? 'dark' : 'neutral';
-      mermaid.initialize({ startOnLoad: false, theme: mermaidTheme });
-
-      // Re-renderizar diagramas desde fuente original guardada
-      document.querySelectorAll('.mermaid').forEach(function(el) {
-        var id = el.getAttribute('data-mermaid-id');
-        var src = id ? window._mermaidSrc[id] : null;
-        if (src) {
-          el.removeAttribute('data-processed');
-          el.innerHTML = src;
-        }
-      });
-      mermaid.run({ querySelector: '.mermaid' });
-    }
-
-    function toggleTheme() {
-      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-      try { localStorage.setItem('villarrica-theme', next); } catch(e) {}
-    }
-
-    // Restaurar ícono del tema al cargar
-    (function() {
-      try {
-        var saved = localStorage.getItem('villarrica-theme') || 'light';
-        var btn = document.getElementById('theme-toggle');
-        if (btn) btn.textContent = saved === 'dark' ? '☀' : '🌙';
-      } catch(e) {}
-    })();
-
-    // ── Sidebar toggle (desktop) ──────────────────────────────────────────
-    function toggleSidebar() {
-      var collapsed = document.body.classList.toggle('sidebar-collapsed');
-      var btn = document.getElementById('sidebar-toggle-btn');
-      if (btn) btn.textContent = collapsed ? '☰' : '✕';
-      try { localStorage.setItem('villarrica-sidebar', collapsed ? '1' : '0'); } catch(e) {}
-    }
-
-    // Restaurar estado sidebar al cargar
-    (function() {
-      try {
-        if (localStorage.getItem('villarrica-sidebar') === '1') {
-          document.body.classList.add('sidebar-collapsed');
-          var btn = document.getElementById('sidebar-toggle-btn');
-          if (btn) btn.textContent = '☰';
-        }
-      } catch(e) {}
-    })();
-
-    // ── Font size selector ────────────────────────────────────────────────
-    var _fontSizes = { small: '0.875rem', normal: '1rem', large: '1.125rem' };
-
-    function changeFontSize(size) {
-      var val = _fontSizes[size] || '1rem';
-      document.documentElement.style.setProperty('--font-size-base', val);
-      try { localStorage.setItem('villarrica-fontsize', size); } catch(e) {}
-    }
-
-    // Restaurar tamaño de letra al cargar
-    document.addEventListener('DOMContentLoaded', function() {
-      try {
-        var saved = localStorage.getItem('villarrica-fontsize');
-        if (saved && _fontSizes[saved]) {
-          document.documentElement.style.setProperty('--font-size-base', _fontSizes[saved]);
-          var sel = document.getElementById('font-size-select');
-          if (sel) sel.value = saved;
-        }
-      } catch(e) {}
-    });
-
-    // ── Disclaimer expandible ─────────────────────────────────────────────
-    function toggleDisclaimerFull() {
-      var el = document.getElementById('disclaimer-full');
-      var btn = document.getElementById('disclaimer-expand-btn');
-      if (!el || !btn) return;
-      var expanded = !el.hidden;
-      el.hidden = expanded;
-      btn.setAttribute('aria-expanded', String(!expanded));
-      btn.textContent = expanded ? 'ⓘ más' : '✕ cerrar';
-    }
-
-    // ── Sidebar accordion (secciones colapsables) ─────────────────────────
-    document.addEventListener('DOMContentLoaded', function() {
-      var titles = document.querySelectorAll('.sidebar li.section-title');
-      titles.forEach(function(title) {
-        var ul = title.nextElementSibling;
-        if (!ul || ul.tagName !== 'UL') return;
-
-        // Indicador de toggle
-        var icon = document.createElement('span');
-        icon.className = 'section-toggle-icon';
-        icon.textContent = '▸';
-        title.appendChild(icon);
-        title.setAttribute('tabindex', '0');
-
-        // Empezar colapsado
-        ul.style.display = 'none';
-        ul.style.marginTop = '0';
-
-        function toggle() {
-          var open = ul.style.display !== 'none';
-          ul.style.display = open ? 'none' : '';
-          icon.textContent = open ? '▸' : '▾';
-        }
-        title.addEventListener('click', toggle);
-        title.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-        });
-      });
-
-      // Expandir la sección que contiene el enlace activo
-      var activeLink = document.querySelector('.sidebar a.active');
-      if (activeLink) {
-        var el = activeLink.parentElement;
-        var sidebar = document.querySelector('.sidebar');
-        while (el && el !== sidebar) {
-          if (el.tagName === 'UL') {
-            el.style.display = '';
-            var prev = el.previousElementSibling;
-            if (prev && prev.classList.contains('section-title')) {
-              var icon = prev.querySelector('.section-toggle-icon');
-              if (icon) icon.textContent = '▾';
-            }
-          }
-          el = el.parentElement;
-        }
+      if (document.querySelector('.mermaid')) {
+        mermaid.run({ querySelector: '.mermaid' });
       }
     });
 
-    // ── Scroll reveal ─────────────────────────────────────────────────────
-    document.addEventListener('DOMContentLoaded', function() {
-      if (!window.IntersectionObserver) return;
-      var targets = document.querySelectorAll('h2, .table-wrapper, blockquote');
+    /* ── Jump bar scroll tracking ────────────────────────────────────────── */
+    (function() {
+      var jumpLinks = document.querySelectorAll('.jump-list a');
+      if (!jumpLinks.length) return;
+
+      var headings = [];
+      jumpLinks.forEach(function(link) {
+        var id = link.getAttribute('href');
+        if (id && id.startsWith('#')) {
+          var el = document.getElementById(id.substring(1));
+          if (el) headings.push({ el: el, link: link });
+        }
+      });
+
+      if (!headings.length || !window.IntersectionObserver) return;
+
       var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            observer.unobserve(e.target);
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.id;
+            jumpLinks.forEach(function(link) {
+              link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+            });
           }
         });
-      }, { threshold: 0.08 });
-      targets.forEach(function(el) {
-        el.classList.add('reveal');
-        observer.observe(el);
-      });
-    });
+      }, { rootMargin: '-20% 0px -60% 0px' });
 
-    // ── Score ring: count-up + fill stroke (dynamic radius) ──────────────
+      headings.forEach(function(h) { observer.observe(h.el); });
+    })();
+
+    /* ── Score ring count-up + fill (for PANEL.md) ───────────────────────── */
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.score-ring').forEach(function(ring) {
         var numEl = ring.querySelector('.number[data-target]');
@@ -1418,13 +1263,12 @@ graph TB
           var r = parseFloat(fillCircle.getAttribute('r') || '44');
           var circumference = 2 * Math.PI * r;
           fillCircle.style.strokeDasharray = String(circumference);
-          fillCircle.style.strokeDashoffset = String(circumference); // start empty
+          fillCircle.style.strokeDashoffset = String(circumference);
           setTimeout(function() {
             fillCircle.style.strokeDashoffset = String(circumference * (1 - target / 100));
           }, 150);
         }
 
-        // Count-up number
         var duration = 1200;
         var startTime = null;
         function step(ts) {
@@ -1438,32 +1282,51 @@ graph TB
       });
     });
 
-    // ── Strength tracker: dimension toggle + bar animation ────────────────
-    function toggleDimDetail(btn) {
-      var row = btn.closest('.st-dim-row');
-      if (!row) return;
-      var body = row.querySelector('.st-dim-detail-body');
-      if (!body) return;
-      var open = !body.hidden;
-      body.hidden = open;
-      btn.setAttribute('aria-expanded', String(!open));
-    }
-
+    /* ── Sidebar accordion ───────────────────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', function() {
-      // Animate dimension bars on load
-      setTimeout(function() {
-        document.querySelectorAll('.st-dim-bar-fill[data-width]').forEach(function(bar) {
-          bar.style.width = bar.getAttribute('data-width') + '%';
-        });
-      }, 300);
+      var titles = document.querySelectorAll('.section-nav li.section-title');
+      titles.forEach(function(title) {
+        var ul = title.nextElementSibling;
+        if (!ul || ul.tagName !== 'UL') return;
+
+        var icon = document.createElement('span');
+        icon.className = 'section-toggle-icon';
+        icon.textContent = '+';
+        title.appendChild(icon);
+
+        ul.style.display = 'none';
+
+        function toggle() {
+          var open = ul.style.display !== 'none';
+          ul.style.display = open ? 'none' : '';
+          icon.textContent = open ? '+' : '-';
+        }
+        title.addEventListener('click', toggle);
+      });
+
+      var activeLink = document.querySelector('.section-nav a.active');
+      if (activeLink) {
+        var el = activeLink.parentElement;
+        var nav = document.querySelector('.section-nav');
+        while (el && el !== nav) {
+          if (el.tagName === 'UL' && el.parentElement !== nav) {
+            el.style.display = '';
+            var prev = el.previousElementSibling;
+            if (prev && prev.classList.contains('section-title')) {
+              var icon = prev.querySelector('.section-toggle-icon');
+              if (icon) icon.textContent = '-';
+            }
+          }
+          el = el.parentElement;
+        }
+      }
     });
 
-    // ── Severity row auto-detection ───────────────────────────────────────
-    // Detecta keywords en celdas cortas (<35 chars) y agrega clase al <tr>
+    /* ── Severity row detection (border-weight) ──────────────────────────── */
     document.addEventListener('DOMContentLoaded', function() {
-      var reCritical = /urgente|cr[ií]tic[ao]|bloqueado|bloqueante|🔴/i;
-      var reSuccess  = /completo|completado|resuelto|listo|blindado|✓|✅|🟢/i;
-      var reWarning  = /pendiente|revisar|verificar|atenci[oó]n|🟡|⚠/i;
+      var reCritical = /urgente|cr[ií]tic[ao]|bloqueado|bloqueante/i;
+      var reSuccess = /completo|completado|resuelto|listo|blindado/i;
+      var reWarning = /pendiente|revisar|verificar|atenci[oó]n/i;
       document.querySelectorAll('table tr').forEach(function(row) {
         if (row.closest('thead')) return;
         var cells = row.querySelectorAll('td');
@@ -1472,12 +1335,13 @@ graph TB
           var t = td.textContent.trim();
           if (t.length > 35) return;
           if (!detected && reCritical.test(t)) detected = 'critical';
-          else if (!detected && reSuccess.test(t))  detected = 'success';
-          else if (!detected && reWarning.test(t))  detected = 'warning';
+          else if (!detected && reSuccess.test(t)) detected = 'success';
+          else if (!detected && reWarning.test(t)) detected = 'warning';
         });
         if (detected) row.classList.add('row-' + detected);
       });
     });
   </script>
+
 </body>
 </html>
