@@ -135,6 +135,13 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://brownbull.github.io/ka-letra-villa2026/99_entregable/entrega-profesional/TEORIA-DEL-CASO.html"/>
   </url>
   <url>
+    <loc>https://brownbull.github.io/ka-letra-villa2026/CASE.html</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://brownbull.github.io/ka-letra-villa2026/CASE.html"/>
+  </url>
+  <url>
     <loc>https://brownbull.github.io/ka-letra-villa2026/deploy-guide.html</loc>
     <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -147,5 +154,12 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://brownbull.github.io/ka-letra-villa2026/"/>
+  </url>
+  <url>
+    <loc>https://brownbull.github.io/ka-letra-villa2026/strength-tracker.html</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://brownbull.github.io/ka-letra-villa2026/strength-tracker.html"/>
   </url>
 </urlset>
