@@ -27,6 +27,11 @@
 
   <header class="document-header">
     <div class="doc-meta">
+      <button class="nav-toggle no-print" id="nav-toggle" aria-label="Menú de navegación" aria-expanded="false">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
       <a href="../../index.html" class="doc-title">Caso Villa 2026</a>
       <span class="doc-badge">CONFIDENCIAL</span>
     </div>
@@ -44,6 +49,26 @@
       <ul>
 <li><a href="../../CASE.html">Caso Villarrica</a></li>
 <li><a href="../../strength-tracker.html">Fortaleza del Caso</a></li>
+<li class="section-title">Investigación Excluded</li>
+<ul>
+<li><a href="../../02_investigacion_excluded/13-27bis-requirements.html">Article 27bis DL 825</a></li>
+<li><a href="../../02_investigacion_excluded/14-professional-liability.html">Professional Liability of Contadores in Chile</a></li>
+<li><a href="../../02_investigacion_excluded/15-investigacion-pre-roast.html">Investigación Legal Preliminar -- Hallazgos</a></li>
+<li><a href="../../02_investigacion_excluded/16-admisibilidad-grabacion.html">Legal Research</a></li>
+<li><a href="../../02_investigacion_excluded/17-jurisprudencia-roast2.html">Investigación Jurídica</a></li>
+<li><a href="../../02_investigacion_excluded/parallel-ai-analysis.html">Parallel AI Analysis</a></li>
+<li><a href="../../02_investigacion_excluded/recommended-attorneys.html">Recommended Attorneys for Professional Liability Case</a></li>
+</ul>
+<li class="section-title">Estrategia Excluded</li>
+<ul>
+<li><a href="../../03_estrategia_excluded/defensa-anticipada.html">Defensa</a></li>
+<li><a href="../../03_estrategia_excluded/estrategia-legal.html">Estrategia</a></li>
+</ul>
+<li class="section-title">Revisión Excluded</li>
+<ul>
+<li><a href="../../04_revision_excluded/07-REVISION-ADVERSARIAL.html">Revisión Adversarial</a></li>
+<li><a href="../../04_revision_excluded/08-ROAST-POST-TEORIA.html">Revisión Adversarial #2</a></li>
+</ul>
 <li class="section-title">Entregable</li>
 <ul>
 <li><a href="../../99_entregable/PANEL.html">Panel de Control</a></li>
@@ -83,6 +108,8 @@
 </ul>
 </ul>
     </nav>
+
+    <div class="nav-backdrop no-print" id="nav-backdrop"></div>
 
     <main class="document-content">
       <div class="disclaimer-bar no-print">
@@ -547,6 +574,39 @@ C.I.: <span class="pii-redacted" data-token="RUT_DEMANDANTE">RUT_DEMANDANTE</spa
         }
       }
     });
+
+    /* ── Mobile drawer toggle ──────────────────────────────────────────── */
+    (function() {
+      var toggle = document.getElementById('nav-toggle');
+      var nav = document.querySelector('.section-nav');
+      var backdrop = document.getElementById('nav-backdrop');
+      if (!toggle || !nav) return;
+
+      function openDrawer() {
+        nav.classList.add('drawer-open');
+        if (backdrop) backdrop.classList.add('visible');
+        toggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeDrawer() {
+        nav.classList.remove('drawer-open');
+        if (backdrop) backdrop.classList.remove('visible');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      toggle.addEventListener('click', function() {
+        if (nav.classList.contains('drawer-open')) closeDrawer();
+        else openDrawer();
+      });
+      if (backdrop) backdrop.addEventListener('click', closeDrawer);
+      nav.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A') closeDrawer();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && nav.classList.contains('drawer-open')) closeDrawer();
+      });
+    })();
 
     /* ── Severity row detection (border-weight) ──────────────────────────── */
     document.addEventListener('DOMContentLoaded', function() {
