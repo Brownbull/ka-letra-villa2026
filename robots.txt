@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brownbull.github.io/ka-letra-villa2026/sitemap.xml
