@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
 Sitemap: https://brownbull.github.io/ka-letra-villa2026/sitemap.xml
