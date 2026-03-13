@@ -138,6 +138,7 @@ button:focus-visible { outline: 1px solid var(--ink); outline-offset: 2px; }
   display: grid;
   grid-template-columns: var(--nav-width) 1fr var(--jump-width);
   min-height: calc(100vh - var(--header-h));
+  overflow-x: hidden;
 }
 
 /* --- Section Nav --- */
@@ -194,8 +195,11 @@ button:focus-visible { outline: 1px solid var(--ink); outline-offset: 2px; }
 .document-content {
   max-width: var(--content-max);
   width: 100%;
+  min-width: 0;
   margin: 0 auto;
   padding: 48px 32px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* --- Jump Bar --- */
@@ -573,9 +577,23 @@ del { opacity: 0.4; }
 
 /* --- Mobile --- */
 @media (max-width: 767px) {
-  .document-header { padding: 0 12px; height: 44px; }
+  html, body { overflow-x: hidden; max-width: 100vw; }
+
+  .document-header {
+    padding: 0 12px;
+    height: 44px;
+    gap: 8px;
+  }
+  .doc-meta { gap: 8px; min-width: 0; }
+  .doc-title { font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .doc-badge { display: none; }
-  .document-content { padding: 24px 16px; }
+  .doc-actions { gap: 6px; flex-shrink: 0; }
+  .print-btn, .pii-load-btn { padding: 4px 8px; font-size: 0.7rem; white-space: nowrap; }
+
+  .document-content {
+    padding: 24px 16px;
+    max-width: 100%;
+  }
   h1 { font-size: 1.5rem; }
   h2 { font-size: 1.2rem; }
 
@@ -594,7 +612,20 @@ del { opacity: 0.4; }
   .table-wrapper {
     margin-left: -16px;
     margin-right: -16px;
+    max-width: calc(100% + 32px);
   }
+
+  /* PII bars — prevent overflow on narrow screens */
+  .pii-redacted, .pii-revealed {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+  /* Tables — constrain cell content */
+  td, th { word-break: break-word; }
 }
 
 /* ==========================================================================
