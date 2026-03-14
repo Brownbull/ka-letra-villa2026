@@ -875,6 +875,120 @@ Ver sección <strong>Contactos para Verificación Profesional</strong> al final.
       }
     });
 
+    /* ── Mermaid fullscreen (click to zoom + drag) ─────────────────────── */
+    document.addEventListener('DOMContentLoaded', function() {
+      var overlay = document.createElement('div');
+      overlay.className = 'mermaid-overlay';
+      overlay.innerHTML = '<button class="close-overlay no-print">&times;</button><div class="mermaid-inner"></div>';
+      document.body.appendChild(overlay);
+
+      var inner = overlay.querySelector('.mermaid-inner');
+      var closeBtn = overlay.querySelector('.close-overlay');
+      var scale = 1, posX = 0, posY = 0, startX, startY, isDragging = false;
+
+      function updateTransform() {
+        inner.style.transform = 'translate(' + posX + 'px,' + posY + 'px) scale(' + scale + ')';
+      }
+
+      function openOverlay(svg) {
+        inner.innerHTML = '';
+        var clone = svg.cloneNode(true);
+        clone.style.maxWidth = 'none';
+        clone.style.maxHeight = 'none';
+        inner.appendChild(clone);
+        scale = 1; posX = 0; posY = 0;
+        updateTransform();
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeOverlay() {
+        overlay.classList.remove('active');
+        overlay.classList.remove('dragging');
+        document.body.style.overflow = '';
+      }
+
+      closeBtn.addEventListener('click', closeOverlay);
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeOverlay();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) closeOverlay();
+      });
+
+      // Click on mermaid to open
+      document.addEventListener('click', function(e) {
+        var merm = e.target.closest('.mermaid');
+        if (!merm || overlay.classList.contains('active')) return;
+        var svg = merm.querySelector('svg');
+        if (svg) openOverlay(svg);
+      });
+
+      // Drag (mouse)
+      overlay.addEventListener('mousedown', function(e) {
+        if (e.target === closeBtn) return;
+        isDragging = true;
+        startX = e.clientX - posX;
+        startY = e.clientY - posY;
+        overlay.classList.add('dragging');
+      });
+      document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        posX = e.clientX - startX;
+        posY = e.clientY - startY;
+        updateTransform();
+      });
+      document.addEventListener('mouseup', function() {
+        isDragging = false;
+        overlay.classList.remove('dragging');
+      });
+
+      // Drag (touch)
+      var lastTouchDist = 0;
+      overlay.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 1) {
+          isDragging = true;
+          startX = e.touches[0].clientX - posX;
+          startY = e.touches[0].clientY - posY;
+        } else if (e.touches.length === 2) {
+          isDragging = false;
+          lastTouchDist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+        }
+      }, { passive: true });
+      overlay.addEventListener('touchmove', function(e) {
+        if (e.touches.length === 1 && isDragging) {
+          posX = e.touches[0].clientX - startX;
+          posY = e.touches[0].clientY - startY;
+          updateTransform();
+        } else if (e.touches.length === 2) {
+          var dist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          if (lastTouchDist > 0) {
+            scale = Math.max(0.5, Math.min(5, scale * (dist / lastTouchDist)));
+            updateTransform();
+          }
+          lastTouchDist = dist;
+        }
+      }, { passive: true });
+      overlay.addEventListener('touchend', function() {
+        isDragging = false;
+        lastTouchDist = 0;
+      });
+
+      // Zoom (scroll wheel)
+      overlay.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        var delta = e.deltaY > 0 ? 0.9 : 1.1;
+        scale = Math.max(0.5, Math.min(5, scale * delta));
+        updateTransform();
+      }, { passive: false });
+    });
+
     /* ── Jump bar scroll tracking ────────────────────────────────────────── */
     (function() {
       var jumpLinks = document.querySelectorAll('.jump-list a');
