@@ -578,6 +578,14 @@ del { opacity: 0.4; }
    Responsive
    ========================================================================== */
 
+/* --- Desktop wide (tables get more room) --- */
+@media (min-width: 1200px) {
+  :root { --content-max: 900px; }
+}
+@media (min-width: 1600px) {
+  :root { --content-max: 1060px; }
+}
+
 /* --- Tablet + Mobile (drawer mode) --- */
 @media (max-width: 1199px) {
   .nav-toggle { display: flex; }
