@@ -2,7 +2,7 @@
 
 Sitio HTML generado automaticamente desde documentos del caso.
 
-**Ver sitio:** https://brownbull.github.io/ka-letra-villa2026/
+**Ver sitio:** https://Brownbull.github.io/ka-letra-villa2026/
 
 ## Contenido
 
@@ -18,7 +18,7 @@ generado por `tools/build-html.py` del framework El Director v1.0.
 
 Desde el repositorio fuente:
 ```bash
-bash tools/deploy-gh-pages.sh 202601_villarrica https://github.com/brownbull/ka-letra-villa2026.git
+bash tools/deploy-gh-pages.sh 202601_villarrica https://github.com/Brownbull/ka-letra-villa2026.git
 ```
 
 ---
