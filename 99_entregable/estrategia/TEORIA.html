@@ -1,12 +1,1052 @@
 <!DOCTYPE html>
+<!--
+  Shell de sitios de caso khujta — chrome del kit gabe-artifact.
+  Procedencia: BLOQUE 2 (cog + panel) y BLOQUE 3 (script de rosters) de
+  ~/.claude/skills/gabe-artifact/assets/artifact-chrome.html — skill instalada,
+  referenciada, nunca copiada al repo (E4). Aquí se agregan doctype/head/body,
+  que el host de Artifacts pone solo y un sitio estático no.
+
+  Los tres bloques JS irremplazables del pipeline de El Publicador viven abajo y
+  NO se tocan sin correr tests/publicador/pii-fixture.mjs:
+     1. cargador del manifest PII  (botón «Revelar datos»)
+     2. overlay de mermaid          (zoom + arrastre)
+     3. filtro de prioridad         (tablas con columna Prioridad)
+
+  Gate: node ~/.claude/skills/gabe-artifact/tools/verify-artifact-chrome.mjs <pág.html>
+-->
 <html lang="es">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="language" content="es">
+<meta name="author" content="khujta_legal">
+<title>Negligencia Profesional — Caso Villarrica</title>
+<meta name="description" content="Análisis legal de responsabilidad civil por negligencia profesional contable. Evaluación de viabilidad, estrategia, documentos y guías de acción para el caso Villarrica.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CL">
+<meta property="og:site_name" content="khujta_legal">
+<meta property="og:title" content="Negligencia Profesional — Caso Villarrica">
+<meta property="og:description" content="Análisis legal de responsabilidad civil por negligencia profesional contable. Evaluación de viabilidad, estrategia, documentos y guías de acción para el caso Villarrica.">
+<meta property="og:url" content="https://brownbull.github.io/ka-letra-villa2026/99_entregable/estrategia/TEORIA.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Negligencia Profesional — Caso Villarrica">
+<meta name="twitter:description" content="Análisis legal de responsabilidad civil por negligencia profesional contable. Evaluación de viabilidad, estrategia, documentos y guías de acción para el caso Villarrica.">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
   <title>Teoría del Caso</title>
-  <link rel="stylesheet" href="../../assets/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: false, theme: 'neutral' });</script>
+  <style>/* ==========================================================================
+   Chrome de casos khujta — kit gabe-artifact sobre el shell de documentos
+   --------------------------------------------------------------------------
+   Procedencia: BLOQUE 1 de ~/.claude/skills/gabe-artifact/assets/artifact-chrome.html
+   (skill instalada, referenciada — nunca copiada al repo; ver E4 del contrato
+   docs/estandares/contrato-ejecucion.md). Este archivo ADAPTA ese bloque al
+   shell de sitios de caso: header, sidebar, jump bar, tablas, PII y filtro de
+   prioridad se re-escriben sobre los tokens del kit.
+
+   Invariantes que este archivo NO puede romper:
+     · .pii-redacted debe ocultar el texto (fondo = color de tinta, user-select
+       none). El botón «Revelar datos» depende de la clase, no del color.
+     · .confidence-tag debe seguir siendo visible y neutra (sin semántica de color).
+     · ids del kit intocables: #af-cog, #af-panel, #af-fonts, #af-skins,
+       .artifact-page, .sec / data-sec — los gates leen exactamente esos.
+
+   Gates: node ~/.claude/skills/gabe-artifact/tools/verify-artifact-chrome.mjs <pág.html>
+   ========================================================================== */
+
+/* ══════════════════════════════════════════════════════════════════════════
+   BLOQUE 1 — tokens, skins, tipografía, cog (kit gabe-artifact)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── roster de fuentes (H3) — el script las mantiene en sync ─────────────── */
+:root { --af-stack: ui-monospace, monospace; --af-size: 15px; --af-track: -0.025em; }
+
+/* ── cara de títulos (H3) — SOLO las píldoras de sección fijan una cara:
+      grotesca condensada moderna, en caps. Resoluble localmente en orden
+      (Bahnschrift viene con Windows 10+, DIN Alternate con macOS), así nada
+      pasa por una webfont bloqueada. Todo OTRO título queda en la cara del
+      cuerpo: un solo tratamiento distintivo, o la distinción no vale. */
+:root {
+  --af-title: "Bahnschrift", "DIN Alternate", "Roboto Condensed",
+              "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  /* Monoespaciada de servicio (badges, tokens PII, encabezados de tabla).
+     Local, sin @import: la dependencia de fonts.googleapis.com se eliminó. */
+  --af-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+             "DejaVu Sans Mono", monospace;
+}
+
+/* ── piso de legibilidad (H6) — el texto más chico de una página es el que
+      más veces queda ilegible. Todo lo secundario dimensiona desde ESTOS
+      pasos, nunca por debajo: con base 15px dan 13.8 / 12.8 / 12.3px. Son
+      calc() sobre la base del roster y NO `em` desnudos, porque `em` apila:
+      un .855em dentro de un .92em aterriza en 11.8px y ambos valores se ven
+      seguros por separado. Un paso absoluto no puede componerse. */
+:root {
+  --fs-sm:  calc(var(--af-size) * 0.92);
+  --fs-xs:  calc(var(--af-size) * 0.855);
+  --fs-min: calc(var(--af-size) * 0.82);
+}
+
+/* ══ skins (H5) — solo chrome: fondo, tinta, reglas, acento, geometría.
+      Los colores de estado y de serie NUNCA se tematizan. ══════════════ */
+
+/* ── Catalog · portal de desarrollo frío (por defecto) ── */
+:root, :root[data-skin="catalog"] {
+  --ground:#f6f7f9; --card:#ffffff; --raised:#fbfcfd;
+  --ink:#141a24; --ink-soft:#3d4756; --muted:#7a8595;
+  --rule:#e7e9ee; --rule-soft:#eef0f4;
+  --accent:#4f46e5; --accent-soft:#eef0fe; --strong:#101726;
+  --radius:10px; --rail:5px;
+  --shadow:0 1px 2px rgba(16,24,40,.05), 0 4px 14px rgba(16,24,40,.10);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]), :root[data-skin="catalog"]:not([data-theme="light"]) {
+    --ground:#101726; --card:#1b2436; --raised:#212b40;
+    --ink:#e7ebf3; --ink-soft:#c7cfdd; --muted:#79839a;
+    --rule:#2c3648; --rule-soft:#232d3f;
+    --accent:#8b83f5; --accent-soft:#23214a; --strong:#c7cfdd;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"], :root[data-skin="catalog"][data-theme="dark"] {
+  --ground:#101726; --card:#1b2436; --raised:#212b40;
+  --ink:#e7ebf3; --ink-soft:#c7cfdd; --muted:#79839a;
+  --rule:#2c3648; --rule-soft:#232d3f;
+  --accent:#8b83f5; --accent-soft:#23214a; --strong:#c7cfdd;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.9);
+}
+:root[data-skin="catalog"][data-theme="light"] {
+  --ground:#f6f7f9; --card:#ffffff; --raised:#fbfcfd;
+  --ink:#141a24; --ink-soft:#3d4756; --muted:#7a8595;
+  --rule:#e7e9ee; --rule-soft:#eef0f4; --accent:#4f46e5; --accent-soft:#eef0fe;
+  --strong:#101726;
+}
+
+/* ── Blueprint · skin F, tinta azul ── */
+:root[data-skin="blueprint"] {
+  --ground:#f6f8fc; --card:#fdfeff; --raised:#f1f5fd;
+  --ink:#16233b; --ink-soft:#41547a; --muted:#8494b5;
+  --rule:#c3d0f0; --rule-soft:#dde5f8;
+  --accent:#1d4ed8; --accent-soft:#e4ecfe; --strong:#16233b;
+  --radius:6px; --rail:5px; --shadow:none;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-skin="blueprint"]:not([data-theme="light"]) {
+    --ground:#0b1220; --card:#101a2e; --raised:#142138;
+    --ink:#dce6fa; --ink-soft:#a8bce4; --muted:#7286b0;
+    --rule:#23375f; --rule-soft:#1a2942;
+    --accent:#6f9bff; --accent-soft:#16264a; --strong:#a8bce4; --shadow:none;
+  }
+}
+:root[data-skin="blueprint"][data-theme="dark"] {
+  --ground:#0b1220; --card:#101a2e; --raised:#142138;
+  --ink:#dce6fa; --ink-soft:#a8bce4; --muted:#7286b0;
+  --rule:#23375f; --rule-soft:#1a2942;
+  --accent:#6f9bff; --accent-soft:#16264a; --strong:#a8bce4; --shadow:none;
+}
+:root[data-skin="blueprint"][data-theme="light"] {
+  --ground:#f6f8fc; --card:#fdfeff; --raised:#f1f5fd;
+  --ink:#16233b; --ink-soft:#41547a; --muted:#8494b5;
+  --rule:#c3d0f0; --rule-soft:#dde5f8; --accent:#1d4ed8; --accent-soft:#e4ecfe;
+  --strong:#16233b;
+}
+
+/* ── Mission Console · skin B, consola de operaciones teal ── */
+:root[data-skin="mission"] {
+  --ground:#eef1f4; --card:#ffffff; --raised:#f6f8fa;
+  --ink:#1a2b36; --ink-soft:#4a6272; --muted:#7d92a0;
+  --rule:#c8d4dc; --rule-soft:#e2e9ee;
+  --accent:#0e7c8c; --accent-soft:#e0f1f4; --strong:#1a2b36;
+  --radius:4px; --rail:5px; --shadow:none;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-skin="mission"]:not([data-theme="light"]) {
+    --ground:#0e161c; --card:#16222b; --raised:#1b2934;
+    --ink:#e3edf3; --ink-soft:#b3c6d2; --muted:#7d92a0;
+    --rule:#27394a; --rule-soft:#1e2c39;
+    --accent:#2ba7bb; --accent-soft:#0f3038; --strong:#b3c6d2; --shadow:none;
+  }
+}
+:root[data-skin="mission"][data-theme="dark"] {
+  --ground:#0e161c; --card:#16222b; --raised:#1b2934;
+  --ink:#e3edf3; --ink-soft:#b3c6d2; --muted:#7d92a0;
+  --rule:#27394a; --rule-soft:#1e2c39;
+  --accent:#2ba7bb; --accent-soft:#0f3038; --strong:#b3c6d2; --shadow:none;
+}
+:root[data-skin="mission"][data-theme="light"] {
+  --ground:#eef1f4; --card:#ffffff; --raised:#f6f8fa;
+  --ink:#1a2b36; --ink-soft:#4a6272; --muted:#7d92a0;
+  --rule:#c8d4dc; --rule-soft:#e2e9ee; --accent:#0e7c8c; --accent-soft:#e0f1f4;
+  --strong:#1a2b36;
+}
+
+/* ══ bloques de sección — mobiliario de página, deliberadamente FUERA de las
+      paletas de serie y de estado, para que un encabezado no pueda leerse
+      como dato.
+      --sec1…--sec9 son los tonos canónicos del kit. --sec10…--sec24 son
+      EXTENSIÓN khujta: un documento de caso puede tener 14 secciones (medido:
+      TEORIA.md y 03-ACUERDO-TRANSACCIONAL.md tienen 14 H2), y el gate exige un
+      color distinto por sección. Escalera de matices en hsl(), separada de los
+      matices del kit. Sobre 24 secciones el índice cicla y build-html.py avisa. */
+:root {
+  --sec1:#2b3a55; --sec2:#2f4858; --sec3:#1f5453; --sec4:#2e5339;
+  --sec5:#5a4a2b; --sec6:#5c3340; --sec7:#4a3560; --sec8:#33415c;
+  --sec9:#6b3f2e;
+  --sec10:hsl(250 30% 25%); --sec11:hsl(158 30% 25%); --sec12:hsl(55 30% 25%);
+  --sec13:hsl(300 30% 25%); --sec14:hsl(195 30% 25%); --sec15:hsl(105 30% 25%);
+  --sec16:hsl(12 30% 25%);  --sec17:hsl(275 30% 25%); --sec18:hsl(215 30% 25%);
+  --sec19:hsl(172 30% 25%); --sec20:hsl(325 30% 25%); --sec21:hsl(130 30% 25%);
+  --sec22:hsl(35 30% 25%);  --sec23:hsl(235 30% 25%); --sec24:hsl(350 30% 25%);
+  --sec-ink:#f7f8fa;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sec1:#9fb4d6; --sec2:#a3bfcd; --sec3:#8fc9c4; --sec4:#a8cfa6;
+    --sec5:#d8c48d; --sec6:#d9a3b0; --sec7:#bda8dd; --sec8:#a6b6d9;
+    --sec9:#e3ab8f;
+    --sec10:hsl(250 38% 72%); --sec11:hsl(158 38% 72%); --sec12:hsl(55 38% 72%);
+    --sec13:hsl(300 38% 72%); --sec14:hsl(195 38% 72%); --sec15:hsl(105 38% 72%);
+    --sec16:hsl(12 38% 72%);  --sec17:hsl(275 38% 72%); --sec18:hsl(215 38% 72%);
+    --sec19:hsl(172 38% 72%); --sec20:hsl(325 38% 72%); --sec21:hsl(130 38% 72%);
+    --sec22:hsl(35 38% 72%);  --sec23:hsl(235 38% 72%); --sec24:hsl(350 38% 72%);
+    --sec-ink:#111722;
+  }
+}
+:root[data-theme="dark"] {
+  --sec1:#9fb4d6; --sec2:#a3bfcd; --sec3:#8fc9c4; --sec4:#a8cfa6;
+  --sec5:#d8c48d; --sec6:#d9a3b0; --sec7:#bda8dd; --sec8:#a6b6d9;
+  --sec9:#e3ab8f;
+  --sec10:hsl(250 38% 72%); --sec11:hsl(158 38% 72%); --sec12:hsl(55 38% 72%);
+  --sec13:hsl(300 38% 72%); --sec14:hsl(195 38% 72%); --sec15:hsl(105 38% 72%);
+  --sec16:hsl(12 38% 72%);  --sec17:hsl(275 38% 72%); --sec18:hsl(215 38% 72%);
+  --sec19:hsl(172 38% 72%); --sec20:hsl(325 38% 72%); --sec21:hsl(130 38% 72%);
+  --sec22:hsl(35 38% 72%);  --sec23:hsl(235 38% 72%); --sec24:hsl(350 38% 72%);
+  --sec-ink:#111722;
+}
+:root[data-theme="light"] {
+  --sec1:#2b3a55; --sec2:#2f4858; --sec3:#1f5453; --sec4:#2e5339;
+  --sec5:#5a4a2b; --sec6:#5c3340; --sec7:#4a3560; --sec8:#33415c;
+  --sec9:#6b3f2e;
+  --sec10:hsl(250 30% 25%); --sec11:hsl(158 30% 25%); --sec12:hsl(55 30% 25%);
+  --sec13:hsl(300 30% 25%); --sec14:hsl(195 30% 25%); --sec15:hsl(105 30% 25%);
+  --sec16:hsl(12 30% 25%);  --sec17:hsl(275 30% 25%); --sec18:hsl(215 30% 25%);
+  --sec19:hsl(172 30% 25%); --sec20:hsl(325 30% 25%); --sec21:hsl(130 30% 25%);
+  --sec22:hsl(35 30% 25%);  --sec23:hsl(235 30% 25%); --sec24:hsl(350 30% 25%);
+  --sec-ink:#f7f8fa;
+}
+
+/* ── serie de gráficos + estado — nunca tematizados ── */
+:root {
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; }
+}
+:root[data-theme="dark"] { --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; }
+
+/* ── barras de scroll con el skin puesto ────────────────────────────────── */
+:root {
+  --sb-thumb: color-mix(in srgb, var(--accent) 42%, var(--rule));
+  scrollbar-width: thin;
+  scrollbar-color: var(--sb-thumb) var(--rule-soft);
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--rule-soft); border-radius: 999px; }
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb); border-radius: 999px;
+  border: 2px solid transparent; background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent); background-clip: padding-box; }
+::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* ── primitivas de movimiento — la pausa global cuelga de este atributo ── */
+:root[data-motion="off"] *, :root[data-motion="off"] *::before { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ══ cog + panel de opciones (H2 — la única afordancia flotante) ═══════ */
+.af-chrome { position: fixed; top: 7px; right: 12px; z-index: 200; }
+.af-cog {
+  display: grid; place-items: center; width: 38px; height: 38px;
+  background: var(--card); color: var(--muted);
+  border: 1px solid var(--rule); border-radius: 10px; box-shadow: var(--shadow);
+  cursor: pointer; transition: color .15s ease, border-color .15s ease, transform .25s ease;
+}
+.af-cog:hover { color: var(--accent); border-color: var(--accent); }
+.af-cog[aria-expanded="true"] { color: var(--accent); border-color: var(--accent); transform: rotate(45deg); }
+.af-cog svg { width: 18px; height: 18px; display: block; }
+.af-panel {
+  position: absolute; top: 46px; right: 0; width: 262px;
+  background: var(--card); border: 1px solid var(--rule); border-radius: 12px;
+  box-shadow: var(--shadow); padding: 14px;
+  display: none; flex-direction: column; gap: 11px; max-height: 82vh; overflow-y: auto;
+}
+.af-panel[data-open="true"] { display: flex; }
+.af-group { display: flex; flex-direction: column; gap: 7px; }
+.af-legend { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.af-opt {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+  width: 100%; text-align: left; cursor: pointer; font-family: inherit;
+  background: var(--raised); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 8px; padding: 8px 11px;
+}
+.af-opt:hover { border-color: var(--accent); }
+.af-opt[aria-checked="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.af-opt .af-name { font-size: 14px; line-height: 1.2; }
+.af-opt .af-spec { font-size: 12px; color: var(--muted); letter-spacing: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.af-opt[aria-checked="true"] .af-spec { color: var(--accent); }
+.af-foot { font-size: 12px; color: var(--muted); margin: 0; letter-spacing: 0; }
+.af-divider { height: 1px; background: var(--rule-soft); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   SHELL DE DOCUMENTOS DE CASO — reescrito sobre los tokens del kit
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --nav-width: 200px;
+  --jump-width: 160px;
+  --header-h: 52px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--af-stack);
+  font-size: var(--af-size);
+  letter-spacing: var(--af-track);
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--ground);
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+:is(a, button, select, input, textarea, summary):focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px;
+}
+
+/* --- Header --- */
+.document-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+  padding: 0 62px 0 24px;      /* 62px a la derecha: canaleta reservada al cog */
+  background: var(--card);
+  border-bottom: 1px solid var(--rule);
+}
+.doc-meta { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.doc-title {
+  font-size: var(--fs-sm);
+  color: var(--ink);
+  text-decoration: none;
+}
+.doc-title:hover { text-decoration: underline; }
+.doc-badge {
+  font-family: var(--af-mono);
+  font-size: var(--fs-min);
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 1px 9px;
+}
+.doc-actions { display: flex; align-items: center; gap: 10px; }
+
+/* --- Cargador de PII (mecanismo intocable — solo cambia la piel) --- */
+.pii-load-btn {
+  padding: 5px 12px;
+  font-size: var(--fs-xs);
+  background: var(--accent);
+  color: var(--card);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+}
+.pii-load-btn:hover { filter: brightness(1.08); }
+.pii-load-btn.pii-loaded {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.pii-status {
+  font-family: var(--af-mono);
+  font-size: var(--fs-min);
+  color: var(--muted);
+}
+
+/* --- Botón de impresión --- */
+.print-btn {
+  padding: 5px 12px;
+  font-size: var(--fs-xs);
+  background: var(--raised);
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+.print-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* --- Hamburguesa --- */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+  background: var(--raised);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform 0.2s, opacity 0.2s;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+/* --- Backdrop del drawer --- */
+.nav-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  background: color-mix(in srgb, var(--strong) 45%, transparent);
+}
+.nav-backdrop.visible { display: block; }
+
+/* --- Layout: ESTE es .artifact-page (columna anclada a la izquierda, H1) ---
+   El gate mide sobre .artifact-page: borde izquierdo < 120px, asimetría
+   izquierda/derecha > 8px (nunca centrada) y piso de 12px para todo texto
+   que viva adentro. Por eso el max-width es 72rem y no 74rem: a 1280px de
+   ancho, 74rem deja los dos márgenes a 6px de diferencia y el gate lo lee
+   como centrado. */
+.document-layout {
+  display: grid;
+  grid-template-columns: var(--nav-width) minmax(0, 1fr) var(--jump-width);
+  max-width: 72rem;
+  margin: 0 auto 0 clamp(16px, 4vw, 56px);
+  min-height: calc(100vh - var(--header-h));
+  overflow-x: clip;
+  text-align: left;
+}
+@media (min-width: 1600px) {
+  .document-layout { max-width: 92rem; }
+}
+
+/* --- Sidebar --- */
+.section-nav {
+  position: sticky;
+  top: var(--header-h);
+  height: calc(100vh - var(--header-h));
+  overflow-y: auto;
+  padding: 22px 14px;
+  border-right: 1px solid var(--rule);
+}
+.section-nav ul { list-style: none; }
+.section-nav li { margin-bottom: 0.15rem; }
+.section-nav li.section-title {
+  font-family: var(--af-title);
+  font-size: var(--fs-min);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 16px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.section-nav li.section-title:hover { color: var(--accent); }
+.section-toggle-icon {
+  font-size: var(--fs-min);
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+.section-nav a {
+  display: block;
+  padding: 4px 8px;
+  margin-left: -8px;
+  border-radius: 6px;
+  font-size: var(--fs-xs);
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.section-nav a:hover { background: var(--raised); color: var(--ink); text-decoration: none; }
+.section-nav a.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+/* --- Contenido --- */
+.document-content {
+  width: 100%;
+  min-width: 0;
+  padding: 40px 34px 56px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* --- Jump bar --- */
+.jump-bar {
+  position: sticky;
+  top: var(--header-h);
+  height: calc(100vh - var(--header-h));
+  overflow-y: auto;
+  padding: 22px 14px;
+  border-left: 1px solid var(--rule);
+}
+.jump-bar h4 {
+  /* Se queda en la cara del CUERPO a propósito: el kit permite una sola cara
+     distintiva por página y esa es la píldora de sección. */
+  font-size: var(--fs-min);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.jump-list { list-style: none; }
+.jump-list a {
+  display: block;
+  padding: 4px 0;
+  font-size: var(--fs-xs);
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.jump-list a:hover { color: var(--ink); text-decoration: underline; }
+.jump-list a.active { color: var(--accent); font-weight: 500; }
+
+/* ══ los dos dispositivos del kit (H5): píldora de sección + panel con riel ══ */
+.sec { display: block; margin-top: 38px; }
+.sec:first-of-type { margin-top: 22px; }
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+.sec-head .n {
+  margin-left: auto;
+  font-size: var(--fs-min);
+  color: var(--muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+/* Título = texto de tamaño normal en una PÍLDORA que lo abraza, encabezado por
+   un icono. La prominencia es el fondo y el icono, nunca el tamaño del tipo. */
+.sec-head h2 {
+  margin: 0;
+  background: var(--sec, var(--strong));
+  color: var(--sec-ink, var(--ground));
+  padding: 2px 11px 2px 9px;
+  border-radius: 999px;
+  font-family: var(--af-title);
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+  line-height: 1.34;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-bottom: none;
+}
+/* Cada título lleva icono (H6). Geometría Lucide, inline — nada de CDN de
+   iconos ni de una fuente de iconos que caiga en silencio. */
+.sec-head h2 svg {
+  width: 1.02em; height: 1.02em; flex: 0 0 auto;
+  fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.sec[data-sec="1"]  { --sec: var(--sec1);  } .sec[data-sec="2"]  { --sec: var(--sec2);  }
+.sec[data-sec="3"]  { --sec: var(--sec3);  } .sec[data-sec="4"]  { --sec: var(--sec4);  }
+.sec[data-sec="5"]  { --sec: var(--sec5);  } .sec[data-sec="6"]  { --sec: var(--sec6);  }
+.sec[data-sec="7"]  { --sec: var(--sec7);  } .sec[data-sec="8"]  { --sec: var(--sec8);  }
+.sec[data-sec="9"]  { --sec: var(--sec9);  } .sec[data-sec="10"] { --sec: var(--sec10); }
+.sec[data-sec="11"] { --sec: var(--sec11); } .sec[data-sec="12"] { --sec: var(--sec12); }
+.sec[data-sec="13"] { --sec: var(--sec13); } .sec[data-sec="14"] { --sec: var(--sec14); }
+.sec[data-sec="15"] { --sec: var(--sec15); } .sec[data-sec="16"] { --sec: var(--sec16); }
+.sec[data-sec="17"] { --sec: var(--sec17); } .sec[data-sec="18"] { --sec: var(--sec18); }
+.sec[data-sec="19"] { --sec: var(--sec19); } .sec[data-sec="20"] { --sec: var(--sec20); }
+.sec[data-sec="21"] { --sec: var(--sec21); } .sec[data-sec="22"] { --sec: var(--sec22); }
+.sec[data-sec="23"] { --sec: var(--sec23); } .sec[data-sec="24"] { --sec: var(--sec24); }
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius, 10px);
+  padding: 14px 18px;
+  margin-bottom: 22px;
+}
+/* prefijo :root para que el riel gane al shorthand `border:` a igual
+   especificidad — sin él, el riel se renderiza en 1px y el gate lo detecta. */
+:root .panel { border-left: var(--rail) solid var(--accent); }
+.panel > :last-child { margin-bottom: 0; }
+
+/* --- Tipografía del markdown --- */
+h1 {
+  font-size: 1.9em;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 14px;
+  text-wrap: balance;
+}
+h2 { font-size: 1em; }        /* fuera de .sec-head (raro): sin salto de tamaño */
+h3 {
+  font-size: 1.08em;
+  font-weight: 600;
+  margin-top: 28px;
+  margin-bottom: 8px;
+  color: var(--strong);
+}
+h4 {
+  font-size: 1em;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 6px;
+  color: var(--ink-soft);
+}
+p { margin-bottom: 1rem; }
+.page-subtitle {
+  font-family: var(--af-mono);
+  font-size: var(--fs-xs);
+  color: var(--muted);
+  margin-top: 0;
+  margin-bottom: 28px;
+}
+strong { font-weight: 600; color: var(--strong); }
+hr { border: none; border-top: 1px solid var(--rule); margin: 28px 0; }
+
+/* --- Tablas --- */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 22px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius, 10px);
+  background: var(--card);
+}
+.table-wrapper table { width: 100%; border-collapse: collapse; margin-bottom: 0; border: none; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 22px;
+  border: 1px solid var(--rule);
+}
+th, td {
+  text-align: left;
+  border: none;
+  border-bottom: 1px solid var(--rule-soft);
+  color: var(--ink);
+}
+th {
+  font-family: var(--af-mono);
+  font-size: var(--fs-min);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--raised);
+  padding: 9px 12px;
+}
+td {
+  font-size: var(--fs-sm);
+  padding: 9px 12px;
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+
+/* Severidad de fila por peso de borde (sin depender del color) */
+tr.row-critical td:first-child { box-shadow: inset 3px 0 0 var(--critical); }
+tr.row-warning  td:first-child { box-shadow: inset 3px 0 0 var(--warning); }
+tr.row-success  td:first-child { box-shadow: inset 3px 0 0 var(--good); }
+
+/* --- Citas: son el panel con riel del kit --- */
+blockquote {
+  font-size: var(--fs-sm);
+  color: var(--ink-soft);
+}
+blockquote strong { font-weight: 600; }
+blockquote > :last-child { margin-bottom: 0; }
+
+/* --- Código --- */
+code {
+  font-family: var(--af-mono);
+  font-size: var(--fs-xs);        /* absoluto, no `em`: `em` se compone y hunde el piso */
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 1px 6px;
+  background: var(--raised);
+}
+pre {
+  font-family: var(--af-mono);
+  font-size: var(--fs-xs);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius, 10px);
+  padding: 15px;
+  margin-bottom: 22px;
+  overflow-x: auto;
+  background: var(--card);
+}
+pre code { border: none; padding: 0; background: transparent; font-size: inherit; }
+
+/* --- Listas --- */
+ul, ol { margin-bottom: 1rem; padding-left: 1.4rem; }
+li { margin-bottom: 0.28rem; font-size: var(--fs-sm); }
+li::marker { color: var(--muted); }
+li.task-item { list-style: none; margin-left: -1rem; }
+li.task-item input[type="checkbox"] { margin-right: 0.4rem; accent-color: var(--accent); }
+
+/* --- Redacción PII (mecanismo intocable) ---------------------------------
+   El texto queda oculto porque fondo y tinta son el MISMO color; el botón
+   «Revelar datos» cambia la clase a .pii-revealed y recién ahí se lee.
+   Cualquier edición que separe estos dos colores expone PII. */
+.pii-redacted {
+  font-family: var(--af-mono);
+  font-size: var(--fs-xs);
+  background: var(--ink);
+  color: var(--ink);
+  padding: 1px 6px;
+  border-radius: 4px;
+  user-select: none;
+}
+.pii-revealed {
+  font-family: var(--af-mono);
+  font-size: var(--fs-xs);
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-weight: 500;
+}
+
+/* --- Etiquetas de confianza (neutras por doctrina: sin semántica de color) --- */
+.confidence-tag {
+  font-family: var(--af-mono);
+  font-size: var(--fs-min);
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 1px 8px;
+  white-space: nowrap;
+}
+
+/* --- Filtro de prioridad --- */
+.priority-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  padding: 10px 14px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius, 10px);
+  background: var(--card);
+}
+.filter-label {
+  font-family: var(--af-mono);
+  font-size: var(--fs-min);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 4px;
+}
+.filter-btn {
+  padding: 4px 12px;
+  font-size: var(--fs-xs);
+  background: var(--raised);
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-btn.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* --- Disclaimer --- */
+.disclaimer-bar {
+  border: 1px solid var(--rule);
+  border-left: var(--rail) solid var(--warning);
+  border-radius: var(--radius, 10px);
+  background: var(--card);
+  color: var(--ink-soft);
+  padding: 9px 15px;
+  margin-bottom: 28px;
+  font-size: var(--fs-xs);
+}
+
+/* --- Footer --- */
+.document-footer {
+  border-top: 1px solid var(--rule);
+  padding: 16px 32px;
+  font-size: var(--fs-xs);
+  color: var(--muted);
+  text-align: center;
+}
+
+/* --- Mermaid --- */
+.mermaid {
+  margin-bottom: 22px;
+  text-align: center;
+  overflow-x: auto;
+  cursor: zoom-in;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius, 10px);
+  padding: 14px;
+}
+.mermaid svg { max-width: 100%; height: auto; }
+
+.mermaid-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: color-mix(in srgb, var(--ground) 97%, transparent);
+  cursor: grab;
+  overflow: hidden;
+  touch-action: none;
+}
+.mermaid-overlay.active { display: flex; align-items: center; justify-content: center; }
+.mermaid-overlay.dragging { cursor: grabbing; }
+.mermaid-overlay .mermaid-inner { transform-origin: 0 0; will-change: transform; }
+.mermaid-overlay .close-overlay {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 301;
+  width: 40px;
+  height: 40px;
+  font-size: 1.3rem;
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mermaid-overlay .close-overlay:hover { border-color: var(--accent); color: var(--accent); }
+
+/* --- Tachado --- */
+del { color: var(--muted); }
+
+/* ==========================================================================
+   Componentes de PANEL.md (HTML crudo dentro del markdown)
+   ========================================================================== */
+
+.case-hero {
+  border: 1px solid var(--rule);
+  border-left: var(--rail) solid var(--accent);
+  border-radius: var(--radius, 10px);
+  background: var(--card);
+  padding: 22px;
+  margin-bottom: 28px;
+}
+.case-hero-top {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.score-ring { position: relative; width: 100px; height: 100px; flex-shrink: 0; }
+.score-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.score-ring .bg { stroke: var(--rule); }
+.score-ring .fill { stroke: var(--accent); transition: stroke-dashoffset 1.2s ease-out; }
+.score-ring .label {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  line-height: 1.2;
+}
+.score-ring .number {
+  font-family: var(--af-mono);
+  font-size: 1.6rem;
+  color: var(--ink);
+}
+.score-ring .grade {
+  font-size: var(--fs-min);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.pipeline { display: flex; align-items: center; flex: 1; flex-wrap: wrap; row-gap: 8px; }
+.pipeline-stage { display: flex; align-items: center; flex-shrink: 0; }
+.pipeline-node {
+  min-width: 88px;
+  height: 34px;
+  font-size: var(--fs-min);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--raised);
+  color: var(--ink-soft);
+}
+.pipeline-node.completed { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.pipeline-node.current { border: 2px solid var(--accent); background: var(--accent); color: var(--card); font-weight: 500; }
+.pipeline-node.pending { color: var(--muted); }
+.pipeline-connector { width: 20px; height: 1px; background: var(--rule); flex-shrink: 0; }
+.pipeline-connector.completed { background: var(--accent); }
+
+.status-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+.detail-card { display: flex; flex-direction: column; gap: 2px; }
+.detail-card .label {
+  font-family: var(--af-mono);
+  font-size: var(--fs-min);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.detail-card .value { font-size: var(--fs-sm); color: var(--ink); }
+.detail-card .value.mono { font-family: var(--af-mono); font-size: var(--fs-sm); }
+.detail-card .value.success { font-weight: 600; color: var(--good); }
+
+/* ==========================================================================
+   Responsivo
+   ========================================================================== */
+
+/* --- Tablet + móvil (modo drawer) --- */
+@media (max-width: 1199px) {
+  .nav-toggle { display: flex; }
+
+  .document-layout {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .section-nav {
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    width: 260px;
+    height: calc(100vh - var(--header-h));
+    z-index: 50;
+    background: var(--card);
+    border-right: 1px solid var(--rule);
+    overflow-y: auto;
+    padding: 22px 14px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  .section-nav.drawer-open { transform: translateX(0); }
+  .section-nav > ul { display: block; }
+  .section-nav li.section-title { display: flex; }
+  .section-nav a { white-space: normal; }
+
+  .jump-bar { display: none; }
+}
+
+/* --- Móvil --- */
+@media (max-width: 767px) {
+  html, body { overflow-x: clip; max-width: 100vw; }
+
+  :root { --header-h: 46px; }
+  .af-chrome { top: 4px; right: 8px; }
+  .af-cog { width: 38px; height: 38px; }
+
+  .document-header { padding: 0 54px 0 12px; gap: 8px; }
+  .doc-meta { gap: 8px; min-width: 0; }
+  .doc-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .doc-badge { display: none; }
+  .doc-actions { gap: 6px; flex-shrink: 0; }
+  .print-btn, .pii-load-btn { padding: 4px 8px; white-space: nowrap; }
+
+  .document-content { padding: 24px 16px 40px; }
+  h1 { font-size: 1.5em; }
+
+  .case-hero { padding: 16px; }
+  .case-hero-top { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .score-ring { width: 80px; height: 80px; }
+  .score-ring .number { font-size: 1.3rem; }
+  .pipeline-node { min-width: 68px; height: 28px; padding: 0 8px; }
+  .pipeline-connector { width: 12px; }
+  .status-details { grid-template-columns: repeat(2, 1fr); }
+
+  .table-wrapper {
+    margin-left: -16px;
+    margin-right: -16px;
+    max-width: calc(100% + 32px);
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  .table-wrapper table { width: max-content; min-width: 100%; }
+  td, th { white-space: nowrap; }
+  td:last-child, th:last-child { white-space: normal; min-width: 140px; }
+
+  .pii-redacted, .pii-revealed {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+}
+
+/* ==========================================================================
+   Impresión — el chrome desaparece, el documento queda
+   ========================================================================== */
+@media print {
+  .document-header, .section-nav, .jump-bar, .disclaimer-bar,
+  .pii-load-btn, .pii-status, .print-btn, .nav-toggle, .nav-backdrop,
+  .af-chrome, .mermaid-overlay, .no-print {
+    display: none !important;
+  }
+  :root { --ground: #ffffff; --card: #ffffff; --ink: #111111; --rule: #999999; }
+  .document-layout { display: block; max-width: 100%; margin: 0; }
+  .document-content { max-width: 100%; padding: 0; }
+  body { font-size: 11pt; line-height: 1.4; }
+  .sec-head h2 { background: transparent !important; color: #111 !important; border-bottom: 1px solid #999; border-radius: 0; padding-left: 0; }
+  h1 { page-break-before: always; font-size: 16pt; }
+  h1:first-of-type { page-break-before: avoid; }
+  table, blockquote { page-break-inside: avoid; }
+  a { text-decoration: none; }
+  a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; }
+  .pii-redacted { background: #ccc !important; color: #ccc !important; }
+  .document-footer { border: none; text-align: left; }
+}
+</style>
+  <script src="../../assets/mermaid.min.js"></script>
 </head>
 <body>
 
@@ -27,17 +1067,34 @@
     </div>
   </header>
 
-  <div class="document-layout">
+  <div class="document-layout artifact-page">
 
     <nav class="section-nav no-print">
       <ul>
 <li class="section-title">Documentos</li>
 <ul>
+<li><a href="../../99_entregable/documentos/01-CARTA-ENVIO-CON-ABOGADO.html">Carta De Requerimiento Extrajudicial</a></li>
+<li><a href="../../99_entregable/documentos/01-CARTA-ENVIO-SIN-ABOGADO.html">Carta De Requerimiento Extrajudicial</a></li>
 <li><a href="../../99_entregable/documentos/01-CARTA-REQUERIMIENTO.html">Carta De Requerimiento Extrajudicial</a></li>
 <li><a href="../../99_entregable/documentos/02-DENUNCIA-ETICA.html">Denuncia Ante El Colegio De Contadores De Chile A.G.</a></li>
 <li><a href="../../99_entregable/documentos/03-ACUERDO-TRANSACCIONAL.html">Acuerdo Transaccional De Indemnización</a></li>
 <li><a href="../../99_entregable/documentos/04-CALCULO-DANOS.html">Cálculo Detallado De Daños</a></li>
 <li><a href="../../99_entregable/documentos/05-GUION-NEGOCIACION.html">Guión De Negociación</a></li>
+<li><a href="../../99_entregable/documentos/06-MANDATO-SIMPLE.html">Mandato Simple De Representación</a></li>
+<li class="section-title">05 05 Envio</li>
+<ul>
+<li><a href="../../99_entregable/documentos/2026-05-05-envio/00-CHECKLIST-ENVIO.html">Checklist de Envío</a></li>
+<li><a href="../../99_entregable/documentos/2026-05-05-envio/01-CARTA-REQUERIMIENTO.html">Carta De Requerimiento Extrajudicial</a></li>
+<li><a href="../../99_entregable/documentos/2026-05-05-envio/02-MANDATO-SIMPLE.html">Mandato Simple De Representación</a></li>
+<li class="section-title">Envio 01 San Bernardo</li>
+<ul>
+<li><a href="../../99_entregable/documentos/2026-05-05-envio/envio-01-san-bernardo/seguimiento.html">Seguimiento Envío N°1</a></li>
+</ul>
+<li class="section-title">Envio 02 Santiago</li>
+<ul>
+<li><a href="../../99_entregable/documentos/2026-05-05-envio/envio-02-santiago/seguimiento.html">Seguimiento Envío N°2</a></li>
+</ul>
+</ul>
 </ul>
 <li class="section-title">El Caso</li>
 <ul>
@@ -60,28 +1117,37 @@
       <div class="disclaimer-bar no-print">
         Documento orientativo, no vinculante. Elaborado con apoyo de IA. Consulte abogado habilitado.
       </div>
+      <div class="priority-filter no-print" id="priority-filter" style="display:none;">
+        <span class="filter-label">Filtrar:</span>
+        <button class="filter-btn active" data-priority="all">Todos</button>
+        <button class="filter-btn" data-priority="critico">Crítico</button>
+        <button class="filter-btn" data-priority="importante">Importante</button>
+        <button class="filter-btn" data-priority="deseable">Deseable</button>
+      </div>
       <h1 id="teoria-del-caso">Teoría del Caso</h1>
 <p><strong>Caso:</strong> Negligencia Profesional de Contadora — Pérdida Art. 27bis DL 825
-<strong>Cliente:</strong> <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">NOMBRE_DEMANDANTE</span> (RUT <span class="pii-redacted" data-token="RUT_DEMANDANTE">RUT_DEMANDANTE</span>)
+<strong>Cliente:</strong> <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE"><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span></span> (RUT <span class="pii-redacted" data-token="RUT_DEMANDANTE"><span class="pii-redacted" data-token="RUT_DEMANDANTE">[redactado]</span></span>)
 <strong>Actualizado:</strong> Marzo 2026</p>
-<blockquote>
+<blockquote class="panel">
 <p><strong>IMPORTANTE</strong>: Este documento ha sido elaborado con inteligencia artificial.
 NO constituye asesoría legal profesional y su contenido es <strong>no vinculante</strong>.
 DEBE ser revisado por un abogado habilitado antes de usar.
 Ver sección <strong>Contactos para Verificación Profesional</strong> al final.</p>
 </blockquote>
 <hr>
-<h2 id="tesis-central">TESIS CENTRAL</h2>
-<blockquote>
-<p><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_PARCIAL">NOMBRE_DEMANDANTE_PARCIAL</span> contrató y pagó una asesoría tributaria profesional para orientar la compra de un departamento destinado a Airbnb. La contadora <span class="pii-redacted" data-token="NOMBRE_CONTADORA">NOMBRE_CONTADORA</span>, de una empresa cuyo giro es "Asesorías Tributarias", dio un consejo objetivamente erróneo sobre el timing de creación de sociedad versus compra, lo que causó la pérdida irrecuperable de $20.441.378 en IVA bajo el Art. 27bis DL 825 — un derecho a devolución que se extinguió irreversiblemente por el consejo erróneo, y que habría ejercido si hubiera recibido la orientación correcta.</p>
+<section class="sec" data-sec="1">
+<div class="sec-head"><h2 id="tesis-central"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></svg>TESIS CENTRAL</h2></div>
+
+<blockquote class="panel">
+<p><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_PARCIAL"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_PARCIAL">[redactado]</span></span> contrató y pagó una asesoría tributaria profesional para orientar la compra de un departamento destinado a Airbnb. La contadora <span class="pii-redacted" data-token="NOMBRE_CONTADORA"><span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span></span>, de una empresa cuyo giro es "Asesorías Tributarias", dio un consejo objetivamente erróneo sobre el timing de creación de sociedad versus compra, lo que causó la pérdida irrecuperable de $20.441.378 en IVA bajo el Art. 27bis DL 825 — un derecho a devolución que se extinguió irreversiblemente por el consejo erróneo, y que habría ejercido si hubiera recibido la orientación correcta.</p>
 </blockquote>
-<p><div class="mermaid">
+<div class="mermaid">
 graph TB
   subgraph Teoría["Estructura de la Teoría"]
     H["Hechos probados:\nAsesoría pagada,\nconsejo erróneo de timing"] --> N["Norma aplicable:\nArts. 1545-1556 CC\nArt. 27bis DL 825"]
     N --> E["Elementos de\nresponsabilidad"]
     E --> C["Culpa grave:\nError básico en\nmateria de su giro"]
-    E --> CA["Causalidad directa:\n<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> siguió\nel consejo"]
+    E --> CA["Causalidad directa:\n<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> siguió\nel consejo"]
     E --> D["Daño cuantificado:\n$20.441.378 IVA"]
     C --> A["Argumentos\npara juicio"]
     CA --> A
@@ -90,19 +1156,22 @@ graph TB
     A --> DEF["Anticipación\nde defensa:\n10 líneas de\nataque cubiertas"]
   end
 
-</div></p>
+</div>
 <hr>
-<h2 id="1-hechos-relevantes">1. HECHOS RELEVANTES</h2>
+</section>
+<section class="sec" data-sec="2">
+<div class="sec-head"><h2 id="1-hechos-relevantes"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></svg>1. HECHOS RELEVANTES</h2></div>
+
 <p>→ Ver <a href="../el-caso/HECHOS.html">CASE.md §Cronología</a> para la línea temporal completa (8 eventos, Sep-Dic 2025)
 → Ver <a href="../el-caso/HECHOS.html">CASE.md §Partes Involucradas</a> para identificación de demandante y demandados</p>
-<p><strong>Resumen:</strong> <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_PARCIAL">NOMBRE_DEMANDANTE_PARCIAL</span> contrató asesoría tributaria ($100K + Factura N°13093) a <span class="pii-redacted" data-token="EMPRESA_DEMANDADA_CORTA">EMPRESA_DEMANDADA_CORTA</span> (RUT <span class="pii-redacted" data-token="RUT_EMPRESA">RUT_EMPRESA</span>). La empresa asignó a <span class="pii-redacted" data-token="NOMBRE_CONTADORA">NOMBRE_CONTADORA</span>. Consulta Zoom 22/09/2025 (30 min). <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> dio consejo erróneo sobre timing. <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> compró como persona natural el 10/12/2025. IVA de $20.441.378 irrecuperable. <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="../el-caso/HECHOS.html">evidencia completa en CASE.md</a>)</p>
+<p><strong>Resumen:</strong> <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_PARCIAL"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_PARCIAL">[redactado]</span></span> contrató asesoría tributaria ($100K + Factura N°13093) a <span class="pii-redacted" data-token="EMPRESA_DEMANDADA_CORTA"><span class="pii-redacted" data-token="EMPRESA_DEMANDADA_CORTA">[redactado]</span></span> (RUT <span class="pii-redacted" data-token="RUT_EMPRESA"><span class="pii-redacted" data-token="RUT_EMPRESA">[redactado]</span></span>). La empresa asignó a <span class="pii-redacted" data-token="NOMBRE_CONTADORA"><span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span></span>. Consulta Zoom 22/09/2025 (30 min). <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> dio consejo erróneo sobre timing. <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> compró como persona natural el 10/12/2025. IVA de $20.441.378 irrecuperable. <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="../el-caso/HECHOS.html">evidencia completa en CASE.md</a>)</p>
 <h3 id="11-preguntas-y-respuestas-clave-pieza-central-de-evidencia">1.1 Preguntas y respuestas clave — PIEZA CENTRAL DE EVIDENCIA</h3>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th>Lo que <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> preguntó (email 19/09/2025)</th>
-<th>Lo que debió responder <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span></th>
-<th>Lo que respondió <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> (22/09/2025)</th>
+<th>Lo que <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> preguntó (email 19/09/2025)</th>
+<th>Lo que debió responder <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span></th>
+<th>Lo que respondió <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> (22/09/2025)</th>
 <th>Calificación</th>
 </tr>
 </thead>
@@ -127,9 +1196,12 @@ graph TB
 </tr>
 </tbody>
 </table></div>
-<p><strong>Admisión crítica:</strong> <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> confirmó <em>"actualmente no"</em> cuando <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> preguntó si tenían contadores inmobiliarios — pero igual dio consejo definitivo sobre timing en una materia de impuestos inmobiliarios. <span class="confidence-tag">[VERIFICADO-WEB]</span> (transcripción 22/09/2025 — solicitar al litigante)</p>
+<p><strong>Admisión crítica:</strong> <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> confirmó <em>"actualmente no"</em> cuando <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> preguntó si tenían contadores inmobiliarios — pero igual dio consejo definitivo sobre timing en una materia de impuestos inmobiliarios. <span class="confidence-tag">[VERIFICADO-WEB]</span> (transcripción 22/09/2025 — solicitar al litigante)</p>
 <hr>
-<h2 id="2-marco-normativo">2. MARCO NORMATIVO</h2>
+</section>
+<section class="sec" data-sec="3">
+<div class="sec-head"><h2 id="2-marco-normativo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 12.5-8 8a2.1 2.1 0 1 1-3-3l8-8"></path><path d="m16 16 6-6"></path><path d="m8 8 6-6"></path><path d="m9 7 8 8"></path><path d="m21 11-8-8"></path></svg>2. MARCO NORMATIVO</h2></div>
+
 <h3 id="21-normas-aplicables">2.1 Normas aplicables</h3>
 <div class="table-wrapper"><table>
 <thead>
@@ -145,19 +1217,19 @@ graph TB
 <td>Código Civil</td>
 <td><strong>Art. 1545</strong></td>
 <td>El contrato es ley para las partes</td>
-<td>La asesoría pagada ($100K + factura) creó un contrato de servicios profesionales. <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> debía cumplir con el estándar de un asesor tributario competente <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1545 CC</a>)</td>
+<td>La asesoría pagada ($100K + factura) creó un contrato de servicios profesionales. <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> debía cumplir con el estándar de un asesor tributario competente <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1545 CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
 <td><strong>Art. 1546</strong></td>
 <td>Buena fe contractual: los contratos obligan no solo a lo expresado sino a lo que corresponde por naturaleza</td>
-<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> debió informar proactivamente sobre Art. 27bis al ser consultada sobre IVA de una compra inmobiliaria — es materia core de su giro <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1546 CC</a>)</td>
+<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> debió informar proactivamente sobre Art. 27bis al ser consultada sobre IVA de una compra inmobiliaria — es materia core de su giro <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1546 CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
 <td><strong>Art. 1547</strong></td>
 <td>Culpa leve en contratos bilaterales onerosos; la culpa se presume, el deudor debe probar diligencia</td>
-<td><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> no necesita probar negligencia — <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> debe probar que fue diligente. La presunción opera a nuestro favor <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>)</td>
+<td><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> no necesita probar negligencia — <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> debe probar que fue diligente. La presunción opera a nuestro favor <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
@@ -175,7 +1247,7 @@ graph TB
 <td>Código Civil</td>
 <td><strong>Art. 2314</strong></td>
 <td>Responsabilidad extracontractual por delito o cuasidelito que causa daño</td>
-<td>Acción subsidiaria contra <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> personalmente <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2314 CC</a>)</td>
+<td>Acción subsidiaria contra <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> personalmente <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2314 CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
@@ -187,7 +1259,7 @@ graph TB
 <td>Código Civil</td>
 <td><strong>Art. 2330</strong></td>
 <td>Reducción por exposición imprudente al daño</td>
-<td>Riesgo: defensa puede argumentar que <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> debió buscar segunda opinión <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2330 CC</a>)</td>
+<td>Riesgo: defensa puede argumentar que <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> debió buscar segunda opinión <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2330 CC</a>)</td>
 </tr>
 <tr>
 <td>Código Civil</td>
@@ -205,7 +1277,7 @@ graph TB
 <td>DL 825</td>
 <td><strong>Art. 23</strong></td>
 <td>Crédito fiscal pertenece al contribuyente de IVA que realiza la compra</td>
-<td>Si <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> compró como persona natural, la SpA creada después NO puede reclamar ese IVA <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 23 DL 825</a>)</td>
+<td>Si <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> compró como persona natural, la SpA creada después NO puede reclamar ese IVA <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 23 DL 825</a>)</td>
 </tr>
 <tr>
 <td>DL 825</td>
@@ -229,7 +1301,7 @@ graph TB
 <td>CPC</td>
 <td><strong>Art. 279</strong></td>
 <td>Medida prejudicial precautoria: proteger bienes del demandado antes de la demanda</td>
-<td>Aplicable por riesgo de ocultamiento (TikTok de <span class="pii-redacted" data-token="NOMBRE_TITULAR">NOMBRE_TITULAR</span>) <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=22740">Art. 279 CPC</a>)</td>
+<td>Aplicable por riesgo de ocultamiento (TikTok de <span class="pii-redacted" data-token="NOMBRE_TITULAR"><span class="pii-redacted" data-token="NOMBRE_TITULAR">[redactado]</span></span>) <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=22740">Art. 279 CPC</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -332,7 +1404,10 @@ graph TB
 </tbody>
 </table></div>
 <hr>
-<h2 id="3-elementos-de-responsabilidad">3. ELEMENTOS DE RESPONSABILIDAD</h2>
+</section>
+<section class="sec" data-sec="4">
+<div class="sec-head"><h2 id="3-elementos-de-responsabilidad"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></svg>3. ELEMENTOS DE RESPONSABILIDAD</h2></div>
+
 <h3 id="31-tipo-de-responsabilidad">3.1 Tipo de responsabilidad</h3>
 <p><strong>Acción principal:</strong> CONTRACTUAL (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 1545-1559 CC</a>)
 <strong>Acción subsidiaria:</strong> EXTRACONTRACTUAL (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 2314-2334 CC</a>)</p>
@@ -340,7 +1415,7 @@ graph TB
 - Existió contrato de servicios profesionales (pago + factura + consulta agendada)
 - La culpa se PRESUME (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3°</a>) — es la demandada quien debe probar su diligencia
 - Prescripción más larga (5 años vs 4 años)
-- La acción extracontractual es subsidiaria para cubrir la responsabilidad personal de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> como individua, además de la empresa</p>
+- La acción extracontractual es subsidiaria para cubrir la responsabilidad personal de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> como individua, además de la empresa</p>
 <h3 id="32-mapa-de-elementos-a-probar">3.2 Mapa de elementos a probar</h3>
 <div class="table-wrapper"><table>
 <thead>
@@ -355,15 +1430,15 @@ graph TB
 <tbody>
 <tr>
 <td><strong>Legitimación activa</strong></td>
-<td><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> contrató, pagó y sufrió el daño</td>
+<td><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> contrató, pagó y sufrió el daño</td>
 <td>WhatsApp, transferencia, factura, facturas de compra inmueble</td>
 <td><strong>FUERTE</strong> <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 <td>Bajo</td>
 </tr>
 <tr>
 <td><strong>Legitimación pasiva</strong></td>
-<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> y la empresa son responsables</td>
-<td>Factura N°13093, email con CC a <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span>, transferencia a AT González Ltda</td>
+<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> y la empresa son responsables</td>
+<td>Factura N°13093, email con CC a <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span>, transferencia a AT González Ltda</td>
 <td><strong>FUERTE</strong> <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 <td>Bajo</td>
 </tr>
@@ -376,7 +1451,7 @@ graph TB
 </tr>
 <tr>
 <td><strong>Incumplimiento (culpa)</strong></td>
-<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> dio consejo erróneo sobre timing y respondió "sí" a IVA post-traspaso</td>
+<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> dio consejo erróneo sobre timing y respondió "sí" a IVA post-traspaso</td>
 <td>Transcripción de consulta + email con preguntas escritas</td>
 <td><strong>FUERTE</strong> <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 <td>Bajo</td>
@@ -390,7 +1465,7 @@ graph TB
 </tr>
 <tr>
 <td><strong>Causalidad</strong></td>
-<td><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> compró como persona natural PORQUE <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> le dijo "comprar primero"</td>
+<td><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> compró como persona natural PORQUE <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> le dijo "comprar primero"</td>
 <td>Transcripción + email previo + secuencia temporal (consulta → compra)</td>
 <td><strong>FUERTE</strong> <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 <td>Medio</td>
@@ -405,41 +1480,44 @@ graph TB
 </tbody>
 </table></div>
 <hr>
-<h2 id="4-analisis-de-culpa-dolo">4. ANÁLISIS DE CULPA / DOLO</h2>
+</section>
+<section class="sec" data-sec="5">
+<div class="sec-head"><h2 id="4-analisis-de-culpa-dolo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>4. ANÁLISIS DE CULPA / DOLO</h2></div>
+
 <h3 id="41-tipo-de-culpa">4.1 Tipo de culpa</h3>
 <p><strong>Clasificación:</strong> CULPA GRAVE (equivalente a dolo — Art. 44 CC) [ANÁLISIS-IA — inferencia: Art. 44 CC (culpa grave = "no prever lo evidente") + 5 hechos acumulativos infra → conducta califica como culpa grave]</p>
 <p><strong>Justificación:</strong></p>
-<p>La culpa grave se define como "no manejar los negocios ajenos con aquel cuidado que aun las personas negligentes y de poca prudencia suelen emplear en sus negocios propios" (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 44 CC</a>). La conducta de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> califica como culpa grave por cinco razones acumulativas:</p>
+<p>La culpa grave se define como "no manejar los negocios ajenos con aquel cuidado que aun las personas negligentes y de poca prudencia suelen emplear en sus negocios propios" (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 44 CC</a>). La conducta de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> califica como culpa grave por cinco razones acumulativas:</p>
 <ol>
 <li>
-<p><strong>Respondió "sí" a algo que la respuesta es "no"</strong> — no es un error de matiz ni una zona gris. A la pregunta "¿puedo recuperar el IVA si compro como persona natural y después creo la sociedad?", la respuesta del <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 23 DL 825</a> es categóricamente NO. <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> dijo "sí".</p>
+<p><strong>Respondió "sí" a algo que la respuesta es "no"</strong> — no es un error de matiz ni una zona gris. A la pregunta "¿puedo recuperar el IVA si compro como persona natural y después creo la sociedad?", la respuesta del <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 23 DL 825</a> es categóricamente NO. <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> dijo "sí".</p>
 </li>
 <li>
 <p><strong>Su empresa se llama "Asesorías TRIBUTARIAS"</strong> — el <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis</a> y el <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 23 DL 825</a> son normativa tributaria básica. No conocer que el contribuyente debe estar inscrito en IVA al momento de la compra es comparable a un médico que desconoce que la aspirina es anticoagulante.</p>
 </li>
 <li>
-<p><strong>Validó consejo incorrecto de un tercero sin verificar</strong> — cuando <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> mencionó que "otro contador" le dijo lo mismo, <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> respondió "lo que le dice el colega no está mal" sin ningún análisis ni verificación.</p>
+<p><strong>Validó consejo incorrecto de un tercero sin verificar</strong> — cuando <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> mencionó que "otro contador" le dijo lo mismo, <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> respondió "lo que le dice el colega no está mal" sin ningún análisis ni verificación.</p>
 </li>
 <li>
-<p><strong>Recomendó el timing EXACTAMENTE opuesto al correcto</strong> — "comprar primero, traspasar después" destruye precisamente el beneficio que <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> preguntó cómo obtener.</p>
+<p><strong>Recomendó el timing EXACTAMENTE opuesto al correcto</strong> — "comprar primero, traspasar después" destruye precisamente el beneficio que <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> preguntó cómo obtener.</p>
 </li>
 <li>
 <p><strong>Admitió no tener expertise pero opinó igual</strong> — dijo "actualmente no" tenemos contadores inmobiliarios, pero de todas formas dio consejo definitivo sobre timing de compra inmobiliaria.</p>
 </li>
 </ol>
 <h3 id="42-presuncion-de-culpa">4.2 Presunción de culpa</h3>
-<p>Al ser responsabilidad <strong>contractual</strong> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>), la culpa se <strong>presume</strong>. Es <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span>/la empresa quien debe probar que actuó con la diligencia debida. <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> solo debe probar la existencia del contrato, el incumplimiento, y el daño.</p>
-<p>Esto invierte la carga probatoria a nuestro favor: <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> debe explicar por qué, siendo asesora tributaria, desconocía el <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis</a> o por qué su consejo fue diligente. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>) — confirmado en <a href="https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial/93642">ROL 5.079-2021</a></p>
+<p>Al ser responsabilidad <strong>contractual</strong> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>), la culpa se <strong>presume</strong>. Es <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span>/la empresa quien debe probar que actuó con la diligencia debida. <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> solo debe probar la existencia del contrato, el incumplimiento, y el daño.</p>
+<p>Esto invierte la carga probatoria a nuestro favor: <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> debe explicar por qué, siendo asesora tributaria, desconocía el <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis</a> o por qué su consejo fue diligente. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>) — confirmado en <a href="https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial/93642">ROL 5.079-2021</a></p>
 <h3 id="43-argumentos-sobre-culpa-compartida-art-2330-cc">4.3 Argumentos sobre culpa compartida (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2330 CC</a>)</h3>
 <p><strong>Riesgo de reducción por exposición imprudente al daño:</strong> MEDIO [ANÁLISIS-IA — inferencia: Art. 2330 CC (reducción por imprudencia víctima) + 79 días sin segunda opinión + inversión $146M → riesgo medio de que tribunal aplique reducción]</p>
-<p>La defensa argumentará que <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> se expuso imprudentemente al daño porque:
+<p>La defensa argumentará que <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> se expuso imprudentemente al daño porque:
 - Tuvo 79 días entre la consulta (22/09) y la compra (10/12) para buscar segunda opinión
-- <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> recomendó consultar un "contador inmobiliario" y <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> no lo hizo
+- <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> recomendó consultar un "contador inmobiliario" y <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> no lo hizo
 - Ante una inversión de $146M, debió buscar múltiples opiniones</p>
 <p><strong>Nuestra respuesta (triple):</strong></p>
-<p><strong>A. Art. 2330 no aplica si hay culpa grave del demandado.</strong> Si logramos calificar la conducta de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> como culpa grave (argumentos de §4.1), la reducción no procede. La cadena argumentativa verificada es: (1) Art. 44 CC: culpa grave equivale al dolo; (2) Barros Bourie (<em>Tratado de Responsabilidad Extracontractual</em>, 2a ed.): <em>"si alguna de las partes ha actuado con dolo se entiende normalmente excluida la responsabilidad compartida de la otra"</em>; (3) CS Primera Sala (~2025): <em>"deberá desestimarse la defensa de la exposición imprudente de la víctima al daño del artículo 2330"</em> cuando el demandado actuó con culpa grave. Esta jurisprudencia confirma que la reducción no procede ante culpa grave. <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.portal.ijuridica.cl/2025/02/primera-sala-aclara-que-aun-cuando-exista-culpa-de-la-victima-no-procede-reduccion-indemnizatoria-conforme-art-2330-del-codigo-civil-si-demandado-incurrio-el-culpa-grave/">CS Primera Sala — Inteligencia Jurídica</a>)</p>
-<p><strong>B. <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> creó falsa seguridad que desincentivó buscar al especialista.</strong> La cita completa de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> incluye <em>"sí, pero ahí igual tiene que cumplir bastantes requisitos"</em> y derivó a "contador inmobiliario". Sin embargo, esto no la exculpa porque: (i) el "sí" es objetivamente incorrecto — una vez comprado como persona natural, la respuesta es "no" sin matices; (ii) los "bastantes requisitos" no identificaron el requisito IMPOSIBLE de cumplir (que la SpA haya comprado directamente); (iii) la negligencia principal sobre el timing fue ANTES de esta frase y SIN derivación alguna. La falsa seguridad operó sobre la pregunta central: ¿se puede recuperar IVA? <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> dijo "sí". <span class="confidence-tag">[VERIFICADO-WEB]</span> (transcripción 22/09/2025 — solicitar al litigante)</p>
-<p><strong>C. La negligencia principal (consejo de timing) fue ANTES y SIN derivación.</strong> La secuencia temporal de la transcripción muestra que <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> dio el consejo de timing como orientación definitiva ("generalmente se hace de esa forma, usted compra primero...") SIN ninguna reserva ni derivación. La derivación a "contador inmobiliario" fue sobre una pregunta POSTERIOR y derivada. La Corte ha condenado a profesionales por "falta de proactividad" aun en contextos donde hubo derivación parcial (CA Santiago, ROL 8609-2017). <span class="confidence-tag">[VERIFICADO-WEB]</span> (transcripción — solicitar al litigante; <a href="https://derecho-chile.cl/corte-de-santiago-condena-a-abogado-pagar-indemnizacion-de-1-265-000-a-clienta-que-represento-de-forma-negligente/">CA 8609-2017</a>)</p>
+<p><strong>A. Art. 2330 no aplica si hay culpa grave del demandado.</strong> Si logramos calificar la conducta de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> como culpa grave (argumentos de §4.1), la reducción no procede. La cadena argumentativa verificada es: (1) Art. 44 CC: culpa grave equivale al dolo; (2) Barros Bourie (<em>Tratado de Responsabilidad Extracontractual</em>, 2a ed.): <em>"si alguna de las partes ha actuado con dolo se entiende normalmente excluida la responsabilidad compartida de la otra"</em>; (3) CS Primera Sala (~2025): <em>"deberá desestimarse la defensa de la exposición imprudente de la víctima al daño del artículo 2330"</em> cuando el demandado actuó con culpa grave. Esta jurisprudencia confirma que la reducción no procede ante culpa grave. <span class="confidence-tag">[VERIFICADO-WEB]</span> (<a href="https://www.portal.ijuridica.cl/2025/02/primera-sala-aclara-que-aun-cuando-exista-culpa-de-la-victima-no-procede-reduccion-indemnizatoria-conforme-art-2330-del-codigo-civil-si-demandado-incurrio-el-culpa-grave/">CS Primera Sala — Inteligencia Jurídica</a>)</p>
+<p><strong>B. <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> creó falsa seguridad que desincentivó buscar al especialista.</strong> La cita completa de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> incluye <em>"sí, pero ahí igual tiene que cumplir bastantes requisitos"</em> y derivó a "contador inmobiliario". Sin embargo, esto no la exculpa porque: (i) el "sí" es objetivamente incorrecto — una vez comprado como persona natural, la respuesta es "no" sin matices; (ii) los "bastantes requisitos" no identificaron el requisito IMPOSIBLE de cumplir (que la SpA haya comprado directamente); (iii) la negligencia principal sobre el timing fue ANTES de esta frase y SIN derivación alguna. La falsa seguridad operó sobre la pregunta central: ¿se puede recuperar IVA? <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> dijo "sí". <span class="confidence-tag">[VERIFICADO-WEB]</span> (transcripción 22/09/2025 — solicitar al litigante)</p>
+<p><strong>C. La negligencia principal (consejo de timing) fue ANTES y SIN derivación.</strong> La secuencia temporal de la transcripción muestra que <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> dio el consejo de timing como orientación definitiva ("generalmente se hace de esa forma, usted compra primero...") SIN ninguna reserva ni derivación. La derivación a "contador inmobiliario" fue sobre una pregunta POSTERIOR y derivada. La Corte ha condenado a profesionales por "falta de proactividad" aun en contextos donde hubo derivación parcial (CA Santiago, ROL 8609-2017). <span class="confidence-tag">[VERIFICADO-WEB]</span> (transcripción — solicitar al litigante; <a href="https://derecho-chile.cl/corte-de-santiago-condena-a-abogado-pagar-indemnizacion-de-1-265-000-a-clienta-que-represento-de-forma-negligente/">CA 8609-2017</a>)</p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -468,20 +1546,23 @@ graph TB
 </table></div>
 <p><strong>Todos los escenarios siguen siendo positivos en costo-beneficio.</strong> [ANÁLISIS-IA — inferencia: monto mínimo con reducción severa ($16.8M) &gt; costos judiciales estimados ($3-5M, ver COSTOS.md) → saldo positivo en todo escenario]</p>
 <hr>
-<h2 id="5-construccion-de-causalidad">5. CONSTRUCCIÓN DE CAUSALIDAD</h2>
+</section>
+<section class="sec" data-sec="6">
+<div class="sec-head"><h2 id="5-construccion-de-causalidad"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></svg>5. CONSTRUCCIÓN DE CAUSALIDAD</h2></div>
+
 <h3 id="51-cadena-causal">5.1 Cadena causal</h3>
-<p><div class="mermaid">
+<div class="mermaid">
 graph TB
-  A["<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> aconseja:\n'comprar primero,\ntraspasar después'"] --> B["<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> confía en\nel consejo profesional\npagado"]
-  B --> C["<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> compra\ncomo persona natural\n10/12/2025"]
-  C --> D["IVA de $20.441.378\nqueda en factura\na nombre de <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span>"]
+  A["<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> aconseja:\n'comprar primero,\ntraspasar después'"] --> B["<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> confía en\nel consejo profesional\npagado"]
+  B --> C["<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> compra\ncomo persona natural\n10/12/2025"]
+  C --> D["IVA de $20.441.378\nqueda en factura\na nombre de <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span>"]
   D --> E["Art. 27bis\nirrecuperable:\nSpA no fue\ncompradora"]
 
-</div></p>
+</div>
 <h3 id="52-narrativa-causal">5.2 Narrativa causal</h3>
-<p>Si <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> hubiera informado correctamente que la SpA debía existir y comprar DIRECTAMENTE de la inmobiliaria para acceder al Art. 27bis, <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> habría creado la SpA con inicio de actividades ANTES de la compra del 10 de diciembre de 2025. La propia <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> describió la estructura SpA + aval personal como práctica de "muchos clientes", lo que confirma su viabilidad. La factura afecta N°32 habría ido a nombre de la SpA, generando crédito fiscal de $20.441.378 recuperable vía Art. 27bis. [ANÁLISIS-IA — inferencia: Art. 27bis DL 825 ("deberá" devolver) + Art. 23 DL 825 (CF nace al contribuyente comprador) + transcripción §1.3 (<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> describe SpA+aval como práctica de "muchos clientes") → si orientación correcta, <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> habría creado SpA antes de comprar y obtenido CF]</p>
-<p>Pero porque <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> aconsejó "comprar primero, traspasar a sociedad después" — el timing exactamente opuesto al correcto — <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> compró como persona natural. El IVA de la construcción quedó en una factura a nombre de una no-contribuyente de IVA, extinguiendo irremediablemente el derecho al Art. 27bis.</p>
-<p>Entre la consulta (22/09/2025) y la compra (10/12/2025) transcurrieron 79 días — tiempo más que suficiente para haber creado la SpA si hubiera recibido la orientación correcta. Las preguntas escritas de <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> del 19/09/2025 demuestran que su intención era optimizar la estructura tributaria, no comprar "como sea".</p>
+<p>Si <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> hubiera informado correctamente que la SpA debía existir y comprar DIRECTAMENTE de la inmobiliaria para acceder al Art. 27bis, <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> habría creado la SpA con inicio de actividades ANTES de la compra del 10 de diciembre de 2025. La propia <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> describió la estructura SpA + aval personal como práctica de "muchos clientes", lo que confirma su viabilidad. La factura afecta N°32 habría ido a nombre de la SpA, generando crédito fiscal de $20.441.378 recuperable vía Art. 27bis. [ANÁLISIS-IA — inferencia: Art. 27bis DL 825 ("deberá" devolver) + Art. 23 DL 825 (CF nace al contribuyente comprador) + transcripción §1.3 (<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> describe SpA+aval como práctica de "muchos clientes") → si orientación correcta, <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> habría creado SpA antes de comprar y obtenido CF]</p>
+<p>Pero porque <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> aconsejó "comprar primero, traspasar a sociedad después" — el timing exactamente opuesto al correcto — <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> compró como persona natural. El IVA de la construcción quedó en una factura a nombre de una no-contribuyente de IVA, extinguiendo irremediablemente el derecho al Art. 27bis.</p>
+<p>Entre la consulta (22/09/2025) y la compra (10/12/2025) transcurrieron 79 días — tiempo más que suficiente para haber creado la SpA si hubiera recibido la orientación correcta. Las preguntas escritas de <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> del 19/09/2025 demuestran que su intención era optimizar la estructura tributaria, no comprar "como sea".</p>
 <h3 id="53-causalidad-contrafactica">5.3 Causalidad contrafáctica</h3>
 <div class="table-wrapper"><table>
 <thead>
@@ -492,11 +1573,11 @@ graph TB
 </thead>
 <tbody>
 <tr>
-<td>¿Sin la conducta de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span>, el daño habría ocurrido?</td>
-<td><strong>NO</strong> — <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> habría creado la SpA antes de comprar. Sus preguntas escritas demuestran que buscaba la estructura óptima, no cualquier estructura</td>
+<td>¿Sin la conducta de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span>, el daño habría ocurrido?</td>
+<td><strong>NO</strong> — <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> habría creado la SpA antes de comprar. Sus preguntas escritas demuestran que buscaba la estructura óptima, no cualquier estructura</td>
 </tr>
 <tr>
-<td>¿<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> habría actuado igual sin la asesoría?</td>
+<td>¿<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> habría actuado igual sin la asesoría?</td>
 <td><strong>NO</strong> — pagó $100.000 específicamente para saber cómo proceder. Si hubiera sabido la respuesta, no habría pagado por asesoría</td>
 </tr>
 <tr>
@@ -505,12 +1586,15 @@ graph TB
 </tr>
 <tr>
 <td>¿El banco habría impedido la estructura correcta?</td>
-<td><strong>NO</strong> — <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> misma describió la estructura SpA + aval como "lo que hacen muchos clientes". Si ella dice que es práctica común, no puede la defensa argumentar que era imposible</td>
+<td><strong>NO</strong> — <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> misma describió la estructura SpA + aval como "lo que hacen muchos clientes". Si ella dice que es práctica común, no puede la defensa argumentar que era imposible</td>
 </tr>
 </tbody>
 </table></div>
 <hr>
-<h2 id="6-cuantificacion-del-dano">6. CUANTIFICACIÓN DEL DAÑO</h2>
+</section>
+<section class="sec" data-sec="7">
+<div class="sec-head"><h2 id="6-cuantificacion-del-dano"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></svg>6. CUANTIFICACIÓN DEL DAÑO</h2></div>
+
 <p>→ Ver <a href="../el-caso/HECHOS.html">CASE.md §Impacto Financiero</a> para desglose completo de facturas (Exenta N°12 + Afecta N°32)</p>
 <h3 id="61-resumen-de-pretensiones">6.1 Resumen de pretensiones</h3>
 <div class="table-wrapper"><table>
@@ -588,20 +1672,23 @@ graph TB
 </table></div>
 <p>→ Ver <a href="ESTRATEGIA.html">ESTRATEGIA-ACUERDO-EXTRAJUDICIAL.md</a> para lógica detallada de negociación</p>
 <hr>
-<h2 id="7-argumentos-para-juicio">7. ARGUMENTOS PARA JUICIO</h2>
+</section>
+<section class="sec" data-sec="8">
+<div class="sec-head"><h2 id="7-argumentos-para-juicio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 12.5-8 8a2.1 2.1 0 1 1-3-3l8-8"></path><path d="m16 16 6-6"></path><path d="m8 8 6-6"></path><path d="m9 7 8 8"></path><path d="m21 11-8-8"></path></svg>7. ARGUMENTOS PARA JUICIO</h2></div>
+
 <h3 id="argumento-1-incumplimiento-contractual-por-consejo-objetivamente-erroneo">Argumento 1: Incumplimiento contractual por consejo objetivamente erróneo</h3>
-<p><strong>Tesis:</strong> <span class="pii-redacted" data-token="NOMBRE_CONTADORA">NOMBRE_CONTADORA</span> incumplió su obligación contractual de asesorar correctamente al dar un consejo diametralmente opuesto a lo que establece la ley tributaria, causando la pérdida irrecuperable de $20.441.378. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 1545-1547 CC</a>; <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis DL 825</a>)</p>
+<p><strong>Tesis:</strong> <span class="pii-redacted" data-token="NOMBRE_CONTADORA"><span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span></span> incumplió su obligación contractual de asesorar correctamente al dar un consejo diametralmente opuesto a lo que establece la ley tributaria, causando la pérdida irrecuperable de $20.441.378. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 1545-1547 CC</a>; <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis DL 825</a>)</p>
 <p><strong>Desarrollo:</strong></p>
-<p>El contrato de asesoría tributaria (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1545 CC</a>) obligaba a <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> a informar correctamente sobre las implicancias fiscales de la compra inmobiliaria. El <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis DL 825</a> establece requisitos claros: la entidad debe ser contribuyente de IVA al momento de la compra (<a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 23 DL 825</a>, Oficio SII 810/2006). <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> recomendó "comprar primero, transferir a sociedad después" — el timing exactamente opuesto al correcto. Además, respondió "sí" a la pregunta de si se puede recuperar IVA post-traspaso, cuando la respuesta es categóricamente "no".</p>
+<p>El contrato de asesoría tributaria (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1545 CC</a>) obligaba a <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> a informar correctamente sobre las implicancias fiscales de la compra inmobiliaria. El <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 27bis DL 825</a> establece requisitos claros: la entidad debe ser contribuyente de IVA al momento de la compra (<a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 23 DL 825</a>, Oficio SII 810/2006). <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> recomendó "comprar primero, transferir a sociedad después" — el timing exactamente opuesto al correcto. Además, respondió "sí" a la pregunta de si se puede recuperar IVA post-traspaso, cuando la respuesta es categóricamente "no".</p>
 <p>Esto no es un error de matiz ni una zona gris interpretativa. Es un consejo objetivamente incorrecto en materia tributaria básica, emitido por una profesional de una empresa cuyo giro literal es "Asesorías Tributarias". El incumplimiento contractual es claro bajo Arts. 1545, 1546 y 1547 CC.</p>
 <p><strong>Fuerza:</strong> <strong>FUERTE</strong>
 <strong>Etiqueta:</strong> <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 1545, 1546, 1547 CC</a>; <a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Arts. 23, 27bis DL 825</a>)</p>
 <hr>
 <h3 id="argumento-2-culpa-presunta-e-inversion-de-la-carga-de-la-prueba">Argumento 2: Culpa presunta e inversión de la carga de la prueba</h3>
-<p><strong>Tesis:</strong> Al ser responsabilidad contractual, la culpa de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> se presume. Es ella quien debe probar que actuó con la diligencia de un asesor tributario competente — prueba que no puede producir dado que su consejo fue erróneo. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>)</p>
+<p><strong>Tesis:</strong> Al ser responsabilidad contractual, la culpa de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> se presume. Es ella quien debe probar que actuó con la diligencia de un asesor tributario competente — prueba que no puede producir dado que su consejo fue erróneo. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a>)</p>
 <p><strong>Desarrollo:</strong></p>
 <p>El <a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 inc. 3° CC</a> establece que en contratos bilaterales onerosos, la culpa del deudor se presume. La demandada no debe solo probar que "intentó" asesorar bien; debe demostrar que actuó con la diligencia de un "buen padre de familia" — en este contexto, con la competencia de un asesor tributario medianamente informado.</p>
-<p><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> no puede producir esta prueba porque:
+<p><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> no puede producir esta prueba porque:
 - No mencionó el Art. 27bis cuando fue consultada expresamente sobre IVA de compra inmobiliaria
 - Respondió "sí" a una pregunta cuya respuesta legal es "no"
 - Admitió no tener contadores inmobiliarios pero opinó sobre timing inmobiliario
@@ -613,35 +1700,38 @@ graph TB
 <h3 id="argumento-3-el-dano-es-cierto-documentado-y-de-monto-exacto">Argumento 3: El daño es cierto, documentado y de monto exacto</h3>
 <p><strong>Tesis:</strong> El daño de $20.441.378 no es especulativo ni estimado — es el IVA exacto documentado en la Factura Afecta N°32, cuya recuperación era un derecho concreto bajo el Art. 27bis que se extinguió irreversiblemente. <span class="confidence-tag">[VERIFICADO-WEB]</span> (Factura N°32 — solicitar al litigante)</p>
 <p><strong>Desarrollo:</strong></p>
-<p>A diferencia de muchos casos de negligencia profesional donde el daño es difícil de cuantificar, aquí el perjuicio es un número exacto respaldado por documento fiscal oficial. La Factura Afecta N°32 emitida por Inmobiliaria Isiete Araucanía X SpA registra IVA de $20.441.378 sobre $107.586.199 en construcción. Si la SpA de <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> hubiera sido la compradora, ese IVA habría sido crédito fiscal recuperable bajo Art. 27bis, que usa el imperativo "deberá" devolver — no es facultativo del SII. La naturaleza del daño es daño emergente puro: un derecho concreto que existía y se perdió. No es lucro cesante especulativo.</p>
+<p>A diferencia de muchos casos de negligencia profesional donde el daño es difícil de cuantificar, aquí el perjuicio es un número exacto respaldado por documento fiscal oficial. La Factura Afecta N°32 emitida por Inmobiliaria Isiete Araucanía X SpA registra IVA de $20.441.378 sobre $107.586.199 en construcción. Si la SpA de <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> hubiera sido la compradora, ese IVA habría sido crédito fiscal recuperable bajo Art. 27bis, que usa el imperativo "deberá" devolver — no es facultativo del SII. La naturaleza del daño es daño emergente puro: un derecho concreto que existía y se perdió. No es lucro cesante especulativo.</p>
 <p><strong>Posición subsidiaria (pérdida de chance):</strong> Si el tribunal no acepta el daño como cierto, la pérdida de chance está reconocida como daño autónomo e indemnizable por la CS (ROL 12169-2017, Alpes Chemie c/ CENABAST; ROL 14.262-2022, negligencia médica). La probabilidad de obtener la devolución Art. 27bis era de 85-90% [ANÁLISIS-IA — inferencia: requisitos Art. 27bis son formales y cumplibles + verbo "deberá" es imperativo → probabilidad alta] (requisitos formales cumplibles + "deberá" imperativo), lo que arroja un piso de $17.375.171 — aún ampliamente positivo.</p>
 <p><strong>Fuerza:</strong> <strong>FUERTE</strong>
 <strong>Etiqueta:</strong> <span class="confidence-tag">[VERIFICADO-WEB]</span> (Factura N°32 — solicitar al litigante; ver §2.1 Art. 27bis DL 825)</p>
 <hr>
 <h3 id="argumento-4-las-preguntas-escritas-previas-destruyen-la-defensa-de-no-era-el-tema">Argumento 4: Las preguntas escritas previas destruyen la defensa de "no era el tema"</h3>
-<p><strong>Tesis:</strong> El email de <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> del 19/09/2025 demuestra que preguntó textualmente sobre IVA de la compra y timing de sociedad, eliminando cualquier argumento de que <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> "no fue consultada sobre eso". <span class="confidence-tag">[VERIFICADO-WEB]</span> (email 19/09/2025 — solicitar al litigante)</p>
+<p><strong>Tesis:</strong> El email de <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> del 19/09/2025 demuestra que preguntó textualmente sobre IVA de la compra y timing de sociedad, eliminando cualquier argumento de que <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> "no fue consultada sobre eso". <span class="confidence-tag">[VERIFICADO-WEB]</span> (email 19/09/2025 — solicitar al litigante)</p>
 <p><strong>Desarrollo:</strong></p>
-<p><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> formuló por escrito, tres días antes de la consulta:
+<p><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> formuló por escrito, tres días antes de la consulta:
 1. <em>"¿Puedo pedir el IVA de la compra del depto? ¿En qué momento?"</em>
 2. <em>"¿Sigo como persona natural o hago inicio de actividades?"</em>
 3. <em>"¿Individual o sociedad? ¿Y si es sociedad, qué tipo?"</em></p>
-<p><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> recibió estas preguntas vía Camila (email del 16/09) y tuvo tres días para prepararlas. No puede alegar que el tema de IVA inmobiliario "surgió de improviso" ni que "no era el objeto de la consulta". Las preguntas escritas constituyen prueba documental irrefutable de qué se le consultó y qué debía responder.</p>
+<p><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> recibió estas preguntas vía Camila (email del 16/09) y tuvo tres días para prepararlas. No puede alegar que el tema de IVA inmobiliario "surgió de improviso" ni que "no era el objeto de la consulta". Las preguntas escritas constituyen prueba documental irrefutable de qué se le consultó y qué debía responder.</p>
 <p><strong>Fuerza:</strong> <strong>FUERTE</strong>
 <strong>Etiqueta:</strong> <span class="confidence-tag">[VERIFICADO-WEB]</span> (email 19/09/2025 — solicitar al litigante)</p>
 <hr>
 <h3 id="argumento-5-responsabilidad-solidaria-de-la-empresa">Argumento 5: Responsabilidad solidaria de la empresa</h3>
-<p><strong>Tesis:</strong> <span class="pii-redacted" data-token="EMPRESA_DEMANDADA_CORTA">EMPRESA_DEMANDADA_CORTA</span> es responsable solidariamente por el acto de su profesional asignada, al haber emitido la factura, recibido el pago, y seleccionado a <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> como la profesional competente para la asesoría. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 2320, 1545 CC</a>)</p>
+<p><strong>Tesis:</strong> <span class="pii-redacted" data-token="EMPRESA_DEMANDADA_CORTA"><span class="pii-redacted" data-token="EMPRESA_DEMANDADA_CORTA">[redactado]</span></span> es responsable solidariamente por el acto de su profesional asignada, al haber emitido la factura, recibido el pago, y seleccionado a <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> como la profesional competente para la asesoría. <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 2320, 1545 CC</a>)</p>
 <p><strong>Desarrollo:</strong></p>
 <p>La empresa:
 - Recibió el pago de $100.000 (transferencia a su cuenta bancaria)
 - Emitió Factura Exenta N°13093 con giro "Asesoría Tributaria"
-- Asignó a <span class="pii-redacted" data-token="NOMBRE_CONTADORA">NOMBRE_CONTADORA</span> como la profesional para la consulta
+- Asignó a <span class="pii-redacted" data-token="NOMBRE_CONTADORA"><span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span></span> como la profesional para la consulta
 - Ofreció dos opciones de precio/profesional — eligió a quién enviar</p>
-<p>Bajo <a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2320 CC</a> (responsabilidad del empresario por hechos del dependiente) y <a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1545 CC</a> (la empresa es parte del contrato), la empresa responde solidariamente por la calidad del servicio prestado por el profesional que asignó. No puede eximirse diciendo que "fue un error de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span>" — la empresa eligió enviarla.</p>
+<p>Bajo <a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2320 CC</a> (responsabilidad del empresario por hechos del dependiente) y <a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1545 CC</a> (la empresa es parte del contrato), la empresa responde solidariamente por la calidad del servicio prestado por el profesional que asignó. No puede eximirse diciendo que "fue un error de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span>" — la empresa eligió enviarla.</p>
 <p><strong>Fuerza:</strong> <strong>FUERTE</strong>
 <strong>Etiqueta:</strong> <span class="confidence-tag">[VERIFICADO-NORMATIVA]</span> (<a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Arts. 2320, 1545 CC</a>)</p>
 <hr>
-<h2 id="8-anticipacion-de-defensa-contraria">8. ANTICIPACIÓN DE DEFENSA CONTRARIA</h2>
+</section>
+<section class="sec" data-sec="9">
+<div class="sec-head"><h2 id="8-anticipacion-de-defensa-contraria"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></svg>8. ANTICIPACIÓN DE DEFENSA CONTRARIA</h2></div>
+
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -658,7 +1748,7 @@ graph TB
 <td>1</td>
 <td>"Otro contador dio el mismo consejo" (concausa)</td>
 <td>Media <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
-<td>Fue comentario informal sin relación profesional, sin pago ni registro. <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> buscó asesoría formal PORQUE sabía que no bastaba. <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> validó el consejo incorrecto sin verificar, agravando su negligencia</td>
+<td>Fue comentario informal sin relación profesional, sin pago ni registro. <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> buscó asesoría formal PORQUE sabía que no bastaba. <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> validó el consejo incorrecto sin verificar, agravando su negligencia</td>
 <td><a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1698 CC</a> (carga de prueba en defensa)</td>
 <td><strong>BAJO</strong> <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 </tr>
@@ -666,7 +1756,7 @@ graph TB
 <td>2</td>
 <td>"El banco no habría prestado a una SpA nueva"</td>
 <td>Alta <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
-<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> MISMA describe la estructura SpA + aval como "lo que hacen muchos clientes". Se refuta con sus propias palabras. El daño es por el timing del IVA, no por quién paga el crédito</td>
+<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> MISMA describe la estructura SpA + aval como "lo que hacen muchos clientes". Se refuta con sus propias palabras. El daño es por el timing del IVA, no por quién paga el crédito</td>
 <td><a href="https://www.bcn.cl/leychile/navegar?idNorma=6369">Art. 23 DL 825</a></td>
 <td><strong>MEDIO</strong> <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 </tr>
@@ -680,7 +1770,7 @@ graph TB
 </tr>
 <tr>
 <td>4</td>
-<td>"<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> derivó a especialista"</td>
+<td>"<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> derivó a especialista"</td>
 <td>Alta <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 <td>La negligencia principal (timing) fue dada ANTES y SIN derivación. El "sí" fue objetivamente incorrecto. La derivación fue hueca (no dio nombre ni referencia)</td>
 <td><a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1546 CC</a></td>
@@ -688,9 +1778,9 @@ graph TB
 </tr>
 <tr>
 <td>5</td>
-<td>"<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> tuvo 2.5 meses para buscar segunda opinión"</td>
+<td>"<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> tuvo 2.5 meses para buscar segunda opinión"</td>
 <td>Alta <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
-<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> creó falsa seguridad con "sí". <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> fue diligente (preguntas escritas, pago). El deber era de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span>, no de <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span></td>
+<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> creó falsa seguridad con "sí". <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> fue diligente (preguntas escritas, pago). El deber era de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span>, no de <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span></td>
 <td><a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 2330 CC</a></td>
 <td><strong>MEDIO</strong> <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 </tr>
@@ -706,7 +1796,7 @@ graph TB
 <td>7</td>
 <td>"Por $100K no se puede esperar asesoría integral"</td>
 <td>Media-Baja <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
-<td>Lex artis no depende del precio. La empresa cobra por un servicio profesional y asignó a <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> como profesional competente</td>
+<td>Lex artis no depende del precio. La empresa cobra por un servicio profesional y asignó a <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> como profesional competente</td>
 <td><a href="https://www.bcn.cl/leychile/navegar?idNorma=172986">Art. 1547 CC</a></td>
 <td><strong>BAJO</strong> <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 </tr>
@@ -722,7 +1812,7 @@ graph TB
 <td>9</td>
 <td>"La transcripción no es confiable"</td>
 <td>Media <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
-<td>En Chile, grabar conversación propia es legal. Se cruza con email, factura, transferencia. "Caterin"/"<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span>" es error fonético. <strong>Requiere certificación notarial</strong></td>
+<td>En Chile, grabar conversación propia es legal. Se cruza con email, factura, transferencia. "Caterin"/"<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span>" es error fonético. <strong>Requiere certificación notarial</strong></td>
 <td><a href="https://www.bcn.cl/leychile/navegar?idNorma=1984">Art. 161-A CP</a></td>
 <td><strong>BAJO</strong> (si se certifica) <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 </tr>
@@ -730,14 +1820,17 @@ graph TB
 <td>10</td>
 <td>Insolvencia / ocultamiento de bienes</td>
 <td>Alta <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
-<td><span class="pii-redacted" data-token="NOMBRE_TITULAR">NOMBRE_TITULAR</span> publica en TikTok sobre protección de activos. Medida prejudicial precautoria <a href="https://www.bcn.cl/leychile/navegar?idNorma=22740">Art. 279 CPC</a> ANTES de notificar</td>
+<td><span class="pii-redacted" data-token="NOMBRE_TITULAR"><span class="pii-redacted" data-token="NOMBRE_TITULAR">[redactado]</span></span> publica en TikTok sobre protección de activos. Medida prejudicial precautoria <a href="https://www.bcn.cl/leychile/navegar?idNorma=22740">Art. 279 CPC</a> ANTES de notificar</td>
 <td><a href="https://www.bcn.cl/leychile/navegar?idNorma=22740">Arts. 279, 290 CPC</a></td>
 <td><strong>ALTO</strong> (si no hay cautelar) <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 </tr>
 </tbody>
 </table></div>
 <hr>
-<h2 id="9-plan-de-prueba">9. PLAN DE PRUEBA</h2>
+</section>
+<section class="sec" data-sec="10">
+<div class="sec-head"><h2 id="9-plan-de-prueba"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></svg>9. PLAN DE PRUEBA</h2></div>
+
 <h3 id="91-prueba-documental">9.1 Prueba documental</h3>
 <div class="table-wrapper"><table>
 <thead>
@@ -751,14 +1844,14 @@ graph TB
 <tbody>
 <tr>
 <td>1</td>
-<td><strong>Email <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> 19/09/2025</strong> (preguntas escritas)</td>
-<td><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> preguntó textualmente sobre IVA y timing</td>
-<td>Causalidad + culpa (<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> sabía qué le consultaban)</td>
+<td><strong>Email <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> 19/09/2025</strong> (preguntas escritas)</td>
+<td><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> preguntó textualmente sobre IVA y timing</td>
+<td>Causalidad + culpa (<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> sabía qué le consultaban)</td>
 </tr>
 <tr>
 <td>2</td>
 <td><strong>Transcripción consulta 22/09/2025</strong> (certificada ante notario)</td>
-<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> dijo "comprar primero", respondió "sí" a IVA post-traspaso, admitió no tener contadores inmobiliarios</td>
+<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> dijo "comprar primero", respondió "sí" a IVA post-traspaso, admitió no tener contadores inmobiliarios</td>
 <td>Culpa + incumplimiento</td>
 </tr>
 <tr>
@@ -794,12 +1887,12 @@ graph TB
 <tr>
 <td>8</td>
 <td><strong>Email de Camila</strong> (coordinación cita individual)</td>
-<td>Cita 1-a-1 agendada, no sesión grupal; CC a "<span class="pii-redacted" data-token="NOMBRE_CONTADORA">NOMBRE_CONTADORA</span>"</td>
+<td>Cita 1-a-1 agendada, no sesión grupal; CC a "<span class="pii-redacted" data-token="NOMBRE_CONTADORA"><span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span></span>"</td>
 <td>Contra defensa de "orientación general" + identidad</td>
 </tr>
 <tr>
 <td>9</td>
-<td>[Pendiente] <strong>Capturas TikTok de <span class="pii-redacted" data-token="NOMBRE_TITULAR">NOMBRE_TITULAR</span></strong></td>
+<td>[Pendiente] <strong>Capturas TikTok de <span class="pii-redacted" data-token="NOMBRE_TITULAR"><span class="pii-redacted" data-token="NOMBRE_TITULAR">[redactado]</span></span></strong></td>
 <td>Riesgo de ocultamiento de bienes</td>
 <td>Medida cautelar (<a href="https://www.bcn.cl/leychile/navegar?idNorma=22740">Art. 279 CPC</a>)</td>
 </tr>
@@ -817,13 +1910,13 @@ graph TB
 </thead>
 <tbody>
 <tr>
-<td><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">NOMBRE_DEMANDANTE</span></td>
+<td><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE"><span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span></span></td>
 <td>Parte demandante</td>
 <td>Relato de la consulta, confianza en el consejo, decisión de compra basada en la asesoría, daño sufrido</td>
 <td>Causalidad + daño moral</td>
 </tr>
 <tr>
-<td><span class="pii-redacted" data-token="NOMBRE_GESTOR_COMPLETO">NOMBRE_GESTOR_COMPLETO</span></td>
+<td><span class="pii-redacted" data-token="NOMBRE_GESTOR_COMPLETO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_GESTOR">[redactado]</span>_COMPLETO">[redactado]</span></span></td>
 <td>Cónyuge / testigo</td>
 <td>Contexto de la búsqueda de asesoría, impacto familiar, investigación posterior del error</td>
 <td>Causalidad + daño moral</td>
@@ -844,7 +1937,7 @@ graph TB
 <tr>
 <td>Contador auditor</td>
 <td>Tributaria / inmobiliaria</td>
-<td>Que el consejo de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> fue contrario a la lex artis; que un contador competente habría mencionado 27bis; que los requisitos eran cumplibles</td>
+<td>Que el consejo de <span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> fue contrario a la lex artis; que un contador competente habría mencionado 27bis; que los requisitos eran cumplibles</td>
 <td>Culpa + causalidad + cuantificación</td>
 </tr>
 <tr>
@@ -865,7 +1958,7 @@ graph TB
 </thead>
 <tbody>
 <tr>
-<td>"¿Usted dio la consulta del 22/09/2025 a <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_PARCIAL">NOMBRE_DEMANDANTE_PARCIAL</span>?"</td>
+<td>"¿Usted dio la consulta del 22/09/2025 a <span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_PARCIAL"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_PARCIAL">[redactado]</span></span>?"</td>
 <td>Confirmar que fue ella (vincula con transcripción)</td>
 </tr>
 <tr>
@@ -887,7 +1980,10 @@ graph TB
 </tbody>
 </table></div>
 <hr>
-<h2 id="10-riesgos-y-mitigaciones">10. RIESGOS Y MITIGACIONES</h2>
+</section>
+<section class="sec" data-sec="11">
+<div class="sec-head"><h2 id="10-riesgos-y-mitigaciones"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>10. RIESGOS Y MITIGACIONES</h2></div>
+
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -899,7 +1995,7 @@ graph TB
 </thead>
 <tbody>
 <tr>
-<td><strong>Ocultamiento de bienes por <span class="pii-redacted" data-token="NOMBRE_TITULAR">NOMBRE_TITULAR</span></strong></td>
+<td><strong>Ocultamiento de bienes por <span class="pii-redacted" data-token="NOMBRE_TITULAR"><span class="pii-redacted" data-token="NOMBRE_TITULAR">[redactado]</span></span></strong></td>
 <td><strong>Alta</strong> <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 <td><strong>Crítico</strong></td>
 <td>Medida prejudicial precautoria <a href="https://www.bcn.cl/leychile/navegar?idNorma=22740">Art. 279 CPC</a>. Preservar evidencia TikTok HOY. Contratar abogado con urgencia</td>
@@ -926,7 +2022,7 @@ graph TB
 <td>Banco habría rechazado crédito a SpA</td>
 <td>Baja-Media <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 <td>Medio</td>
-<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> misma describe la estructura. Obtener carta del banco confirmando viabilidad</td>
+<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> misma describe la estructura. Obtener carta del banco confirmando viabilidad</td>
 </tr>
 <tr>
 <td>Excepción de competencia territorial (Zoom)</td>
@@ -941,7 +2037,7 @@ graph TB
 <td>Priorizar acuerdo pre-judicial. Juicio solo como último recurso</td>
 </tr>
 <tr>
-<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> tiene seguro RC profesional</td>
+<td><span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> tiene seguro RC profesional</td>
 <td>Baja-Media <span class="confidence-tag">[ANÁLISIS-IA]</span></td>
 <td><strong>POSITIVO</strong></td>
 <td>Si tiene seguro, la aseguradora paga — mejor escenario posible</td>
@@ -949,13 +2045,16 @@ graph TB
 </tbody>
 </table></div>
 <hr>
-<h2 id="11-diagrama-resumen">11. DIAGRAMA RESUMEN</h2>
-<p><div class="mermaid">
+</section>
+<section class="sec" data-sec="12">
+<div class="sec-head"><h2 id="11-diagrama-resumen"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></svg>11. DIAGRAMA RESUMEN</h2></div>
+
+<div class="mermaid">
 graph TB
   subgraph Hechos["1. Hechos Probados"]
     H1["Email 19/09:\nPreguntas escritas\nsobre IVA y timing"]
-    H2["Consulta 22/09:\n<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO">NOMBRE_CONTADORA_CORTO</span> aconseja\n'comprar primero'"]
-    H3["Compra 10/12:\n<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO">NOMBRE_DEMANDANTE_CORTO</span> compra como\npersona natural"]
+    H2["Consulta 22/09:\n<span class="pii-redacted" data-token="NOMBRE_CONTADORA_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_CONTADORA">[redactado]</span>_CORTO">[redactado]</span></span> aconseja\n'comprar primero'"]
+    H3["Compra 10/12:\n<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE_CORTO"><span class="pii-redacted" data-token="<span class="pii-redacted" data-token="NOMBRE_DEMANDANTE">[redactado]</span>_CORTO">[redactado]</span></span> compra como\npersona natural"]
   end
   subgraph Norma["2. Marco Normativo"]
     N1["Arts. 1545-1547 CC\nContrato de asesoría"]
@@ -979,9 +2078,12 @@ graph TB
   E2 --> E3
   E3 --> R1
 
-</div></p>
+</div>
 <hr>
-<h2 id="contactos-para-verificacion-profesional">Contactos para Verificación Profesional</h2>
+</section>
+<section class="sec" data-sec="13">
+<div class="sec-head"><h2 id="contactos-para-verificacion-profesional"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>Contactos para Verificación Profesional</h2></div>
+
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -1023,11 +2125,14 @@ graph TB
 </tr>
 </tbody>
 </table></div>
-<blockquote>
+<blockquote class="panel">
 <p>Para lista completa de contactos ver: knowledge/contactos-profesionales.md</p>
 </blockquote>
 <hr>
-<h2 id="glosario">Glosario</h2>
+</section>
+<section class="sec" data-sec="14">
+<div class="sec-head"><h2 id="glosario"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v5h5"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>Glosario</h2></div>
+
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -1088,11 +2193,12 @@ graph TB
 </table></div>
 <hr>
 <hr>
-<p><strong>Versión 2.1</strong> — Formato SSOT (02/03/2026). Jurisprudencia verificada. Pendiente: verificar ROL exacto del fallo CS Primera Sala 2025 en pjud.cl.</p>
+<p><strong>Versión 2.1</strong> — Formato SSOT (02/03/2026). Jurisprudencia verificada. Pendiente: verificar ROL exacto del fallo CS Primera Sala 2025 en pjud.cl.</p></section>
+
     </main>
 
     <aside class="jump-bar no-print">
-      <h4>En esta pagina</h4>
+      <h4>En esta página</h4>
       <ul class="jump-list">
 <li><a href="#tesis-central">TESIS CENTRAL</a></li>
 <li><a href="#1-hechos-relevantes">1. HECHOS RELEVANTES</a></li>
@@ -1117,8 +2223,124 @@ graph TB
     Contenido generado con apoyo de IA — orientativo, no vinculante.
   </footer>
 
+  <!-- ══ BLOQUE 2 del kit — cog + panel de opciones ═════════════════════ -->
+  <div class="af-chrome no-print">
+    <button class="af-cog" id="af-cog" type="button" aria-expanded="false" aria-controls="af-panel" aria-label="Opciones de presentación">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="3.2"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+    </button>
+
+    <div class="af-panel" id="af-panel" data-open="false">
+      <div class="af-group" role="radiogroup" aria-label="Tipografía" id="af-fonts"><p class="af-legend">Tipografía</p></div>
+      <div class="af-divider"></div>
+      <div class="af-group" role="radiogroup" aria-label="Tema" id="af-skins"><p class="af-legend">Tema</p></div>
+      <div class="af-divider"></div>
+      <div class="af-group" role="radiogroup" aria-label="Movimiento" id="af-motion"><p class="af-legend">Movimiento</p></div>
+      <p class="af-foot" id="af-foot">—</p>
+    </div>
+  </div>
+
+  <!-- ══ BLOQUE 3 del kit — rosters de fuente/tema/movimiento ═══════════ -->
   <script>
-    /* ── Active link in section-nav ──────────────────────────────────────── */
+var MOTION = { on: true };   /* las animaciones leen esto antes de agendar trabajo */
+
+(function () {
+  "use strict";
+
+  /* Agregar una entrada a cualquiera de los dos rosters agrega una opción —
+     nada más cambia. El tercer slot tipográfico queda vacío por decisión
+     fechada (ver plan-adopcion.json → open_questions). */
+  var FONTS = [
+    { id: "mono",  label: "Mono",     stack: 'ui-monospace, monospace', size: 15, track: -0.025 },
+    { id: "segoe", label: "Segoe UI", stack: '"Segoe UI", sans-serif',  size: 16, track: -0.015 }
+  ];
+  var SKINS = [
+    { id: "catalog",   label: "Catalog",         note: "centro · índigo" },
+    { id: "blueprint", label: "Blueprint",       note: "skin F · azul" },
+    { id: "mission",   label: "Mission Console", note: "skin B · teal" }
+  ];
+  var FKEY = "gabe:artifact:font", SKEY = "gabe:artifact:skin";
+
+  var root = document.documentElement;
+  var cog = document.getElementById("af-cog"), panel = document.getElementById("af-panel");
+  var fhost = document.getElementById("af-fonts"), shost = document.getElementById("af-skins");
+  var mhost = document.getElementById("af-motion"), foot = document.getElementById("af-foot");
+
+  function read(key, list, dflt) {          /* frames en sandbox pueden lanzar en storage */
+    try {
+      var v = window.localStorage.getItem(key);
+      return list.some(function (x) { return x.id === v; }) ? v : dflt;
+    } catch (e) { return dflt; }
+  }
+  function write(key, v) { try { window.localStorage.setItem(key, v); } catch (e) {} }
+
+  function opt(host, item, spec, onPick) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "af-opt";
+    b.setAttribute("role", "radio"); b.setAttribute("data-id", item.id); b.setAttribute("aria-checked", "false");
+    var n = document.createElement("span");
+    n.className = "af-name"; n.textContent = item.label;
+    if (item.stack) n.style.fontFamily = item.stack;      /* previsualiza su propia cara */
+    var s = document.createElement("span");
+    s.className = "af-spec"; s.textContent = spec;
+    b.appendChild(n); b.appendChild(s);
+    b.addEventListener("click", function () { onPick(item.id); });
+    host.appendChild(b);
+  }
+  function mark(host, id) {
+    host.querySelectorAll(".af-opt").forEach(function (o) {
+      o.setAttribute("aria-checked", String(o.getAttribute("data-id") === id));
+    });
+  }
+
+  function applyFont(id) {
+    var f = FONTS.filter(function (x) { return x.id === id; })[0] || FONTS[0];
+    root.style.setProperty("--af-stack", f.stack);
+    root.style.setProperty("--af-size", f.size + "px");
+    root.style.setProperty("--af-track", f.track + "em");
+    write(FKEY, f.id); mark(fhost, f.id);
+    foot.textContent = f.size + "px · " + f.track + "em";
+  }
+  function applySkin(id) {
+    root.setAttribute("data-skin", id);
+    write(SKEY, id); mark(shost, id);
+  }
+  function setMotion(on) {
+    MOTION.on = on;
+    root.setAttribute("data-motion", on ? "on" : "off");
+    if (window.__rebuildMotion) window.__rebuildMotion();
+    document.querySelectorAll("svg").forEach(function (s) {
+      if (s.pauseAnimations && s.unpauseAnimations) { on ? s.unpauseAnimations() : s.pauseAnimations(); }
+    });
+    mark(mhost, on ? "on" : "off");
+  }
+
+  FONTS.forEach(function (f) { opt(fhost, f, f.size + " / " + f.track, applyFont); });
+  SKINS.forEach(function (s) { opt(shost, s, s.note, applySkin); });
+  [{ id: "on", label: "Reproduciendo" }, { id: "off", label: "Pausado" }].forEach(function (m) {
+    opt(mhost, m, m.id === "on" ? "bucles + repeticiones" : "congelado", function (id) { setMotion(id === "on"); });
+  });
+
+  function open(next) { panel.setAttribute("data-open", String(next)); cog.setAttribute("aria-expanded", String(next)); }
+  cog.addEventListener("click", function (e) { e.stopPropagation(); open(panel.getAttribute("data-open") !== "true"); });
+  panel.addEventListener("click", function (e) { e.stopPropagation(); });
+  document.addEventListener("click", function () { if (panel.getAttribute("data-open") === "true") open(false); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && panel.getAttribute("data-open") === "true") { open(false); cog.focus(); }
+  });
+
+  applyFont(read(FKEY, FONTS, "mono"));
+  applySkin(read(SKEY, SKINS, "catalog"));
+  setMotion(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  window.__setSkin = applySkin;
+  window.__setMotion = setMotion;
+})();
+  </script>
+
+  <script>
+    /* ── Link activo en la navegación lateral ────────────────────────────── */
     (function() {
       var current = window.location.href.split('?')[0].split('#')[0];
       document.querySelectorAll('.section-nav a').forEach(function(link) {
@@ -1127,7 +2349,9 @@ graph TB
       });
     })();
 
-    /* ── PII manifest.json loader ────────────────────────────────────────── */
+    /* ── BLOQUE IRREMPLAZABLE 1 · cargador del manifest PII ───────────────
+       No se modifica sin correr tests/publicador/pii-fixture.mjs. La FASE-1.3
+       del pipeline de El Publicador verifica por regex que este bloque exista. */
     (function() {
       var btn = document.getElementById('pii-load-btn');
       var status = document.getElementById('pii-status');
@@ -1159,10 +2383,10 @@ graph TB
                 btn.classList.add('pii-loaded');
                 if (status) status.textContent = '';
               } else {
-                if (status) status.textContent = 'Sin datos en esta pagina';
+                if (status) status.textContent = 'Sin datos en esta página';
               }
             } catch(err) {
-              if (status) status.textContent = 'Error: JSON invalido';
+              if (status) status.textContent = 'Error: JSON inválido';
             }
           };
           reader.readAsText(file);
@@ -1171,14 +2395,85 @@ graph TB
       });
     })();
 
-    /* ── Mermaid render ──────────────────────────────────────────────────── */
-    document.addEventListener('DOMContentLoaded', function() {
-      if (document.querySelector('.mermaid')) {
-        mermaid.run({ querySelector: '.mermaid' });
-      }
-    });
+    /* ── Mermaid: render local con los tokens del skin activo ─────────────
+       El bundle es el clásico vendorizado (assets/mermaid.min.js, expone
+       globalThis.mermaid) — funciona sobre file://, que es como el gate
+       diagram-compliance abre las páginas. Sin CDN.
+       El código fuente de cada diagrama se guarda en data-src ANTES del primer
+       render para poder re-renderizar cuando cambia el skin; queda en un
+       atributo, no en texto, para que el gate no lo lea como «fuente cruda». */
+    (function() {
+      if (typeof mermaid === 'undefined') return;
+      var root = document.documentElement;
 
-    /* ── Mermaid fullscreen (click to zoom + drag) ─────────────────────── */
+      function config() {
+        var cs = getComputedStyle(root);
+        var t = function(n) { return cs.getPropertyValue(n).trim(); };
+        return {
+          startOnLoad: false,
+          /* 'antiscript' y no 'strict': los diagramas de los casos usan <br/>
+             dentro de las etiquetas, y con 'strict' mermaid desactiva las
+             etiquetas HTML y el salto se pierde — los nodos salían pegados
+             ("1. INVESTIGACIONLa situación…"). 'antiscript' conserva el HTML
+             de etiqueta y elimina los <script>; la fuente de los diagramas es
+             el markdown del propio caso, no entrada de terceros. */
+          securityLevel: 'antiscript',
+          theme: 'base',
+          fontFamily: t('--af-stack') || 'ui-monospace, monospace',
+          themeVariables: {
+            background:         t('--card'),
+            mainBkg:            t('--raised'),
+            primaryColor:       t('--accent-soft'),
+            primaryTextColor:   t('--ink'),
+            primaryBorderColor: t('--accent'),
+            secondaryColor:     t('--raised'),
+            tertiaryColor:      t('--rule-soft'),
+            lineColor:          t('--muted'),
+            textColor:          t('--ink'),
+            nodeBorder:         t('--rule'),
+            clusterBkg:         t('--rule-soft'),
+            clusterBorder:      t('--rule'),
+            fontSize:           '15px'
+          }
+        };
+      }
+
+      function nodes() { return document.querySelectorAll('.mermaid'); }
+
+      function render() {
+        var list = nodes();
+        if (!list.length) return;
+        list.forEach(function(el) {
+          /* innerHTML y no textContent: el navegador ya parseó el `<br/>` de
+             las etiquetas del diagrama como un ELEMENTO <br>, y textContent lo
+             descarta — los nodos salían pegados ("1. INVESTIGACIONLa situación
+             y lo que encontramos"). mermaid lee innerHTML, así que guardar y
+             restaurar por ahí conserva el salto de línea. */
+          if (el.getAttribute('data-src') === null) el.setAttribute('data-src', el.innerHTML);
+          el.removeAttribute('data-processed');
+          el.innerHTML = el.getAttribute('data-src');
+        });
+        try {
+          mermaid.initialize(config());
+          mermaid.run({ querySelector: '.mermaid' });
+        } catch (e) { /* un diagrama roto no debe voltear la página */ }
+      }
+
+      document.addEventListener('DOMContentLoaded', render);
+
+      /* Re-render cuando el cog cambia el skin o el tema: los colores del
+         diagrama vienen de los tokens y quedarían del skin anterior. */
+      new MutationObserver(function(muts) {
+        for (var i = 0; i < muts.length; i++) {
+          if (muts[i].attributeName === 'data-skin' || muts[i].attributeName === 'data-theme') {
+            render();
+            return;
+          }
+        }
+      }).observe(root, { attributes: true, attributeFilter: ['data-skin', 'data-theme'] });
+    })();
+
+    /* ── BLOQUE IRREMPLAZABLE 2 · overlay de mermaid (zoom + arrastre) ──── */
     document.addEventListener('DOMContentLoaded', function() {
       var overlay = document.createElement('div');
       overlay.className = 'mermaid-overlay';
@@ -1219,7 +2514,7 @@ graph TB
         if (e.key === 'Escape' && overlay.classList.contains('active')) closeOverlay();
       });
 
-      // Click on mermaid to open
+      // Click en el diagrama para abrir
       document.addEventListener('click', function(e) {
         var merm = e.target.closest('.mermaid');
         if (!merm || overlay.classList.contains('active')) return;
@@ -1227,7 +2522,7 @@ graph TB
         if (svg) openOverlay(svg);
       });
 
-      // Drag (mouse)
+      // Arrastre (mouse)
       overlay.addEventListener('mousedown', function(e) {
         if (e.target === closeBtn) return;
         isDragging = true;
@@ -1246,7 +2541,7 @@ graph TB
         overlay.classList.remove('dragging');
       });
 
-      // Drag (touch)
+      // Arrastre (táctil)
       var lastTouchDist = 0;
       overlay.addEventListener('touchstart', function(e) {
         if (e.touches.length === 1) {
@@ -1283,7 +2578,7 @@ graph TB
         lastTouchDist = 0;
       });
 
-      // Zoom (scroll wheel)
+      // Zoom (rueda)
       overlay.addEventListener('wheel', function(e) {
         e.preventDefault();
         var delta = e.deltaY > 0 ? 0.9 : 1.1;
@@ -1292,7 +2587,7 @@ graph TB
       }, { passive: false });
     });
 
-    /* ── Jump bar scroll tracking ────────────────────────────────────────── */
+    /* ── Seguimiento de scroll de la jump bar ────────────────────────────── */
     (function() {
       var jumpLinks = document.querySelectorAll('.jump-list a');
       if (!jumpLinks.length) return;
@@ -1322,7 +2617,7 @@ graph TB
       headings.forEach(function(h) { observer.observe(h.el); });
     })();
 
-    /* ── Score ring count-up + fill (for PANEL.md) ───────────────────────── */
+    /* ── Anillo de score: conteo + relleno (para PANEL.md) ───────────────── */
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.score-ring').forEach(function(ring) {
         var numEl = ring.querySelector('.number[data-target]');
@@ -1340,6 +2635,8 @@ graph TB
           }, 150);
         }
 
+        if (!MOTION.on) { numEl.textContent = String(target); return; }
+
         var duration = 1200;
         var startTime = null;
         function step(ts) {
@@ -1353,7 +2650,7 @@ graph TB
       });
     });
 
-    /* ── Sidebar accordion ───────────────────────────────────────────────── */
+    /* ── Acordeón del sidebar ────────────────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', function() {
       var titles = document.querySelectorAll('.section-nav li.section-title');
       titles.forEach(function(title) {
@@ -1393,7 +2690,7 @@ graph TB
       }
     });
 
-    /* ── Mobile drawer toggle ──────────────────────────────────────────── */
+    /* ── Drawer móvil ──────────────────────────────────────────────────── */
     (function() {
       var toggle = document.getElementById('nav-toggle');
       var nav = document.querySelector('.section-nav');
@@ -1426,7 +2723,7 @@ graph TB
       });
     })();
 
-    /* ── Severity row detection (border-weight) ──────────────────────────── */
+    /* ── Detección de severidad por fila ─────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', function() {
       var reCritical = /urgente|cr[ií]tic[ao]|bloqueado|bloqueante/i;
       var reSuccess = /completo|completado|resuelto|listo|blindado/i;
@@ -1443,6 +2740,54 @@ graph TB
           else if (!detected && reWarning.test(t)) detected = 'warning';
         });
         if (detected) row.classList.add('row-' + detected);
+      });
+    });
+
+    /* ── BLOQUE IRREMPLAZABLE 3 · filtro de prioridad ────────────────────── */
+    document.addEventListener('DOMContentLoaded', function() {
+      var hasPriority = false;
+      document.querySelectorAll('table').forEach(function(table) {
+        var headers = table.querySelectorAll('th');
+        var prioCol = -1;
+        headers.forEach(function(th, idx) {
+          if (/prioridad/i.test(th.textContent)) prioCol = idx;
+        });
+        if (prioCol < 0) return;
+        hasPriority = true;
+        table.querySelectorAll('tbody tr, tr').forEach(function(row) {
+          if (row.closest('thead')) return;
+          var cells = row.querySelectorAll('td');
+          if (cells.length <= prioCol) return;
+          var val = cells[prioCol].textContent.trim().toLowerCase();
+          if (/cr[ií]tico/.test(val)) row.setAttribute('data-priority', 'critico');
+          else if (/importante/.test(val)) row.setAttribute('data-priority', 'importante');
+          else if (/deseable/.test(val)) row.setAttribute('data-priority', 'deseable');
+        });
+      });
+
+      var filterBar = document.getElementById('priority-filter');
+      if (!hasPriority || !filterBar) return;
+      filterBar.style.display = '';
+
+      var buttons = filterBar.querySelectorAll('.filter-btn');
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          buttons.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var prio = btn.getAttribute('data-priority');
+          /* `tr[` y no `[data-priority]` a secas: los propios botones del filtro
+             llevan data-priority, así que el selector amplio se ocultaba a sí
+             mismo — al filtrar por Crítico desaparecían «Todos», «Importante» y
+             «Deseable», y el lector quedaba sin vuelta atrás salvo recargando.
+             Bug pre-existente del template, detectado por tests/publicador/pii-fixture.mjs. */
+          document.querySelectorAll('tr[data-priority]').forEach(function(row) {
+            if (prio === 'all') {
+              row.style.display = '';
+            } else {
+              row.style.display = row.getAttribute('data-priority') === prio ? '' : 'none';
+            }
+          });
+        });
       });
     });
   </script>
